@@ -1,0 +1,5 @@
+- hosts: rhel5
+  sudo: yes
+  tasks:
+  - include: tasks/rhel5_bootstrap.yml
+
