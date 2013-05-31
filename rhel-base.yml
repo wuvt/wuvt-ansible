@@ -4,7 +4,7 @@
   - vars/default.yml
   - vars/private.yml
   tasks:
-  - include: tasks/rhel_rdu_network.yml
+  - include: tasks/rhel_network.yml
   - include: tasks/rhel_sudo.yml
   - include: tasks/rhel_hostname.yml
   - include: tasks/rhel_yum.yml
