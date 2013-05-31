@@ -1,0 +1,65 @@
+- name: Download EPEL package
+  get_url: url=http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm dest=/tmp/epel-release-6.8.noarch.rpm mode=0400
+- name: Enable EPEL
+  command: rpm -Uvh /tmp/epel-release-6.8.noarch.rpm creates=/etc/yum.repos.d/epel.repo
+- name: Install common packages
+  yum: name=$item state=latest
+  with_items:
+  - emacs-nox
+  - elinks
+  - git
+  - git-svn
+  - htop
+  - lsof
+  - lynx
+  - man
+  - mosh
+  - mtr
+  - nmap
+  - vim
+  - rsync
+  - screen
+  - subversion
+  - tmux
+  - wget
+  - zsh
+  - pciutils
+  tags:
+  - packages
+- name: Install packages for development
+  yum: name=$item state=latest
+  with_items:
+  - gcc
+  - gcc-arm-linux-gnu
+  - gcc-mips64-linux-gnu
+  - gcc-sparc64-linux-gnu
+  - gcc-x86_64-linux-gnu
+  - make
+  - openmpi
+  - openmpi-devel
+  - ruby
+  - autoconf
+  - automake
+  - bison
+  - byacc
+  - cscope
+  - ctags
+  - diffstat
+  - doxygen
+  - elfutils
+  - flex 
+  - gcc-c++
+  - indent
+  - intltool
+  - libtool
+  - patch
+  - patchutils
+  - rcs
+  - redhat-rpm-config
+  - rpm-build
+  - swig
+  - systemtap
+  - unzip
+  - zip
+  tags:
+  - packages

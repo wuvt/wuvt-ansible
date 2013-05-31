@@ -1,0 +1,4 @@
+- name: Install yum-cron to enable autoupdates
+  yum: name=yum-cron state=latest
+  tags:
+  - packages
