@@ -24,6 +24,8 @@
   - wget
   - zsh
   - pciutils
+  - bind-utils
+  - cowsay
   tags:
   - packages
 - name: Install packages for development
