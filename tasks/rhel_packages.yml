@@ -16,6 +16,7 @@
   - mosh
   - mtr
   - nmap
+  - ncdu
   - vim
   - rsync
   - screen
