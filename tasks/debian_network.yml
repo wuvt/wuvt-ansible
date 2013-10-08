@@ -1,0 +1,2 @@
+- name: Install resolv.conf
+  copy: src=files/resolv.conf dest=/etc/resolv.conf mode=0644

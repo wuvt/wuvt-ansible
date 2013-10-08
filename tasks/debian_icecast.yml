@@ -1,0 +1,17 @@
+- name: Install packages for icecast
+  apt: name=$item state=latest
+  with_items:
+  - icecast2
+  - ices2
+  tags:
+  - packages
+- name: Enable icecast
+  lineinfile: "dest=/etc/default/icecast2 regexp='^ENABLE=false' line='ENABLE=true' state=present"
+- name: Install icecast.xml
+  template: src=templates/icecast.xml.j2 dest=/etc/icecast2/icecast.xml mode=0660
+- name: Make ices directory
+  file: dest=/etc/ices2/ mode=644 owner=icecast2 group=icecast state=directory
+- name: Install ices.conf
+  template: src=templates/ices.xml.j2 dest=/etc/ices/ices.xml
+- name: Install metadata file
+  template: src=templates/metadata.txt dest=/etc/ices/metadata.txt mode=0664

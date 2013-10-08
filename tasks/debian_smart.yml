@@ -1,0 +1,8 @@
+- name: Install SMART monitoring tools
+  apt: name=smartmontools state=latest
+  tags:
+  - packages
+- name: Enable SMART monitoring tools
+  service: name=smartd enabled=yes
+- name: Start SMART monitoring tools
+  service: name=smartd state=started

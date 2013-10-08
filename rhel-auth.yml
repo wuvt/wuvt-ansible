@@ -1,0 +1,11 @@
+- hosts: rhel-auth
+  user: root
+  vars_files:
+  - vars/default.yml
+  - vars/private.yml
+  tasks:
+  - include: tasks/rhel_auth.yml
+  handlers:
+  - include: handlers/mail.yml
+  - include: handlers/ntp.yml
+  - include: handlers/ssh.yml

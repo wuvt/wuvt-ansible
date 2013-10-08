@@ -1,0 +1,55 @@
+- name: Install common packages
+  apt: name=$item state=latest
+  with_items:
+  - emacs
+  - elinks
+  - git
+  - git-svn
+  - htop
+  - lsof
+  - lynx
+  - mosh
+  - mtr
+  - nmap
+  - ncdu
+  - vim
+  - rsync
+  - screen
+  - subversion
+  - sudo
+  - tmux
+  - wget
+  - zsh
+  - pciutils
+  - dnsutils
+  - cowsay
+  tags:
+  - packages
+- name: Install packages for development
+  apt: name=$item state=latest
+  with_items:
+  - gcc
+  - make
+  - ruby
+  - autoconf
+  - automake
+  - bison
+  - byacc
+  - cscope
+  - diffstat
+  - doxygen
+  - elfutils
+  - flex 
+  - g++
+  - indent
+  - intltool
+  - libtool
+  - patch
+  - patchutils
+  - rcs
+  - swig
+  - systemtap
+  - unzip
+  - zip
+  tags:
+  - packages

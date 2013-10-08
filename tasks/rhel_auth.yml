@@ -1,0 +1,9 @@
+- name: Install auth server packages
+  yum: name=$item state=latest
+  with_items:
+  - openldap-servers 
+  - openldap-clients 
+  - krb5-server-ldap
+  tags:
+  - packages
+

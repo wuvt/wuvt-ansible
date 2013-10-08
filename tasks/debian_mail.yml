@@ -1,0 +1,4 @@
+- name: Set mail alias for root
+  lineinfile: "dest=/etc/aliases regexp='^root:' line='root: $root_email' state=present"
+  notify:
+  - Update aliases

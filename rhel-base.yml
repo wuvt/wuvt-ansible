@@ -1,4 +1,4 @@
-- hosts: rhel
+- hosts: rhel6
   user: root
   vars_files:
   - vars/default.yml

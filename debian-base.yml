@@ -1,0 +1,20 @@
+- hosts: debian
+  user: root
+  vars_files:
+  - vars/default.yml
+  - vars/private.yml
+  tasks:
+#  - include: tasks/debian_network.yml
+  - include: tasks/debian_packages.yml
+  - include: tasks/debian_sudo.yml
+  # TODO hostname
+  # TODO autoupdates
+  - include: tasks/create_user.yml user=matt group=sudo uid=1000
+  - include: tasks/debian_mail.yml
+  - include: tasks/debian_ntp.yml
+  - include: tasks/debian_smart.yml
+#  - include: tasks/debian_icecast.yml
+  handlers:
+  - include: handlers/mail.yml
+  - include: handlers/ntp.yml
+  - include: handlers/ssh.yml
