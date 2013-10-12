@@ -1,0 +1,9 @@
+- include: sudo.yml
+- include: hostname.yml
+- include: yum.yml
+- include: create_user.yml user=matt group=wheel uid=1000
+- include: mail.yml
+- include: noselinux.yml
+- include: ntp.yml
+- include: smart.yml
+- include: packages.yml

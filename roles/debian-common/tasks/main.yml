@@ -1,0 +1,8 @@
+- include: create_user.yml user=matt group=sudo uid=1000
+- include: packages.yml
+- include: sudo.yml
+# TODO hostname
+# TODO autoupdates
+- include: mail.yml
+- include: ntp.yml
+- include: smart.yml

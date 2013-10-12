@@ -15,3 +15,5 @@
   template: src=templates/ices.xml.j2 dest=/etc/ices/ices.xml
 - name: Install metadata file
   template: src=templates/metadata.txt dest=/etc/ices/metadata.txt mode=0664
+
+#3 TODO: ices2 daemon could use an init script

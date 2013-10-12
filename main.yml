@@ -1,0 +1,24 @@
+- hosts: debian
+  user: root
+  handlers:
+  - include: handlers/mail.yml
+  - include: handlers/ssh.yml
+  vars:
+  - include: vars/default.yml
+  - include: vars/private.yml
+  roles:
+  - common
+  - debian-common
+  
+- hosts: centos
+  user: root
+  handlers:
+  - include: handlers/mail.yml
+  - include: handlers/ssh.yml
+  vars:
+  - include: vars/default.yml
+  - include: vars/private.yml
+  roles:
+  - common
+  - centos-common
+

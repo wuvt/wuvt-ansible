@@ -4,8 +4,9 @@
   - packages
 - name: Install ntp.conf
   template: src=templates/ntp.conf.j2 dest=/etc/ntp.conf mode=0644
-  notify: Restart ntp
+- name: Stop ntp service
+  service: name=ntp state=stopped
 - name: Enable ntp service
   service: name=ntp enabled=yes
-- name: Start ntpd service
+- name: Start ntp service
   service: name=ntp state=started
