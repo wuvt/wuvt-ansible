@@ -10,7 +10,7 @@
   - common
   - debian-common
   
-- hosts: centos
+- hosts: stream
   user: root
   handlers:
   - include: handlers/mail.yml
@@ -21,4 +21,43 @@
   roles:
   - common
   - centos-common
+  - stream
 
+- hosts: tor-relay
+  user: root
+  handlers:
+  - include: handlers/mail.yml
+  - include: handlers/ssh.yml
+  vars:
+  - include: vars/default.yml
+  - include: vars/private.yml
+  roles:
+  - common
+  - centos-common
+  - tor-relay
+
+- hosts: kvm
+  user: root
+  handlers:
+  - include: handlers/mail.yml
+  - include: handlers/ssh.yml
+  vars:
+  - include: vars/default.yml
+  - include: vars/private.yml
+  roles:
+  - common
+  - centos-common 
+  - kvm
+
+- hosts: web
+  user: root
+  handlers:
+  - include: handlers/mail.yml
+  - include: handlers/ssh.yml
+  vars:
+  - include: vars/default.yml
+  - include: vars/private.yml
+  roles:
+  - common
+  - centos-common 
+  - web
