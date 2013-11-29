@@ -1,0 +1,18 @@
+- name: Install web packages
+  yum: name=$item state=latest
+  with_items:
+  - nginx
+  - git
+  tags:
+  - packages
+  - web
+- name: Enable nginx service
+  service: name=nginx enabled=yes
+  tags:
+  - services
+  - web
+- name: Start nginx service
+  service: name=nginx state=started
+  tags:
+  - services
+  - web
