@@ -1,0 +1,8 @@
+- name: Stop iptables service
+  service: name=iptables state=stopped
+- name: Disable iptables service
+  service: name=iptables enabled=no
+- name: Stop ip6tables service
+  service: name=ip6tables state=stopped
+- name: Disable ip6tables service
+  service: name=ip6tables enabled=no
