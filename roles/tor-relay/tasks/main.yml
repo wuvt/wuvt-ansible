@@ -1,0 +1,19 @@
+- name: Install tor.repo
+  template: src=tor.repo dest=/etc/yum.repos.d/tor.repo mode=0644
+  tags: 
+  - tor
+- name: Install tor
+  yum: name=$item state=latest
+  with_items:
+  - tor
+  tags:
+  - packages
+  - tor
+- name: Install torrc
+  template: src=torrc.j2 dest=/etc/tor/torrc mode=0644
+- name: Stop tor service
+  service: name=tor state=stopped
+- name: Enable tor service
+  service: name=tor enabled=yes
+- name: Start tor service
+  service: name=tor state=started
