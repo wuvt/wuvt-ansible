@@ -1,2 +1,2 @@
-- name: Add wheel group to sudoers
-  lineinfile: "dest=/etc/sudoers regexp='^%wheel' line='%wheel ALL=(ALL) ALL' state=present"
+- name: Add the sudoers group to allowed sudoers
+  lineinfile: "dest=/etc/sudoers regexp='^%wheel' line='%sudoers ALL=(ALL) ALL' state=present"

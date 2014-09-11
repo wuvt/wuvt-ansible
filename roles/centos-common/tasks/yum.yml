@@ -1,4 +1,5 @@
-- name: Install yum-cron to enable autoupdates
-  yum: name=yum-cron state=latest
-  tags:
-  - packages
+- name: Change who recieves the daily yum update emails
+  lineinfile: dest=/etc/sysconfig/yum-cron regexp=^MAILTO= line="MAILTO=root@wuvt.vt.edu" state=present
+- name: Enable and start yum-cron service
+  service: name=yum-cron state=started enabled=yes
+

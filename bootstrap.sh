@@ -1,3 +1,0 @@
-#!/bin/sh
-# Won't work with an ansible playbook for some reason...
-ansible rhel5 -m raw -a "yum -y install python-simplejson" -i hosts.cfg

@@ -1,63 +1,56 @@
-- hosts: debian
+- hosts: centos
   user: root
   handlers:
   - include: handlers/mail.yml
   - include: handlers/ssh.yml
-  vars:
-  - include: vars/default.yml
-  - include: vars/private.yml
-  roles:
-  - common
-  - debian-common
-  
-- hosts: stream
-  user: root
-  handlers:
-  - include: handlers/mail.yml
-  - include: handlers/ssh.yml
-  vars:
-  - include: vars/default.yml
-  - include: vars/private.yml
   roles:
   - common
   - centos-common
-  - stream
 
-- hosts: tor-relay
+# TODO: Write web role
+# TODO: Write db role
+- hosts: webservers
   user: root
-  handlers:
-  - include: handlers/mail.yml
-  - include: handlers/ssh.yml
-  vars:
-  - include: vars/default.yml
-  - include: vars/private.yml
   roles:
-  - common
-  - centos-common
-  - tor-relay
+  - web
+  - db
+
+#- hosts: stream
+#  user: root
+#  roles:
+#  - stream
 
 - hosts: kvm
   user: root
-  handlers:
-  - include: handlers/mail.yml
-  - include: handlers/ssh.yml
-  vars:
-  - include: vars/default.yml
-  - include: vars/private.yml
   roles:
-  - common
-  - centos-common 
   - kvm
 
-- hosts: web
+# TODO: Write the file role
+- hosts: file
   user: root
-  handlers:
-  - include: handlers/mail.yml
-  - include: handlers/ssh.yml
-  vars:
-  - include: vars/default.yml
-  - include: vars/private.yml
   roles:
-  - common
-  - centos-common 
-  - web
+  - file
+
+# TODO: Write the ldap role
+- hosts: ldap
+  user: root
+  roles:
+  - ldap
+
+# TODO: Write the mail role
+- hosts: mail
+  user: root
+  roles:
+  - mail
+
+# TODO: Write internal role
+- hosts: internal
+  user: root
+  roles:
+  - internal
+
+# TODO: Wtire external role
+- hosts: external
+  user: root
+  roles:
+  - external

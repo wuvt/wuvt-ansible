@@ -1,0 +1,14 @@
+- name: Enable LDAP auth with authconfig
+  command: >
+    authconfig --enableldap --enableldapauth 
+    --ldapserver=192.168.10.155
+    --ldapbasedn="dc=wuvt,dc=vt,dc=edu"
+    --update
+- name: Copy PAM config files to add LDAP support to PAM
+  copy: src=su dest=/etc/pam.d/su mode=0644
+  copy: src=passwd dest=/etc/pam.d/passwd mode=0644
+  copy: src=sudo dest=/etc/sudo mode=0644
+  tags: pam-ldap
+- name: Enable nslcd service
+  service: name=nslcd state=restarted enabled=yes
+  tags: nslcd

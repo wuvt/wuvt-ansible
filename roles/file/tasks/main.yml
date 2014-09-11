@@ -1,0 +1,3 @@
+- include: smart.yml
+- include: nfs-server.yml
+- include: cifs-server.yml

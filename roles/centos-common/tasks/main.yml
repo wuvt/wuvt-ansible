@@ -1,10 +1,10 @@
-- include: sudo.yml
 - include: hostname.yml
+- include: packages.yml
+- include: sudo.yml
 - include: yum.yml
-- include: create_user.yml user=matt group=wheel uid=1000
 - include: mail.yml
 - include: noselinux.yml
 - include: ntp.yml
 - include: iptables.yml
-- include: smart.yml
-- include: packages.yml
+- include: ldap-client.yml
+- include: nfs-client.yml

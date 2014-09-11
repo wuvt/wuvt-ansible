@@ -1,0 +1,4 @@
+- name: Enable SMART monitoring tools
+  service: name=smartd enabled=yes
+- name: Start SMART monitoring tools
+  service: name=smartd state=started
