@@ -1,0 +1,12 @@
+---
+# vars file for mysql
+mysql_service_name: mysqld
+mysql_packages:
+  - MySQL-python
+  - mysql-server
+
+mysql_bind_address: 127.0.0.1
+mysql_port: 3306
+mysql_log_bin: "/var/lib/mysql/binary-log"
+mysql_expire_logs_days: 5
+

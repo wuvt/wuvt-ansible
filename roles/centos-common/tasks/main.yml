@@ -1,5 +1,5 @@
-- include: hostname.yml
 - include: packages.yml
+- include: hostname.yml
 - include: sudo.yml
 - include: yum.yml
 - include: mail.yml

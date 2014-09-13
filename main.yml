@@ -7,14 +7,6 @@
   - common
   - centos-common
 
-# TODO: Write web role
-# TODO: Write db role
-- hosts: webservers
-  user: root
-  roles:
-  - web
-  - db
-
 #- hosts: stream
 #  user: root
 #  roles:
@@ -43,14 +35,14 @@
   roles:
   - mail
 
-# TODO: Write internal role
-- hosts: internal
+# TODO: Write internal-site role
+- hosts: internal-site
   user: root
   roles:
-  - internal
+  - internal-site
 
-# TODO: Wtire external role
-- hosts: external
+# TODO: Wtire external-site role
+- hosts: external-site
   user: root
   roles:
-  - external
+  - external-site

@@ -1,3 +1,2 @@
-machines.db
-vars/private.yml
 roles/stream/vars/main.yml
+host_vars/

@@ -1,0 +1,3 @@
+- include: web.yml
+- include: postgresql.yml
+- include: redis.yml

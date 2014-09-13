@@ -1,0 +1,20 @@
+[client]
+port={{ mysql_port }}
+socket=/var/lib/mysql/mysql.sock
+
+[mysqld]
+port={{ mysql_port }}
+bind-address={{ mysql_bind_address }}
+datadir=/var/lib/mysql
+socket=/var/lib/mysql/mysql.sock
+user=mysql
+# Disabling symbolic-links is recommended to prevent assorted security risks
+symbolic-links=0
+
+log-bin={{ mysql_log_bin }}
+expire-logs-days={{ mysql_expire_logs_days }}
+server-id={{ mysql_server_id }}
+
+[mysqld_safe]
+log-error=/var/log/mysqld.log
+pid-file=/var/run/mysqld/mysqld.pid
