@@ -2,22 +2,6 @@
   get_url: url=http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm dest=/tmp/epel-release-6.8.noarch.rpm mode=0400
 - name: Enable EPEL
   command: rpm -Uvh /tmp/epel-release-6.8.noarch.rpm creates=/etc/yum.repos.d/epel.repo
-- name: Install LDAP packages
-  yum: name={{ item }} state=latest
-  with_items:
-  - openldap-clients
-  - nss-pam-ldapd
-  tags:
-  - packages
-- name: Install NFS packages
-  yum: name={{ item }} state=latest
-  with_items:
-  - nfs-utils
-  - nfs-utils-lib
-  - nfs-utils-lib-devel
-  - nfs4-acl-tools
-  tags:
-  - packages
 - name: Install common packages
   yum: name={{ item }} state=latest
   with_items:

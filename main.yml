@@ -7,17 +7,16 @@
   - common
   - centos-common
 
-#- hosts: stream
-#  user: root
-#  roles:
-#  - stream
+- hosts: stream
+  user: root
+  roles:
+  - stream
 
 - hosts: kvm
   user: root
   roles:
   - kvm
 
-# TODO: Write the file role
 - hosts: file
   user: root
   roles:

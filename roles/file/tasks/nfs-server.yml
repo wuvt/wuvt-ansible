@@ -1,0 +1,28 @@
+- name: Install NFS packages
+  yum: name={{ item }} state=latest
+  with_items:
+  - nfs-utils
+  - nfs-utils-lib
+  - nfs-utils-lib-devel
+  - nfs4-acl-tools
+  tags:
+  - packages
+
+- name: Create the directories to export
+  file: dest={{ item }} mode=755 owner=root group=root state=directory
+  with_items: exported_dirs
+  tags: configure
+
+- name: Place the exports configuration file
+  template: src=exports.j2 dest=/etc/exports mode=0644
+  tags: configure
+
+- name: Place the idmapd.conf file
+  template: src=idmapd.conf.j2 dest=/etc/idmapd.conf mode=0644
+  tags: configure
+
+- name: Enable NFS services
+  service: name=nfs state=restarted enabled=yes
+  tags: nfs
+  service: name=rpcbind state=restarted enabled=yes
+  tags: rpcbind

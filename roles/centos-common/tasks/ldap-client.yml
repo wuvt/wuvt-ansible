@@ -1,3 +1,10 @@
+- name: Install LDAP packages
+  yum: name={{ item }} state=latest
+  with_items:
+  - openldap-clients
+  - nss-pam-ldapd
+  tags:
+  - packages
 - name: Enable LDAP auth with authconfig
   command: >
     authconfig --enableldap --enableldapauth 

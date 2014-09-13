@@ -1,0 +1,13 @@
+---
+exports_subnet: 192.168.0.0/16
+exported_dirs:
+  - /mnt/mckillican/home
+
+samba_root_shared_dir: /mnt/mckillican
+samba_dirs:
+  - aircheck
+  - automation
+  - news
+  - production
+  - wuvt
+
