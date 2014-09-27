@@ -1,0 +1,3 @@
+Host mckillican
+  IdentitiesOnly yes
+  IdentityFile ~/.ssh/backup_nopass

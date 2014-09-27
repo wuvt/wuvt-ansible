@@ -4,4 +4,4 @@ ntp_servers:
   - 0.centos.pool.ntp.org
 #root_email: root@wuvt.vt.edu
 root_email: wuvt.it@gmail.com
-postfix_relayhost: cletus.wuvt.collegemedia.vt.edu
+postfix_relayhost: sledge.wuvt.vt.edu

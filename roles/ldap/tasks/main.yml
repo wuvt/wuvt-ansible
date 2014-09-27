@@ -1,1 +1,2 @@
-- include: ldap-server.yml
+- include: install.yml
+- include: configure.yml
