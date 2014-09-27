@@ -22,7 +22,6 @@
   roles:
   - file
 
-# TODO: Write the ldap role
 - hosts: ldap
   user: root
   roles:
@@ -35,13 +34,20 @@
   - mail
 
 # TODO: Write internal-site role
-- hosts: internal-site
+- hosts: internal-webserver
   user: root
   roles:
-  - internal-site
+  - webserver
+  - db
+  - media-wiki
+  - radiothon
+  - music-db
 
 # TODO: Wtire external-site role
-- hosts: external-site
+- hosts: external-webserver
   user: root
   roles:
-  - external-site
+  - webserver
+  - db
+  - object-store
+  - website
