@@ -1,0 +1,22 @@
+- name: Install Samba packages
+  yum: name={{ item }} state=latest
+  with_items:
+    - samba 
+    - samba-client
+    - samba-common
+  tags:
+  - packages
+
+- name: Create the directories to export
+  file: dest={{ samba_root_shared_dir }}/{{ item }} mode=777 owner=nobody group=nobody state=directory
+  with_items: samba_dirs
+  tags: configure
+
+- name: Place smb.conf file
+  template: src=smb.conf.j2 dest=/etc/samba/smb.conf mode=0644
+  tags: configure
+
+- name: Enable Samba services
+  service: name=smb state=restarted enabled=yes
+  tags: samba
+

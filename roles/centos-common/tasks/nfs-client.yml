@@ -1,0 +1,15 @@
+- name: Install NFS packages
+  yum: name={{ item }} state=latest
+  with_items:
+  - nfs-utils
+  - nfs-utils-lib
+  - nfs-utils-lib-devel
+  - nfs4-acl-tools
+  tags:
+  - packages
+- name: Add NFS home directory mount to fstab
+  lineinfile: >
+    dest=/etc/fstab regexp="" insertafter=EOF 
+    line="192.168.0.55:/mnt/mckillican/home       /home       nfs     rw,intr,noacl,nocto 0 0"
+- name: Remount everything in fstab to mount new home directories
+  command: mount -a

@@ -1,5 +1,0 @@
-- name: create user(s)
-  action: user name=$user group=$group shell=/bin/bash uid=$uid
-
-- name: setup authorized key(s)
-  action: authorized_key user=$user key='$FILE(files/$user.pub)'

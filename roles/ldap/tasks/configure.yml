@@ -1,0 +1,15 @@
+- name: Place slapd config
+  template: src=slapd.conf.j2 dest=/etc/openldap/slapd.conf mode=0644
+- name: Place backup cron script
+  template: src=ldap-backup.sh dest=/etc/cron.weekly/ldap-backup.sh mode=0644
+- name: Place SSH template files
+  template: src=backup_nopass dest=/root/.ssh/backup_nopass mode=0644
+  template: src=config dest=/root/.ssh/config mode=0644
+  template: src=known_hosts dest=/root/.ssh/known_hosts mode=0644
+- name: Make sure LDAP is stopped
+  service: name=slapd state=stopped
+- name: Restore LDAP from latest backup
+  script: restore-ldap.sh
+- name: Enable and start LDAP Server
+  service: name=slapd state=restarted enabled=yes
+

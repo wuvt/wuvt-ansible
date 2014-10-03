@@ -1,7 +1,3 @@
-- name: Install ntp
-  yum: name=ntp state=latest
-  tags:
-  - packages
 - name: Install ntp.conf
   template: src=templates/ntp.conf.j2 dest=/etc/ntp.conf mode=0644
 - name: Stop ntpd service

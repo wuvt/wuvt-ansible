@@ -1,0 +1,6 @@
+- name: Install LDAP server packages
+  yum: name={{ item }} state=latest
+  with_items:
+  - openldap
+  - openldap-servers
+  - openldap-clients

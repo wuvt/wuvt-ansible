@@ -1,63 +1,53 @@
-- hosts: debian
+- hosts: centos
   user: root
   handlers:
   - include: handlers/mail.yml
   - include: handlers/ssh.yml
-  vars:
-  - include: vars/default.yml
-  - include: vars/private.yml
   roles:
   - common
-  - debian-common
-  
+  - centos-common
+
 - hosts: stream
   user: root
-  handlers:
-  - include: handlers/mail.yml
-  - include: handlers/ssh.yml
-  vars:
-  - include: vars/default.yml
-  - include: vars/private.yml
   roles:
-  - common
-  - centos-common
   - stream
-
-- hosts: tor-relay
-  user: root
-  handlers:
-  - include: handlers/mail.yml
-  - include: handlers/ssh.yml
-  vars:
-  - include: vars/default.yml
-  - include: vars/private.yml
-  roles:
-  - common
-  - centos-common
-  - tor-relay
 
 - hosts: kvm
   user: root
-  handlers:
-  - include: handlers/mail.yml
-  - include: handlers/ssh.yml
-  vars:
-  - include: vars/default.yml
-  - include: vars/private.yml
   roles:
-  - common
-  - centos-common 
   - kvm
 
-- hosts: web
+- hosts: file
   user: root
-  handlers:
-  - include: handlers/mail.yml
-  - include: handlers/ssh.yml
-  vars:
-  - include: vars/default.yml
-  - include: vars/private.yml
   roles:
-  - common
-  - centos-common 
-  - web
+  - file
+
+- hosts: ldap
+  user: root
+  roles:
+  - ldap
+
+# TODO: Write the mail role
+- hosts: mail
+  user: root
+  roles:
+  - mail
+
+# TODO: Write internal-site role
+- hosts: internal-webserver
+  user: root
+  roles:
+  - webserver
+  - db
+  - media-wiki
+  - radiothon
+  - music-db
+
+# TODO: Wtire external-site role
+- hosts: external-webserver
+  user: root
+  roles:
+  - webserver
+  - db
+  - object-store
+  - website

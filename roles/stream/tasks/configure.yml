@@ -1,0 +1,41 @@
+- name: Configure icecast.xml
+  template: src=icecast.xml.j2 dest=/etc/icecast.xml mode=0660
+  tags:
+  - configure
+  - stream
+- name: Configure darkice.cfg
+  template: src=darkice.cfg.j2 dest=/etc/darkice.cfg mode=0644
+  tags:
+  - configure
+  - stream
+- name: Stop icecast service
+  service: name=icecast state=stopped
+  tags:
+  - configure
+  - stream
+- name: Enable icecast service
+  service: name=icecast enabled=yes
+  tags:
+  - configure
+  - stream
+- name: Start icecast service
+  service: name=icecast state=started
+  tags:
+  - configure
+  - stream
+- name: Stop darkice service
+  service: name=darkice state=stopped
+  tags:
+  - configure
+  - stream
+- name: Enable darkice service
+  service: name=darkice enabled=yes
+  tags:
+  - configure
+  - stream
+- name: Start darkice service
+  service: name=darkice state=started
+  tags:
+  - configure
+  - stream
+

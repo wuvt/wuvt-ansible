@@ -3,8 +3,10 @@
 - name: Enable EPEL
   command: rpm -Uvh /tmp/epel-release-6.8.noarch.rpm creates=/etc/yum.repos.d/epel.repo
 - name: Install common packages
-  yum: name=$item state=latest
+  yum: name={{ item }} state=latest
   with_items:
+  - yum-cron
+  - smartmontools
   - emacs-nox
   - elinks
   - git
@@ -27,10 +29,14 @@
   - pciutils
   - bind-utils
   - cowsay
+  - bash-completion
+  - ntp
+  - ntpdate
+  - ntp-doc
   tags:
   - packages
 - name: Install packages for development
-  yum: name=$item state=latest
+  yum: name={{ item }} state=latest
   with_items:
   - gcc
   - gcc-arm-linux-gnu
@@ -64,6 +70,7 @@
   - systemtap
   - unzip
   - zip
+  - libselinux-python
   tags:
   - packages
 

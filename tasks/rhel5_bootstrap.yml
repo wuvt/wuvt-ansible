@@ -1,3 +1,0 @@
-- name: Bootstrap python-simplejson on legacy RHEL machines
-  action: raw yum -y install python-simplejson
-  tags: boostrap
