@@ -1,3 +1,4 @@
 roles/stream/vars/main.yml
 roles/ldap/templates/backup_nopass
 host_vars/
+vars/private.yml
