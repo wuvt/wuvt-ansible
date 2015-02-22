@@ -43,7 +43,7 @@
   - radiothon
   - music-db
 
-# TODO: Wtire external-site role
+# TODO: Write external-site role
 - hosts: external-webserver
   user: root
   roles:
