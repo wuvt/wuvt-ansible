@@ -1,0 +1,62 @@
+---
+- name: Create /srv/http
+  file: dest=/srv/http state=directory
+  tags:
+  - website
+
+- name: Clone website
+  git: repo=https://github.com/wuvt/wuvt-site.git dest=/srv/http/wuvt-site
+  tags:
+  - website
+
+- name: Install some dependencies for the dependencies
+  yum: pkg={{ item }} state=latest
+  with_items:
+  - libxml2-devel
+  - libxslt-devel
+  - openldap-devel
+  - MySQL-python
+  tags:
+  - website
+  - packages
+
+- name: Install dependencies with pip
+  pip: requirements=/srv/http/wuvt-site/requirements.txt
+  tags:
+  - website
+  - packages
+
+- name: Install nginx config
+  copy: src=nginx.conf dest=/etc/nginx/sites-available/www.wuvt.vt.edu
+  tags:
+  - website
+
+- name: Enable nginx config
+  file: src=/etc/nginx/sites-available/www.wuvt.vt.edu
+        dest=/etc/nginx/sites-enabled/www.wuvt.vt.edu state=link
+  tags:
+  - website
+
+- name: Create database
+  mysql_db: name=wuvtsite login_user=root state=present
+            login_password="{{ mysql_root_password}}"
+  tags:
+  - website
+  - db
+
+- name: Create user
+  mysql_user: name=wuvtsite
+              password="{{ lookup('password', 'credentials/db_pass length=20') }}"
+              priv=wuvtsite.*:ALL state=present
+              login_user=root login_password="{{ mysql_root_password }}"
+  tags:
+  - website
+  - db
+
+- name: Create run directory
+  file: dest=/run/uwsgi owner=nginx group=nginx
+
+- name: Install /etc/tmpfiles.d/uwsgi.conf
+  copy: src=tmpfile.conf dest=/etc/tmpfiles.d/uwsgi.conf
+
+# TODO: set up config.py

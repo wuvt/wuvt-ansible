@@ -1,0 +1,24 @@
+---
+- name: Install uWSGI
+  pip: name=uwsgi
+  tags:
+  - website
+  - packages
+
+- name: Install uwsgi-wuvt.service
+  copy: src=uwsgi-wuvt.service dest=/etc/systemd/system/uwsgi-wuvt.service
+  tags:
+  - website
+  - services
+
+- name: Enable uwsgi-wuvt.service
+  service: name=uwsgi-wuvt enabled=yes
+  tags:
+  - website
+  - services
+
+- name: Start uwsgi-wuvt.service
+  service: name=uwsgi-wuvt state=started
+  tags:
+  - website
+  - services
