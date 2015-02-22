@@ -1,3 +1,30 @@
 ---
-- name: Install mariadb
-  yum: pkg=mariadb state=latest
+- name: Install mariadb packages
+  yum: pkg={{ item }} state=latest
+  with_items:
+  - mariadb
+  - mariadb-server
+  tags:
+  - db
+  - packages
+
+- name: Install /etc/my.cnf.d/server.cnf
+  file: src=server.cnf dest=/etc/my.cnf.d/server.cnf
+  tags:
+  - packages
+  notify: Restart mariadb
+
+- name: Enable mariadb service
+  service: name=mariadb enabled=yes
+  tags:
+  - db
+  - services
+
+- name: Start mariadb service
+  service: name=mariadb state=started
+  tags:
+  - db
+  - services
+
+- name: Set root password
+  mysql_user: name=root password="{{ mysql_root_password }}" state=present
