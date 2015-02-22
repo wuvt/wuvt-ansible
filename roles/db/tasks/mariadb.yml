@@ -28,3 +28,4 @@
 
 - name: Set root password
   mysql_user: name=root password="{{ mysql_root_password }}" state=present
+  ignore_errors: yes
