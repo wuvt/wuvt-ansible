@@ -9,7 +9,7 @@
   - packages
 
 - name: Install /etc/my.cnf.d/server.cnf
-  file: src=server.cnf dest=/etc/my.cnf.d/server.cnf
+  copy: src=server.cnf dest=/etc/my.cnf.d/server.cnf
   tags:
   - packages
   notify: Restart mariadb
