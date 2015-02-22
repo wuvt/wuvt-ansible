@@ -1,3 +1,4 @@
+---
 - name: Install web packages
   yum: name={{ item }} state=latest
   with_items:
@@ -6,11 +7,49 @@
   tags:
   - packages
   - web
+
+- name: Create /etc/nginx/sites-available
+  file: dest=/etc/nginx/sites-available mode=0755 state=directory
+  tags:
+  - web
+
+- name: Create /etc/nginx/sites-enabled
+  file: dest=/etc/nginx/sites-enabled mode=0755 state=directory
+  tags:
+  - web
+
+- name: Install /etc/nginx/tls.conf
+  template: src=tls.conf.j2 dest=/etc/nginx/tls.conf
+  tags:
+  - web
+
+- name: Create /etc/nginx/certs
+  file: dest=/etc/nginx/certs mode=0700 state=directory
+  tags:
+  - web
+
+- name: Generate dhparam.pem (this may take a while)
+  command: /usr/bin/openssl dhparam -out /etc/nginx/certs/dhparam.pem 2048 
+           creates=/etc/nginx/certs/dhparam.pem
+  tags:
+  - web
+
+- name: Set permissions on /etc/nginx/certs/dhparam.pem
+  file: dest=/etc/nginx/certs/dhparam.pem mode=0600 state=file
+  tags:
+  - web
+
+- name: Install nginx.conf
+  copy: src=nginx.conf dest=/etc/nginx/nginx.conf
+  tags:
+  - web
+
 - name: Enable nginx service
   service: name=nginx enabled=yes
   tags:
   - services
   - web
+
 - name: Start nginx service
   service: name=nginx state=started
   tags:
