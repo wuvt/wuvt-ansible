@@ -1,0 +1,3 @@
+---
+- name: Install mariadb
+  yum: pkg=mariadb state=latest
