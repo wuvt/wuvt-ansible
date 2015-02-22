@@ -1,0 +1,12 @@
+[Unit]
+Description=uWSGI for WUVT site
+
+[Service]
+User=nginx
+ExecStart=/usr/bin/uwsgi --yaml /srv/http/wuvt-site/uwsgi.yml
+ExecReload=/bin/kill -HUP $MAINPID
+KillSignal=SIGQUIT
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

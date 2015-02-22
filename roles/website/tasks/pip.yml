@@ -1,0 +1,10 @@
+---
+- name: Install pip and other python dev packages
+  yum: pkg={{ item }} state=latest
+  with_items:
+  - python-devel
+  - python-pip
+  - Cython
+  tags:
+  - web
+  - packages
