@@ -1,10 +1,11 @@
+---
 - include: packages.yml
 - include: hostname.yml
 - include: sudo.yml
-- include: yum.yml
+#- include: yum.yml
 - include: mail.yml
 - include: noselinux.yml
 - include: ntp.yml
-- include: iptables.yml
+#- include: iptables.yml
 - include: ldap-client.yml
-- include: nfs-client.yml
+#- include: nfs-client.yml

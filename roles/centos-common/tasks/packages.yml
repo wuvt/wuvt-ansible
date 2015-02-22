@@ -1,7 +1,12 @@
+---
 - name: Download EPEL package
   get_url: url=http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm dest=/tmp/epel-release-6.8.noarch.rpm mode=0400
+  when: ansible_distribution_major_version == "6"
+
 - name: Enable EPEL
   command: rpm -Uvh /tmp/epel-release-6.8.noarch.rpm creates=/etc/yum.repos.d/epel.repo
+  when: ansible_distribution_major_version == "6"
+
 - name: Install common packages
   yum: name={{ item }} state=latest
   with_items:
@@ -35,14 +40,11 @@
   - ntp-doc
   tags:
   - packages
+
 - name: Install packages for development
   yum: name={{ item }} state=latest
   with_items:
   - gcc
-  - gcc-arm-linux-gnu
-  - gcc-mips64-linux-gnu
-  - gcc-sparc64-linux-gnu
-  - gcc-x86_64-linux-gnu
   - make
   - openmpi
   - openmpi-devel
@@ -73,4 +75,3 @@
   - libselinux-python
   tags:
   - packages
-
