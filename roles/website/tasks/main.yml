@@ -2,3 +2,4 @@
 - include: pip.yml
 - include: website.yml
 - include: uwsgi.yml
+- include: samba.yml

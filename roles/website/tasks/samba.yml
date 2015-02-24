@@ -1,0 +1,23 @@
+---
+- name: Install samba server
+  yum: name=samba state=latest
+  tags:
+  - packages
+  - website
+
+- name: Install smb.conf
+  file: src=smb.conf dest=/etc/samba/smb.conf
+  tags:
+  - website
+
+- name: Enable samba service
+  service: name=smb enabled=yes
+  tags:
+  - services
+  - website
+
+- name: Start samba service
+  service: name=smb state=started
+  tags:
+  - services
+  - website
