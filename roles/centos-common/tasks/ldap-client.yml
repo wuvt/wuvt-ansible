@@ -8,7 +8,7 @@
 - name: Enable LDAP auth with authconfig
   command: >
     authconfig --enableldap --enableldapauth 
-    --ldapserver=192.168.10.155
+    --ldapserver=192.168.0.203
     --ldapbasedn="dc=wuvt,dc=vt,dc=edu"
     --update
 - name: Copy PAM config files to add LDAP support to PAM
