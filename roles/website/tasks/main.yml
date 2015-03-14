@@ -3,3 +3,4 @@
 - include: website.yml
 - include: uwsgi.yml
 - include: samba.yml
+- include: celery.yml
