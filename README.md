@@ -15,4 +15,8 @@ this on all machines in the "rhel5" category.
 Several things have not yet been added to ansible, including the mail server and NFS home
 
 For nfs /home, just add this to `/etc/fstab`:
+
     `192.168.0.55:/mnt/mckillican/home       /home       nfs     rw,intr,noacl,nocto 0 0`
+
+Note that for Ubuntu 14.04 machines (the `ubuntu-common` role), you need to 
+add the `vers=3` option.

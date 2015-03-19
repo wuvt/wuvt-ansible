@@ -51,3 +51,10 @@
   - db
   - object-store
   - website
+
+- hosts: workstations
+  user: ladmin
+  roles:
+  - common
+  - ubuntu-common
+  sudo: yes

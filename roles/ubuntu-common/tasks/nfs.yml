@@ -1,0 +1,9 @@
+- name: Install NFS client utilities
+  apt: name={{ item }} state=latest
+  with_items:
+  - nfs-common
+  tags:
+  - packages
+
+# TODO: 
+# - change /etc/fstab
