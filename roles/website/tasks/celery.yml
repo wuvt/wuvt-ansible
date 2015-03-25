@@ -5,6 +5,12 @@
   - website
   - services
 
+- name: Install /etc/tmpfiles.d/celery-wuvt.conf
+  copy: src=tmpfiles.d/celery-wuvt.conf dest=/etc/tmpfiles.d/celery-wuvt.conf
+  tags:
+  - website
+  - services
+
 - name: Install celery-wuvt.service
   copy: src=celery-wuvt.service dest=/etc/systemd/system/celery-wuvt.service
   tags:
