@@ -1,0 +1,10 @@
+- name: Install software
+  apt: name={{ item }} state=latest
+  with_items:
+  - libreoffice
+  - vim
+  - htop
+  - nmap
+  tags:
+  - packages
+

@@ -5,6 +5,8 @@
     - hplip
     - hplip-common
     - hplip-libs
+    - ghostscript
+    - ghostscript-fonts
   tags:
   - packages
 
