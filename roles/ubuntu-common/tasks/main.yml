@@ -1,3 +1,4 @@
 ---
 - include: ldap-client.yml
 - include: nfs.yml
+- include: packages.yml

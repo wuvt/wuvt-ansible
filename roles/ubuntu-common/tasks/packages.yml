@@ -1,0 +1,37 @@
+---
+- name: Install common packages
+  apt: name={{ item }} state=latest update_cache=yes
+  with_items:
+  - git
+  - htop
+  - vim
+  - man
+  - nmap
+  - ncdu
+  - rsync
+  - screen
+  - tmux
+  - wget
+  - zsh
+  - cowsay
+  - ntp
+  - ranger
+  tags:
+  - packages
+
+- name: Install packages for development
+  apt: name={{ item }} state=latest
+  with_items:
+  - gcc
+  - ruby
+  tags:
+  - packages
+
+- name: Install desktop software
+  apt: name={{ item }} state=latest
+  with_items:
+  - libreoffice
+  - mpv
+  - vlc
+  tags:
+  - packages
