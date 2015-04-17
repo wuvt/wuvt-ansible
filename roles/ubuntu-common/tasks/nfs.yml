@@ -5,5 +5,15 @@
   tags:
   - packages
 
+- name: Set local home dir
+  file: path=/local/ladmin state=directory owner=ladmin
+  tags: 
+  - local
+
+- name: Move user's home dir
+  user: name=ladmin home=/local/ladmin move_home=yes
+  tags:
+  - local
+
 # TODO: 
 # - change /etc/fstab
