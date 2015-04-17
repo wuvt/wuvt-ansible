@@ -24,6 +24,8 @@
   with_items:
   - gcc
   - ruby
+  - ansible
+  - sshpass
   tags:
   - packages
 
