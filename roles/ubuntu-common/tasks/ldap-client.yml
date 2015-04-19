@@ -18,6 +18,10 @@
   copy: src=ldap.conf dest=/etc/ldap.conf
   tags: pam-ldap
 
+- name: Copy LDAP config file
+  copy: src=ldap.conf dest=/etc/ldap/ldap.conf
+  tags: pam-ldap
+
 - name: Copy nsswitch config file
   copy: src=nsswitch.conf dest=/etc/nsswitch.conf
   tags: nsswitch

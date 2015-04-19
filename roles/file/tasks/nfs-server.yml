@@ -5,6 +5,7 @@
   - nfs-utils-lib
   - nfs-utils-lib-devel
   - nfs4-acl-tools
+  - dropbox
   tags:
   - packages
 

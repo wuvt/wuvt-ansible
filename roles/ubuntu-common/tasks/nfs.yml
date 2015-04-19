@@ -11,7 +11,7 @@
   - local
 
 - name: Move user's home dir
-  user: name=ladmin home=/local/ladmin move_home=yes
+  user: name=ladmin home=/local/ladmin
   tags:
   - local
 
