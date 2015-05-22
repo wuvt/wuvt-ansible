@@ -52,6 +52,9 @@
   - texmaker
   - cheese
   - morituri
+  - k3b
+  - k3b-data
+  - libk3b6-extracodecs
   tags:
   - packages
 
