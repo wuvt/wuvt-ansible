@@ -25,6 +25,7 @@
   - ranger
   - aptitude
   - python-apt
+  - pwgen
   tags:
   - packages
 
