@@ -42,6 +42,8 @@
   - ntp
   - ntpdate
   - ntp-doc
+  - weechat
+  - weechat-devel
   tags:
   - packages
 
