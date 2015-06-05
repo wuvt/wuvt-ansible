@@ -20,6 +20,17 @@
   - website
   - packages
 
+- name: Install LaTeX packages for documentation
+  yum: pkg={{ item }} state=latest
+  with_items:
+  - texlive-collection-latex
+  tags:
+  - website
+  - packages
+  - latex
+  - documentation
+  - rtfm
+
 - name: Install dependencies with pip
   pip: requirements=/srv/http/wuvt-site/requirements.txt
   tags:
