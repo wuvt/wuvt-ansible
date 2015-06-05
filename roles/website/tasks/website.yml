@@ -24,6 +24,7 @@
   yum: pkg={{ item }} state=latest
   with_items:
   - texlive-collection-latex
+  - texlive-tex4ht
   tags:
   - website
   - packages
