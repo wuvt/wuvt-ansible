@@ -68,8 +68,13 @@
   - packages
   - dropbox
 
-- name: Apt update
-  apt: update_cache=yes upgrade=yes
-  tags:
-  - apt
-  - packages
+
+# Apparently update_cache breaks if you're sudoing and root can't
+# CD to the user's home directory (as is the case with our NFS setup)
+# -- mhazinsk 2015-06-08
+
+#- name: Apt update
+#  apt: update_cache=yes upgrade=yes
+#  tags:
+#  - apt
+#  - packages
