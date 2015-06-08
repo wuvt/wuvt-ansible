@@ -57,4 +57,10 @@
   roles:
   - common
   - ubuntu-common
+  - role: jnv.unattended-upgrades
+    unattended_origins_patterns:
+    - 'origin=Ubuntu,archive=${distro_codename}-security'
+    - 'o=Ubuntu,a=${distro_codename}-updates'
+    #unattended_package_blacklist: [cowsay, vim]
+    unattended_mail: 'root@wuvt.vt.edu'
   sudo: yes
