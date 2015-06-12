@@ -26,6 +26,7 @@
   - aptitude
   - python-apt
   - pwgen
+  - mutt
   tags:
   - packages
 
