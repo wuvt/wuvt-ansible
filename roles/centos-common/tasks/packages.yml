@@ -1,15 +1,19 @@
 ---
 - name: Download EPEL package for CentOS 6
   get_url: url=https://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm dest=/tmp/epel-release-6.8.noarch.rpm mode=0400
-  when: ansible_distribution_major_version == "6"
+  when: ansible_distribution_version.split(".")[0] == "6"
+#  when: ansible_distribution_major_version == "6"
+
 
 - name: Enable EPEL - CentOS 6
   command: rpm -Uvh /tmp/epel-release-6.8.noarch.rpm creates=/etc/yum.repos.d/epel.repo
-  when: ansible_distribution_major_version == "6"
+#  when: ansible_distribution_major_version == "6"
+  when: ansible_distribution_version.split(".")[0] == "6"
 
 - name: Enable EPEL - CentOS 7
   yum: pkg=epel-release state=latest
-  when: ansible_distribution_major_version == "7"
+  when: ansible_distribution_version.split(".")[0] == "7"
+#  when: ansible_distribution_major_version == "7"
 
 - name: Install common packages
   yum: name={{ item }} state=latest
@@ -37,7 +41,6 @@
   - zsh
   - pciutils
   - bind-utils
-  - cowsay
   - bash-completion
   - ntp
   - ntpdate

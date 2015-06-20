@@ -1,5 +1,5 @@
 - name: Configure system hostname
-  lineinfile: dest=/etc/sysconfig/network regexp=^HOSTNAME= line=HOSTNAME=$hostname state=present
+  lineinfile: dest=/etc/sysconfig/network regexp=^HOSTNAME= line="HOSTNAME={{ hostname }}" state=present
 - name: Add IPv4 hostname entries to /etc/hosts
   lineinfile: dest=/etc/hosts regexp=^127\.0\.0\.1 line="127.0.0.1   {{ hostname }} localhost localhost.localdomain localhost4 localhost4.localdomain4" state=present
 - name: Add IPv6 hostname entries to /etc/hosts
