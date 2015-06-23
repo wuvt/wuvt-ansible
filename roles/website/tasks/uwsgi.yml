@@ -11,11 +11,15 @@
   - website
   - services
 
+- name: Create uwsgi run directory
+  file: path=/run/uwsgi state=directory owner=nginx
+
 - name: Enable uwsgi-wuvt.service
   service: name=uwsgi-wuvt enabled=yes
   tags:
   - website
   - services
+
 
 - name: Start uwsgi-wuvt.service
   service: name=uwsgi-wuvt state=started

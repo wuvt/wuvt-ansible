@@ -39,7 +39,7 @@
   - packages
 
 - name: Install nginx config
-  copy: src=nginx.conf dest=/etc/nginx/sites-available/www.wuvt.vt.edu
+  copy: src={{ website_nginx_conf_src }} dest=/etc/nginx/sites-available/www.wuvt.vt.edu
   tags:
   - website
 
@@ -51,7 +51,7 @@
 
 - name: Create database
   mysql_db: name=wuvtsite login_user=root state=present
-            login_password="{{ mysql_root_password}}"
+            login_password={{ mysql_root_password }}
   tags:
   - website
   - db

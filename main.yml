@@ -1,5 +1,5 @@
 - hosts: centos
-  user: root
+  sudo: yes
   handlers:
   - include: handlers/mail.yml
   - include: handlers/ssh.yml
@@ -8,34 +8,34 @@
   - centos-common
 
 - hosts: stream
-  user: root
+  sudo: yes
   roles:
   - stream
 
 - hosts: kvm
-  user: root
+  sudo: yes
   roles:
   - kvm
 
 - hosts: file
-  user: root
+  sudo: yes
   roles:
   - file
 
 - hosts: ldap
-  user: root
+  sudo: yes
   roles:
   - ldap
 
 # TODO: Write the mail role
 - hosts: mail
-  user: root
+  sudo: yes
   roles:
   - mail
 
 # TODO: Write internal-site role
 - hosts: internal-webserver
-  user: root
+  sudo: yes
   roles:
   - webserver
   - db
@@ -45,7 +45,7 @@
 
 # TODO: Write external-site role
 - hosts: external-webserver
-  user: root
+  sudo: yes
   roles:
   - webserver
   - db
