@@ -1,0 +1,8 @@
+- name: Place slapd config
+  template: src=slapd.conf.j2 dest=/etc/openldap/slapd.conf mode=0644
+- name: Place DB_CONFIG file
+  copy: src=DB_CONFIG dest=/var/lib/ldap/ group=ldap owner=ldap mode=0644
+- name: Delete the configuration directory
+  file: path=/etc/openldap/slapd.d/ state=absent
+- name: Convert from conf file to config directory format
+  command: /usr/sbin/slaptest -f /etc/openldap/slapd.conf -F /etc/openldap/slapd.d/
