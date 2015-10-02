@@ -66,6 +66,7 @@ access to *
 database        bdb
 suffix          {{ suffix }}
 rootdn          "cn={{ rootdn_user }},{{ suffix }}"
+
 # Cleartext passwords, especially for the rootdn, should
 # be avoid.  See slappasswd(8) and slapd.conf(5) for details.
 # Use of strong authentication encouraged.
@@ -77,6 +78,9 @@ directory       /var/lib/ldap
 index   objectClass     eq
 
 rootpw   {{ rootpw_sha }}
+
+# database monitoring - clear up a silly warning
+database monitor
 
 # Certificate/SSL Section
 TLSCipherSuite HIGH:MEDIUM:-SSLv2
