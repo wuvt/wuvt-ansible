@@ -4,3 +4,14 @@
   - openldap
   - openldap-servers
   - openldap-clients
+  - nss-pam-ldapd
+  - shadow-utils
+  - sudo
+  - migrationtools
+  - nfs-utils
+  - nfs4-acl-tools
+  - nfs-utils-lib-devel
+  - bind-utils
+  - ntp
+  - ntpdate
+  - ntp-doc
