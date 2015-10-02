@@ -6,3 +6,5 @@
   file: path=/etc/openldap/slapd.d/ state=absent
 - name: Convert from conf file to config directory format
   command: /usr/sbin/slaptest -f /etc/openldap/slapd.conf -F /etc/openldap/slapd.d/
+- name: Ensure that slapd.d is owned by the proper user
+  file: path=/etc/openldap/slapd.d group=ldap owner=ldap recurse=yes
