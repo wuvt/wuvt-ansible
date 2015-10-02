@@ -1,5 +1,7 @@
 - name: Place slapd config
   template: src=slapd.conf.j2 dest=/etc/openldap/slapd.conf mode=0644
+- name: Place DB_CONFIG file
+  copy: src=DB_CONFIG dest=/var/lib/ldap/ group=ldap owner=ldap mode=0644
 - name: Place backup cron script
   template: src=ldap-backup.sh dest=/etc/cron.weekly/ldap-backup.sh mode=0644
 - name: Place SSH template files
