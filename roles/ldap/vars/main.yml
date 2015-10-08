@@ -1,3 +1,6 @@
 suffix: "dc=wuvt,dc=vt,dc=edu"
+domain: "wuvt.vt.edu"
+organization: "WUVT-FM"
+domain_component: "wuvt"
 rootdn_user: root
 rootpw_sha: \{SSHA\}C9+gEeGMvw1DY4GxzepF7DMDJgkpn7cO
