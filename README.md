@@ -22,3 +22,23 @@ For nfs /home, just add this to `/etc/fstab`:
 
 Note that for Ubuntu 14.04 machines (the `ubuntu-common` role), you need to 
 add the `vers=3` option.
+
+### Client-side config required
+
+In your client's config file, be sure to change the `remote_tmp` parameter
+if you are working with an NFS mount using root squash.
+
+```
+remote_tmp  = /tmp/$USER-ansible/tmp
+```
+
+This is usually found in /etc/ansible/ansible.cfg.
+
+### Troubleshooting
+
+You may need to set the environment variable ANSIBLE_SCP_IF_SSH=y if you are
+using an SSH proxy.
+
+See ansible issue #13401 as to why.
+
+

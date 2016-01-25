@@ -11,12 +11,12 @@
   when: ansible_distribution_version.split(".")[0] == "6"
 
 - name: Enable EPEL - CentOS 7
-  yum: pkg=epel-release state=latest
+  yum: pkg=epel-release state=present
   when: ansible_distribution_version.split(".")[0] == "7"
 #  when: ansible_distribution_major_version == "7"
 
 - name: Install common packages
-  yum: name={{ item }} state=latest
+  yum: name={{ item }} state=present
   with_items:
   - yum-cron
   - smartmontools
@@ -60,7 +60,7 @@
 
 
 - name: Install packages for development
-  yum: name={{ item }} state=latest
+  yum: name={{ item }} state=present
   with_items:
   - gcc
   - make

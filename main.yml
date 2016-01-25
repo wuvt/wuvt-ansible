@@ -1,11 +1,14 @@
 - hosts: centos
-  sudo: yes
+#  sudo: yes
+  become: yes
+  become_user: root
+  become_method: sudo
   handlers:
   - include: handlers/mail.yml
   - include: handlers/ssh.yml
   roles:
-  - common
   - centos-common
+  - common
 
 - hosts: stream
   sudo: yes
