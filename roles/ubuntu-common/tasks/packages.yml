@@ -62,6 +62,12 @@
   tags:
   - packages
 
+- name: Add dropbox repo
+  apt_repository: repo='deb http://linux.dropbox.com/ubuntu trusty main' update_cache=yes
+
+- name: Add dropbox gpg key
+  apt_key: data="{{ lookup('file', 'dropbox.key') }}" 
+
 - name: Force install dropbox
   apt: name={{ item }} state=latest force=yes
   with_items:

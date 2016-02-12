@@ -1,8 +1,8 @@
 - hosts: centos
 #  sudo: yes
-  become: yes
-  become_user: root
-  become_method: sudo
+#  become: yes
+#  become_user: root
+#  become_method: sudo
   handlers:
   - include: handlers/mail.yml
   - include: handlers/ssh.yml
