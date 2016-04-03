@@ -5,7 +5,6 @@
 - include: sudo.yml
 #- include: yum.yml
 - include: mail.yml
-- include: ntp.yml
 #- include: iptables.yml
 - include: ldap-client.yml
 #- include: nfs-client.yml

@@ -1,0 +1,17 @@
+---
+- name: Install desktop software
+  apt: name={{ item }} state=latest
+  with_items:
+  - libreoffice
+  - mpv
+  - vlc
+  - texmaker
+  - tex4ht
+  - cheese
+  - morituri
+  - k3b
+  - k3b-data
+  - libk3b6-extracodecs
+  - thunderbird
+  tags:
+  - packages
