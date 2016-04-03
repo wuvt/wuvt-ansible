@@ -67,3 +67,12 @@
     #unattended_package_blacklist: [cowsay, vim]
     unattended_mail: 'root@wuvt.vt.edu'
   sudo: yes
+
+- hosts: debian
+ # sudo: yes
+  handlers:
+  - include: handlers/mail.yml
+  - include: handlers/ssh.yml
+  roles:
+  - common
+  - debian-common

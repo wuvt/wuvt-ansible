@@ -1,0 +1,48 @@
+- name: Install LDAP packages
+  apt: name={{ item }} state=latest
+  with_items:
+  - ldap-utils
+  - libpam-ldap
+  - libnss-ldap
+  - nslcd
+  tags:
+  - packages
+
+#- name: Copy PAM config files to add LDAP support to PAM
+#  copy: src=su dest=/etc/pam.d/su mode=0644
+#  copy: src=passwd dest=/etc/pam.d/passwd mode=0644
+#  copy: src=sudo dest=/etc/sudo mode=0644
+#  tags: pam-ldap
+
+- name: Copy LDAP config file
+  copy: src=ldap.conf dest=/etc/ldap.conf
+  tags: pam-ldap
+
+- name: Copy LDAP config file
+  copy: src=ldap.conf dest=/etc/ldap/ldap.conf
+  tags: pam-ldap
+
+- name: Copy nsswitch config file
+  copy: src=nsswitch.conf dest=/etc/nsswitch.conf
+  tags: nsswitch
+
+#- name: Copy sshd config (RHEL7)
+#  copy: src=sshd_config_rhel7 dest=/etc/ssh/sshd_config mode=0600
+#  when: ansible_os_family == "RedHat" and ansible_lsb.major_release|int >= 7
+#- name: Copy sshd config (RHEL6)
+#  copy: src=sshd_config_rhel6 dest=/etc/ssh/sshd_config mode=0600
+#  when: ansible_os_family == "RedHat" and ansible_lsb.major_release|int == 6
+#- name: Restart sshd
+#  service: name=sshd state=restarted enabled=yes
+
+- name: Copy sudoers file
+  copy: src=sudoers dest=/etc/sudoers mode=0440
+  tags: sudo
+
+- name: Enable nslcd service
+  service: name=nslcd state=restarted enabled=yes
+  tags: nslcd
+
+- name: Restart nscd service
+  service: name=nscd state=restarted enabled=yes
+  tags: nscd
