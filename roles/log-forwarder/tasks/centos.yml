@@ -1,0 +1,18 @@
+---
+- name: Install elastic RPM signing key
+  command: rpm --import https://packages.elastic.co/GPG-KEY-elasticsearch
+  tags:
+  - packages
+  - log-forwarder
+
+- name: Install beats repository
+  copy: src=beats.repo dest=/etc/yum.repos.d/beats.repo
+  tags:
+  - packages
+  - log-forwarder
+
+- name: Install filebeat
+  yum: pkg=filebeat state=present
+  tags:
+  - packages
+  - log-forwarder
