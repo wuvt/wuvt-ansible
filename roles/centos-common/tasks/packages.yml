@@ -52,13 +52,6 @@
   - packages
   - nfs
 
-- name: Enable and start rpc-statd
-  service: name=rpc-statd state=started enabled=yes
-  when: ansible_distribution_version.split(".")[0] == "7"
-  tags:
-  - nfs
-
-
 - name: Install packages for development
   yum: name={{ item }} state=present
   with_items:

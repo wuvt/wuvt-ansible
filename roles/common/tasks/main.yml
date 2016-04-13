@@ -1,4 +1,4 @@
 ---
 - include: network.yml
 - include: ntp.yml
-- include: ansible.yml
+#- include: ansible.yml
