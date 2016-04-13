@@ -1,0 +1,4 @@
+- hosts: log-forwarder
+  become: yes
+  roles:
+  - log-forwarder
