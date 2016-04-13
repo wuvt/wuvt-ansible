@@ -1,0 +1,9 @@
+[Unit]
+Description=Logstash
+
+[Service]
+User=logstash
+ExecStart=/opt/logstash/bin/logstash -f /etc/logstash/logstash.conf
+
+[Install]
+WantedBy=multi-user.target

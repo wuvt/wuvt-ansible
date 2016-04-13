@@ -1,0 +1,38 @@
+---
+- name: Install elastic RPM signing key
+  command: rpm --import https://packages.elastic.co/GPG-KEY-elasticsearch
+  tags:
+  - packages
+  - logstash
+
+- name: Install logstash repository
+  copy: src=logstash.repo dest=/etc/yum.repos.d/logstash.repo
+  tags:
+  - packages
+  - logstash
+
+- name: Install logstash packages
+  yum: pkg={{ item }} state=present
+  with_items:
+  - java-1.8.0-openjdk
+  - logstash
+  tags:
+  - packages
+  - logstash
+
+- name: Install /etc/logstash/logstash.conf
+  copy: src=logstash.conf dest=/etc/logstash/logstash.conf
+  tags:
+  - logstash
+
+- name: Install logstash.service
+  copy: src=logstash.service dest=/etc/systemd/system/logstash.service
+  tags:
+  - services
+  - logstash
+
+- name: Enable and start logstash
+  service: name=logstash enabled=yes state=started
+  tags:
+  - services
+  - logstash
