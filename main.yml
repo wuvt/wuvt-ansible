@@ -77,3 +77,8 @@
   roles:
   - common
   - debian-common
+
+- hosts: logstash
+  become: yes
+  roles:
+  - logstash
