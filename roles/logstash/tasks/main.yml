@@ -10,4 +10,5 @@
   - packages
 
 - include: elasticsearch.yml
+- include: kibana.yml
 - include: logstash.yml

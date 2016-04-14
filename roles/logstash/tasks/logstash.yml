@@ -1,6 +1,6 @@
 ---
 - name: Install logstash repository
-  copy: src=logstash.repo dest=/etc/yum.repos.d/logstash.repo
+  copy: src=logstash/logstash.repo dest=/etc/yum.repos.d/logstash.repo
   tags:
   - packages
   - logstash
@@ -12,12 +12,28 @@
   - logstash
 
 - name: Install /etc/logstash/logstash.conf
-  copy: src=logstash.conf dest=/etc/logstash/logstash.conf
+  copy: src=logstash/logstash.conf dest=/etc/logstash/logstash.conf
+  notify: restart logstash
+  tags:
+  - logstash
+
+- name: Create /etc/logstash/patterns
+  file: dest=/etc/logstash/patterns state=directory
+  tags:
+  - logstash
+
+- name: Install logstash patterns
+  copy: src=logstash/patterns/{{ item }} dest=/etc/logstash/patterns/{{ item }}
+  with_items:
+  - ntp.grok
+  - postfix.grok
+  - selinux.grok
+  notify: restart logstash
   tags:
   - logstash
 
 - name: Install logstash.service
-  copy: src=logstash.service dest=/etc/systemd/system/logstash.service
+  copy: src=logstash/logstash.service dest=/etc/systemd/system/logstash.service
   tags:
   - services
   - logstash

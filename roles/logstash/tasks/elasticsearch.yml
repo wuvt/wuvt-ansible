@@ -11,17 +11,6 @@
   - packages
   - elasticsearch
 
-#- name: Install /etc/elasticsearch/elasticsearch.conf
-#  copy: src=elasticsearch.conf dest=/etc/elasticsearch/elasticsearch.conf
-#  tags:
-#  - elasticsearch
-
-#- name: Install elasticsearch.service
-#  copy: src=elasticsearch.service dest=/etc/systemd/system/elasticsearch.service
-#  tags:
-#  - services
-#  - elasticsearch
-
 - name: Enable and start elasticsearch
   service: name=elasticsearch enabled=yes state=started
   tags:
