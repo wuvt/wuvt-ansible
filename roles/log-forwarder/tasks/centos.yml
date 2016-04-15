@@ -7,6 +7,14 @@
 
 - name: Install beats repository
   copy: src=beats.repo dest=/etc/yum.repos.d/beats.repo
+  when: ansible_userspace_architecture != "i386"
+  tags:
+  - packages
+  - log-forwarder
+
+- name: Install beats-i686 repository
+  copy: src=beats-i686.repo dest=/etc/yum.repos.d/beats-i686.repo
+  when: ansible_userspace_architecture == "i386"
   tags:
   - packages
   - log-forwarder
