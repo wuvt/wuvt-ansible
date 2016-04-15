@@ -11,6 +11,14 @@
   - packages
   - kibana
 
+- name: Create /etc/kibana/tls
+  file: dest=/etc/kibana/tls state=directory owner=kibana group=kibana
+        mode=0700
+  tags:
+  - kibana
+
+# openssl req -new -x509 -sha256 -batch -nodes -newkey rsa:4096 -keyout /etc/kibana/tls/private.pem -subj "/CN=sampoong.wuvt.vt.edu" -days 3650 -out /etc/kibana/tls/public.pem -extensions SAN -config <(cat /etc/pki/tls/openssl.cnf <(printf "[SAN]\nbasicConstraints=critical,CA:true,pathlen:0\nkeyUsage=digitalSignature,keyEncipherment,keyCertSign\nsubjectAltName=DNS:sampoong.wuvt.vt.edu,IP:192.168.0.223"))
+
 - name: Enable and start kibana
   service: name=kibana enabled=yes state=started
   tags:

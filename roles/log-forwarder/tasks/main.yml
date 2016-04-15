@@ -5,8 +5,15 @@
 #- include: debian.yml
 #  when: ansible_os_family == "Debian"
 
+- name: Install logstash TLS certificate
+  copy: src=logstash.pem dest=/etc/filebeat/logstash.pem
+  notify: restart filebeat
+  tags:
+  - log-forwarder
+
 - name: Install filebeat config
   copy: src=filebeat.yml dest=/etc/filebeat/filebeat.yml
+  notify: restart filebeat
   tags:
   - log-forwarder
 

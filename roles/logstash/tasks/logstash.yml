@@ -17,10 +17,18 @@
   tags:
   - logstash
 
-- name: Create /etc/logstash/patterns
+- name: Create /etc/logstash/patterns subdirectories
   file: dest=/etc/logstash/patterns state=directory
   tags:
   - logstash
+
+- name: Create /etc/logstash/tls
+  file: dest=/etc/logstash/tls state=directory owner=logstash group=logstash
+        mode=0700
+  tags:
+  - logstash
+
+# openssl req -new -x509 -sha256 -batch -nodes -newkey rsa:4096 -keyout /etc/logstash/tls/private.pem -subj "/CN=sampoong.wuvt.vt.edu" -days 3650 -out /etc/logstash/tls/public.pem -extensions SAN -config <(cat /etc/pki/tls/openssl.cnf <(printf "[SAN]\nbasicConstraints=critical,CA:true,pathlen:0\nkeyUsage=digitalSignature,keyEncipherment,keyCertSign\nsubjectAltName=DNS:sampoong.wuvt.vt.edu,IP:192.168.0.223"))
 
 - name: Install logstash patterns
   copy: src=logstash/patterns/{{ item }} dest=/etc/logstash/patterns/{{ item }}
