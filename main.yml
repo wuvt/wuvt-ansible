@@ -67,10 +67,10 @@
     - 'o=Ubuntu,a=${distro_codename}-updates'
     #unattended_package_blacklist: [cowsay, vim]
     unattended_mail: 'root@wuvt.vt.edu'
-  sudo: yes
+  become: yes
 
 - hosts: debian
- # sudo: yes
+ # become: yes
   handlers:
   - include: handlers/mail.yml
   - include: handlers/ssh.yml
