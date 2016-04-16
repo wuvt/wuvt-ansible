@@ -1,3 +1,6 @@
 ---
-- name: restart filebeat
+- name: Update APT cache
+  apt: update_cache=yes
+
+- name: Restart filebeat
   service: name=filebeat state=restarted
