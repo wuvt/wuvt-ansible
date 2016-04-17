@@ -1,0 +1,30 @@
+server {
+    listen        80 default_server;
+    listen        [::]:80 default_server;
+    server_name   {{ ansible_fqdn }};
+    return 301 https://{{ ansible_fqdn }}$request_uri;
+}
+
+server {
+    listen       443      ssl spdy;
+    listen       [::]:443 ssl spdy;
+    server_name  {{ ansible_fqdn }};
+
+    ssl_certificate     /etc/kibana/tls/public.pem;
+    ssl_certificate_key /etc/kibana/tls/private.pem;
+    include tls.conf;
+
+    add_header X-Content-Type-Options nosniff;
+    add_header X-Frame-Options DENY;
+    add_header X-Robots-Tag noindex;
+
+    location / {
+        auth_basic "WUVT Kibana";
+        auth_basic_user_file kibana.htpasswd;
+
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_buffering off;
+        proxy_pass http://127.0.0.1:5601;
+    }
+}
