@@ -5,6 +5,7 @@
   - nfs-utils-lib
   - nfs-utils-lib-devel
   - nfs4-acl-tools
+  when: ansible_distribution_version.split(".")[0] == "6"
   tags:
   - packages
 

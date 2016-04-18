@@ -1,8 +1,15 @@
+---
 - name: Install libselinux-python
   yum: name=libselinux-python state=present
+  tags:
+  - common
 
 - name: Disable SELinux
   lineinfile: dest=/etc/selinux/config regexp=^SELINUX= line=SELINUX=disabled state=present
+  tags:
+  - common
 
 - name: Turn off SELinux
   selinux: state=disabled
+  tags:
+  - common

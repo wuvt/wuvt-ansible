@@ -1,3 +1,4 @@
+---
 - name: Install LDAP packages
   yum: name={{ item }} state=latest
   with_items:
@@ -13,11 +14,14 @@
     --ldapbasedn="dc=wuvt,dc=vt,dc=edu"
     --update
 
-- name: Copy PAM config files to add LDAP support to PAM
-  copy: src=su dest=/etc/pam.d/su mode=0644
-  copy: src=passwd dest=/etc/pam.d/passwd mode=0644
-  copy: src=sudo dest=/etc/sudo mode=0644
-  tags: pam-ldap
+# XXX: I don't think this is even necessary...
+#- name: Copy PAM config files to add LDAP support to PAM
+#  copy: src={{ item }} dest=/etc/pam.d/{{ item }} mode=0644
+#  with_items:
+#  - su
+#  - passwd
+#  - sudo
+#  tags: pam-ldap
 
 - name: Copy sshd config (RHEL7)
   copy: src=sshd_config_rhel7 dest=/etc/ssh/sshd_config mode=0600
