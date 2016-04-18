@@ -9,7 +9,7 @@ timeframe:
 filter:
 - query:
     query_string:
-      query: "tags:login AND user:backup AND NOT clientip:192.168.0.55"
+      query: "tags:login AND NOT tags:pam AND user:backup AND NOT clientip:192.168.0.55"
 
 alert:
 - "email"
