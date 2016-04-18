@@ -1,0 +1,19 @@
+name: Use of backup account by unexpected client
+type: frequency
+index: syslog-*
+
+num_events: 1
+timeframe:
+  minutes: 10
+
+filter:
+- query:
+    query_string:
+      query: "tags:login AND user:backup AND NOT clientip:192.168.0.55"
+
+alert:
+- "email"
+email:
+- "wuvt.it@gmail.com"
+- "root@wuvt.vt.edu"
+- "wuvt@mutantmonkey.in"

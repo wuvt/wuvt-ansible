@@ -1,0 +1,19 @@
+name: Root logins from outside the WUVT network
+type: frequency
+index: syslog-*
+
+num_events: 1
+timeframe:
+  minutes: 10
+
+filter:
+- query:
+    query_string:
+      query: "tags:login AND user:root AND NOT clientip:192.168.0.*"
+
+alert:
+- "email"
+email:
+- "wuvt.it@gmail.com"
+- "root@wuvt.vt.edu"
+- "wuvt@mutantmonkey.in"
