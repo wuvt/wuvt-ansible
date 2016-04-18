@@ -1,12 +1,12 @@
 ---
 - name: Install ntp.conf
   template: src=templates/ntp.conf.j2 dest=/etc/ntp.conf mode=0644
+  notify: Restart ntpd
+  tags:
+  - common
 
-- name: Stop ntpd service
-  service: name=ntpd state=stopped
-
-- name: Enable ntpd service
-  service: name=ntpd enabled=yes
-
-- name: Start ntpd service
-  service: name=ntpd state=started
+- name: Enable and start ntpd service
+  service: name=ntpd enabled=yes state=started
+  tags:
+  - services
+  - common
