@@ -83,4 +83,5 @@
   vars:
     nginx_ocsp_stapling: false
   roles:
+  - log-forwarder
   - logstash
