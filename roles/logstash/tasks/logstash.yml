@@ -38,6 +38,7 @@
   - postfix.grok
   - selinux.grok
   - sudo.grok
+  - uwsgi.grok
   notify: Restart logstash
   tags:
   - logstash
