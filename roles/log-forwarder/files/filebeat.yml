@@ -19,9 +19,6 @@ filebeat:
     -
       paths:
         - "/var/log/maillog"
-      document_type: postfix
-    -
-      paths:
         - "/var/log/messages"
         - "/var/log/secure"
       document_type: syslog
