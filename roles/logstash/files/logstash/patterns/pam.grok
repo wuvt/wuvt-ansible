@@ -1,0 +1,2 @@
+PAM_MODULE pam_\w+
+PAMLOG %{PAM_MODULE:pam_module}\(%{DATA}\): %{GREEDYDATA:pam_message}

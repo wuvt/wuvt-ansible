@@ -34,8 +34,10 @@
   copy: src=logstash/patterns/{{ item }} dest=/etc/logstash/patterns/{{ item }}
   with_items:
   - ntp.grok
+  - pam.grok
   - postfix.grok
   - selinux.grok
+  - sudo.grok
   notify: Restart logstash
   tags:
   - logstash
