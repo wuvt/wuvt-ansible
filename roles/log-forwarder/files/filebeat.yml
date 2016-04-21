@@ -6,6 +6,10 @@ filebeat:
       document_type: selinux
     -
       paths:
+        - "/var/log/icecast/access.log"
+      document_type: icecast
+    -
+      paths:
         - "/var/log/letsencrypt/*.log"
       document_type: letsencrypt
     -
