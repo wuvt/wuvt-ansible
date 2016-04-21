@@ -4,6 +4,7 @@
   - ldap-utils
   - libpam-ldap
   - libnss-ldap
+  - nscd
   - nslcd
   tags:
   - packages

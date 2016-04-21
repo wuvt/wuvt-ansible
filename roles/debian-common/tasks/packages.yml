@@ -24,7 +24,6 @@
   - ntp
   - ranger
   - aptitude
-  - python-apt
   - pwgen
   - mutt
   tags:
@@ -40,10 +39,10 @@
   tags:
   - packages
 
-- name: Install ansible config
-  copy: src=ansible.cfg dest=/etc/ansible/ansible.cfg mode=0644 owner=root group=root
-  tags:
-  - ansible
+#- name: Install ansible config
+#  copy: src=ansible.cfg dest=/etc/ansible/ansible.cfg mode=0644 owner=root group=root
+#  tags:
+#  - ansible
 
 #- name: Add dropbox repo
 #  apt_repository: repo='deb http://linux.dropbox.com/ubuntu trusty main' update_cache=yes
