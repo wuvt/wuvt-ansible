@@ -1,28 +1,4 @@
 ---
-- name: Install LDAP packages
-  yum: name={{ item }} state=latest
-  with_items:
-  - openldap-clients
-  - nss-pam-ldapd
-  tags:
-  - packages
-
-- name: Enable LDAP auth with authconfig
-  command: >
-    authconfig --enableldap --enableldapauth 
-    --ldapserver=192.168.0.203
-    --ldapbasedn="dc=wuvt,dc=vt,dc=edu"
-    --update
-
-# XXX: I don't think this is even necessary...
-#- name: Copy PAM config files to add LDAP support to PAM
-#  copy: src={{ item }} dest=/etc/pam.d/{{ item }} mode=0644
-#  with_items:
-#  - su
-#  - passwd
-#  - sudo
-#  tags: pam-ldap
-
 - name: Copy sshd config (RHEL7)
   copy: src=sshd_config_rhel7 dest=/etc/ssh/sshd_config mode=0600
   when: ansible_distribution_version.split(".")[0] == "7"
@@ -35,7 +11,3 @@
 
 - name: Enable and start sshd
   service: name=sshd state=started enabled=yes
-
-- name: Enable and start nslcd service
-  service: name=nslcd state=started enabled=yes
-  tags: nslcd
