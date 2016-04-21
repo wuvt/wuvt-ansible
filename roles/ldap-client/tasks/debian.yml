@@ -1,0 +1,20 @@
+---
+- name: Install sssd packages
+  apt: name={{ item }} state=present
+  with_items:
+  - sssd
+  - libnss-sss
+  - libpam-sss
+  tags:
+  - packages
+
+- name: Remove old LDAP packages
+  apt: name={{ item }} state=absent
+  with_items:
+  - libnss-ldap
+  - libpam-ldap
+  tags:
+  - packages
+
+- name: Install /etc/sssd
+  file: dest=/etc/sssd mode=0711
