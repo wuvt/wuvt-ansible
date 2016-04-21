@@ -13,6 +13,8 @@
   with_items:
   - libnss-ldap
   - libpam-ldap
+  - nslcd
+  - nslcd-utils
   tags:
   - packages
 
