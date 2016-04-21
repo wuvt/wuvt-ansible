@@ -10,6 +10,7 @@
   - centos-common
   - common
   - ldap-client
+  - log-forwarder
 
 - hosts: stream
   become: yes
@@ -80,11 +81,11 @@
   - common
   - debian-common
   - ldap-client
+  - log-forwarder
 
 - hosts: logstash
   become: yes
   vars:
     nginx_ocsp_stapling: false
   roles:
-  - log-forwarder
   - logstash
