@@ -1,3 +1,6 @@
 ---
-- name: Restart ntpd
-  service: name=ntpd state=restarted
+- include: centos.yml
+  when: ansible_os_family == "RedHat"
+
+- include: debian.yml
+  when: ansible_os_family == "Debian"
