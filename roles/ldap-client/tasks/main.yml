@@ -1,0 +1,27 @@
+---
+- name: Stop and disable nscd
+  service: name=nscd state=stopped enabled=no
+
+- include: centos.yml
+  when: ansible_os_family == "RedHat"
+
+- include: debian.yml
+  when: ansible_os_family == "Debian"
+
+- name: Install LDAP TLS certificate
+  copy: src=ldap.pem dest={{ item }}/ldap.pem
+  with_items:
+  - /etc/sssd
+  - /etc/openldap/cacerts
+
+- name: Install /etc/sssd/sssd.conf
+  copy: src=sssd.conf dest=/etc/sssd/sssd.conf owner=root group=root mode=0600
+  notify: Restart sssd
+
+- name: Install /etc/openldap/ldap.conf
+  copy: src=ldap.conf dest=/etc/openldap/ldap.conf
+
+- name: Start and enable sssd
+  service: name=sssd state=started enabled=yes
+  tags:
+  - services

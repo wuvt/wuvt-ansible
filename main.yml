@@ -9,6 +9,8 @@
   roles:
   - centos-common
   - common
+  - ldap-client
+  - log-forwarder
 
 - hosts: stream
   become: yes
@@ -60,6 +62,7 @@
   roles:
   - common
   - ubuntu-common
+  - ldap-client
   - ubuntu-desktop
   - role: jnv.unattended-upgrades
     unattended_origins_patterns:
@@ -77,13 +80,14 @@
   roles:
   - common
   - debian-common
+  - ldap-client
+  - log-forwarder
 
 - hosts: logstash
   become: yes
   vars:
     nginx_ocsp_stapling: false
   roles:
-  - log-forwarder
   - logstash
 
 - hosts: automation
