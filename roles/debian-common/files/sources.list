@@ -6,6 +6,8 @@
 
 deb http://mirror.cc.vt.edu/pub2/debian/ jessie main
 deb-src http://mirror.cc.vt.edu/pub2/debian/ jessie main
+deb http://ftp.us.debian.org/debian/ jessie main
+deb-src http://ftp.us.debian.org/debian/ jessie main
 
 deb http://security.debian.org/ jessie/updates main
 deb-src http://security.debian.org/ jessie/updates main
@@ -13,3 +15,5 @@ deb-src http://security.debian.org/ jessie/updates main
 # jessie-updates, previously known as 'volatile'
 deb http://mirror.cc.vt.edu/pub2/debian/ jessie-updates main
 deb-src http://mirror.cc.vt.edu/pub2/debian/ jessie-updates main
+deb http://ftp.us.debian.org/debian/ jessie-updates main
+deb-src http://ftp.us.debian.org/debian/ jessie-updates main
