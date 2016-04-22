@@ -85,3 +85,13 @@
   roles:
   - log-forwarder
   - logstash
+
+- hosts: automation
+  become: yes
+  roles:
+  - automation
+
+- hosts: aircheck
+  become: yes
+  roles:
+  - aircheck

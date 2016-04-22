@@ -1,0 +1,22 @@
+---
+- name: Apt update
+  apt: update_cache=yes upgrade=yes
+  tags:
+  - apt
+  - packages
+
+- name: Install automation packages
+  apt: name={{ item }} state=latest
+  with_items:
+  - liquidsoap
+  - liquidsoap-plugin-all
+  - liquidsoap-mode
+  - alsa-utils
+  
+- name: Install python3 packages 
+  apt: name={{ item }} state=latest
+  with_items:
+  - python3.4
+  tags:
+  - packages
+

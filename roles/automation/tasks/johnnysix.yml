@@ -1,0 +1,7 @@
+---
+- name: pull johnny-six source from github
+  git: repo=http://github.com/wuvt/johnny-six.git
+       update=yes
+       dest=/usr/src/johnny-six
+
+  
