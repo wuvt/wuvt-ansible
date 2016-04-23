@@ -60,8 +60,8 @@
 - hosts: workstations
   #user: ladmin
   roles:
-  - common
   - ubuntu-common
+  - common
   - ldap-client
   - ubuntu-desktop
   - role: jnv.unattended-upgrades
@@ -78,8 +78,8 @@
   - include: handlers/mail.yml
   - include: handlers/ssh.yml
   roles:
-  - common
   - debian-common
+  - common
   - ldap-client
   - log-forwarder
 
@@ -95,7 +95,7 @@
   roles:
   - automation
 
-- hosts: aircheck
-  become: yes
-  roles:
-  - aircheck
+#- hosts: aircheck
+#  become: yes
+#  roles:
+#  - aircheck

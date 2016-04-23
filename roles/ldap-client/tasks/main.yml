@@ -1,5 +1,6 @@
 ---
 - name: Stop and disable nscd
+  when: ansible_distribution_version == "14.04" or ansible_os_family == "RedHat"
   service: name=nscd state=stopped enabled=no
 
 - include: centos.yml
@@ -7,6 +8,11 @@
 
 - include: debian.yml
   when: ansible_os_family == "Debian"
+
+- name: Make sure these directories exist
+  file: path=/etc/sssd state=directory
+  file: path=/etc/openldap state=directory
+  file: path=/etc/openldap/cacerts state=directory
 
 - name: Install LDAP TLS certificate
   copy: src=ldap.pem dest={{ item }}/ldap.pem

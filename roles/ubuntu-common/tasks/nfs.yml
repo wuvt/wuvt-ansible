@@ -5,10 +5,11 @@
   tags:
   - packages
 
-- name: Create ladmin
-  user: name=ladmin groups=root home=/local/ladmin
-  tags:
-  - local 
+####this really shouldn't need to be done. if it does, of course uncomment it
+#- name: Create ladmin
+#  user: name=ladmin groups=root home=/usr/local/home/ladmin
+#  tags:
+#  - local 
 
 - name: Set local home dir
   file: path=/local/ladmin recurse=yes state=directory owner=ladmin
@@ -18,7 +19,7 @@
 - name: change /etc/fstab
   mount: fstype=nfs name=/home src=192.168.0.55:/mnt/mckillican/home state=mounted
 
-#- name: Move user's home dir
-#  user: name=ladmin home=/local/ladmin
-#  tags:
-#  - local
+- name: Move user's home dir
+  user: name=ladmin home=/usr/local/home/ladmin
+  tags:
+  - local
