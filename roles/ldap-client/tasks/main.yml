@@ -9,10 +9,12 @@
 - include: debian.yml
   when: ansible_os_family == "Debian"
 
-- name: Make sure these directories exist
-  file: path=/etc/sssd state=directory
-  file: path=/etc/openldap state=directory
-  file: path=/etc/openldap/cacerts state=directory
+- name: Make sure openldap and sssd configuration directories exist
+  file: path={{ item }} state=directory
+  with_items:
+  - /etc/openldap
+  - /etc/openldap/cacerts
+  - /etc/sssd
 
 - name: Install LDAP TLS certificate
   copy: src=ldap.pem dest={{ item }}/ldap.pem
