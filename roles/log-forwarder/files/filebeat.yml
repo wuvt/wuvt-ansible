@@ -22,6 +22,7 @@ filebeat:
       document_type: cron
     -
       paths:
+        - "/var/log/auth.log"
         - "/var/log/maillog"
         - "/var/log/messages"
         - "/var/log/secure"
