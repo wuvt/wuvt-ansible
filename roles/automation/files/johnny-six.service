@@ -1,0 +1,10 @@
+[Unit]
+Description=Johnny Six automation
+
+[Service]
+User=liquidsoap
+ExecStart=/usr/bin/liquidsoap /opt/johnny-six/wuvt.liq
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target

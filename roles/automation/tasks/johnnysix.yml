@@ -1,7 +1,13 @@
 ---
-- name: pull johnny-six source from github
-  git: repo=http://github.com/wuvt/johnny-six.git
+- name: Pull johnny-six source from GitHub
+  git: repo=https://github.com/wuvt/johnny-six.git
        update=yes
-       dest=/usr/src/johnny-six
+       dest=/opt/johnny-six
 
-  
+- name: Install johnny-six.service
+  copy: src=johnny-six.service dest=/etc/systemd/system/johnny-six.service
+
+- name: Start and enable johnny-six
+  service: name=johnny-six state=started enabled=yes
+  tags:
+  - services

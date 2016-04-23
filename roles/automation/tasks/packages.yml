@@ -12,6 +12,7 @@
   - liquidsoap-plugin-all
   - liquidsoap-mode
   - alsa-utils
+  - socat
   
 - name: Install python3 packages 
   apt: name={{ item }} state=latest
