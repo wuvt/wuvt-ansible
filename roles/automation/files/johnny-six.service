@@ -1,9 +1,11 @@
 [Unit]
 Description=Johnny Six automation
+After=network.target
 
 [Service]
-User=liquidsoap
+Type=simple
 ExecStart=/usr/bin/liquidsoap /opt/johnny-six/wuvt.liq
+User=liquidsoap
 Restart=on-abort
 
 [Install]
