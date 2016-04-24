@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/liquidsoap /opt/johnny-six/wuvt.liq
+ExecStart=/usr/bin/dbus-run-session /usr/bin/liquidsoap /opt/johnny-six/wuvt.liq
 User=liquidsoap
 Restart=on-abort
 
