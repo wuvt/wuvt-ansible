@@ -11,3 +11,11 @@
   service: name=johnny-six state=started enabled=yes
   tags:
   - services
+
+- name: Install underwriting cronjob
+  cron: name="johnny-six underwriting" user="liquidsoap" minute="55"
+        job="python3 /opt/johnny-six/queue_underwriting.py" state=present
+
+- name: Install playlist loader cronjob
+  cron: name="johnny-six playlist loader" user="liquidsoap" minute="30"
+        job="python3 /opt/johnny-six/playlist-loader/loader.py" state=present

@@ -8,16 +8,11 @@
 - name: Install automation packages
   apt: name={{ item }} state=latest
   with_items:
-  - liquidsoap
-  - liquidsoap-plugin-all
-  - liquidsoap-mode
   - alsa-utils
+  - liquidsoap
+  - liquidsoap-mode
+  - liquidsoap-plugin-all
+  - python3
   - socat
-  
-- name: Install python3 packages 
-  apt: name={{ item }} state=latest
-  with_items:
-  - python3.4
   tags:
   - packages
-
