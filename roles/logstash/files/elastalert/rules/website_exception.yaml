@@ -1,0 +1,31 @@
+name: Website exceptions
+type: frequency
+index: syslog-*
+
+num_events: 1
+timeframe:
+  minutes: 10
+
+filter:
+- query:
+    query_string:
+      query: "program:journal AND Exception"
+
+alert:
+- "email"
+- "command"
+email:
+- "wuvt.it@gmail.com"
+- "root@wuvt.vt.edu"
+- "wuvt@mutantmonkey.in"
+command:
+- "/usr/local/bin/ircalert"
+- "-nick"
+- "wuvt-ircalert"
+- "-server"
+- "irc.oftc.net:6697"
+- "-ssl"
+- "-channel"
+- "#wuvt"
+- "-message"
+- "Website exceptions"

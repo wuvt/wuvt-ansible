@@ -13,7 +13,19 @@ filter:
 
 alert:
 - "email"
+- "command"
 email:
 - "wuvt.it@gmail.com"
 - "root@wuvt.vt.edu"
 - "wuvt@mutantmonkey.in"
+command:
+- "/usr/local/bin/ircalert"
+- "-nick"
+- "wuvt-ircalert"
+- "-server"
+- "irc.oftc.net:6697"
+- "-ssl"
+- "-channel"
+- "#wuvt"
+- "-message"
+- "Root logins from outside the WUVT network"

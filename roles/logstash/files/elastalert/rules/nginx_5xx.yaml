@@ -1,0 +1,30 @@
+name: 5xx responses in nginx log
+type: frequency
+index: nginx-*
+
+num_events: 1
+timeframe:
+  minutes: 10
+
+filter:
+- query:
+    query_string:
+      query: "response:5*"
+
+alert:
+- "email"
+- "command"
+email:
+- "wuvt.it@gmail.com"
+- "root@wuvt.vt.edu"
+command:
+- "/usr/local/bin/ircalert"
+- "-nick"
+- "wuvt-ircalert"
+- "-server"
+- "irc.oftc.net:6697"
+- "-ssl"
+- "-channel"
+- "#wuvt"
+- "-message"
+- "5xx responses in nginx log"

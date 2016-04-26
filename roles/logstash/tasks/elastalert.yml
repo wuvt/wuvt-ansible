@@ -24,6 +24,9 @@
   - packages
   - elastalert
 
+- name: Install ircalert binary
+  copy: src=ircalert dest=/usr/local/bin/ircalert mode=0755
+
 - name: Create elastalert config directories
   file: dest=/etc/{{ item }} state=directory
   with_items:
@@ -38,8 +41,10 @@
   copy: src=elastalert/{{ item }} dest=/etc/elastalert/{{ item }}
   with_items:
   - config.yaml
+  - rules/website_exception.yaml
   - rules/sshd_root_login.yaml
   - rules/sshd_backup_login.yaml
+  - rules/nginx_5xx.yaml
   tags:
   - elastalert
 
