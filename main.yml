@@ -60,6 +60,7 @@
   - ubuntu-common
   - common
   - ldap-client
+  - log-forwarder
   - ubuntu-desktop
   - role: jnv.unattended-upgrades
     unattended_origins_patterns:
