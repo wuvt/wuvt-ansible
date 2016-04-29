@@ -55,6 +55,12 @@
   - website
 
 - hosts: workstations
+  become: yes
+  tasks:
+  - name: Set ladmin homedir to /usr/local/home/ladmin
+    user: name=ladmin home=/usr/local/home/ladmin
+
+- hosts: workstations
   #user: ladmin
   roles:
   - ubuntu-common
