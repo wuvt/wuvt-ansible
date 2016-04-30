@@ -49,6 +49,12 @@
   - services
   - logstash
 
+- name: Open logstash port in firewalld
+  firewalld: port=5043/tcp immediate=true permanent=true state=enabled
+  when: ansible_distribution_version.split(".")[0] == "7"
+  tags:
+  - firewalld
+
 - name: Enable and start logstash
   service: name=logstash enabled=yes state=started
   tags:
