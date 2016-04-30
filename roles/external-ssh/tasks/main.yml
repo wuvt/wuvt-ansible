@@ -10,3 +10,6 @@
 - name: Install jail.local
   copy: src=jail.local dest=/etc/fail2ban/jail.local
   notify: Restart fail2ban
+
+- name: Start and enable fail2ban
+  service: name=fail2ban state=started enabled=yes
