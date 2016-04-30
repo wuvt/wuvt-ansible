@@ -2,10 +2,14 @@
 - name: Install fail2ban (APT)
   apt: name=fail2ban state=present
   when: ansible_pkg_mgr == "apt"
+  tags:
+  - packages
 
 - name: Install fail2ban (yum)
   yum: name=fail2ban state=present
   when: ansible_pkg_mgr == "yum"
+  tags:
+  - packages
 
 - name: Install jail.local
   copy: src=jail.local dest=/etc/fail2ban/jail.local
@@ -13,3 +17,5 @@
 
 - name: Start and enable fail2ban
   service: name=fail2ban state=started enabled=yes
+  tags:
+  - services
