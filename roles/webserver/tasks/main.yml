@@ -58,13 +58,13 @@
   - web
 
 - name: Open HTTP port in firewalld
-  firewalld: service=http permanent=true state=enabled
+  firewalld: service=http immediate=true permanent=true state=enabled
   when: ansible_distribution_version.split(".")[0] == "7"
   tags:
   - firewalld
 
 - name: Open HTTPS port in firewalld
-  firewalld: service=https permanent=true state=enabled
+  firewalld: service=https immediate=true permanent=true state=enabled
   when: ansible_distribution_version.split(".")[0] == "7"
   tags:
   - firewalld
