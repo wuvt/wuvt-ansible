@@ -13,6 +13,7 @@
   - liquidsoap-mode
   - liquidsoap-plugin-all
   - python3
+  - python3-requests
   - socat
   tags:
   - packages
