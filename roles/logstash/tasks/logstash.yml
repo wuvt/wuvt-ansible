@@ -17,8 +17,11 @@
   tags:
   - logstash
 
-- name: Create /etc/logstash/patterns subdirectories
-  file: dest=/etc/logstash/patterns state=directory
+- name: Create /etc/logstash subdirectories
+  file: dest=/etc/logstash/{{ item }} state=directory
+  with_items:
+  - patterns
+  - templates
   tags:
   - logstash
 
@@ -39,6 +42,23 @@
   - selinux.grok
   - sudo.grok
   - uwsgi.grok
+  notify: Restart logstash
+  tags:
+  - logstash
+
+- name: Install logstash elasticsearch templates
+  copy: src=logstash/templates/{{ item }}.json
+        dest=/etc/logstash/templates/{{ item }}.json
+  with_items:
+  - cron
+  - icecast
+  - nginx
+  - ntp
+  - postfix
+  - selinux
+  - syslog
+  - uwsgi
+  - yum
   notify: Restart logstash
   tags:
   - logstash
