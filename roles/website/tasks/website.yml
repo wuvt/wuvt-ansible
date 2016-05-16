@@ -16,6 +16,7 @@
   - libxslt-devel
   - openldap-devel
   - MySQL-python
+  - libffi-devel
   tags:
   - website
   - packages

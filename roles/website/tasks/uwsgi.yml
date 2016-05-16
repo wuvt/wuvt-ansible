@@ -24,7 +24,7 @@
         dest=/root/uwsgi-{{ uwsgi_version }}/buildconf/centos.ini
 
 - name: copy build_uwsgi.sh
-  copy: src=build_uwsgi.sh dest=/root/build_uwsgi.sh mode=0755
+  template: src=build_uwsgi.sh.j2 dest=/root/build_uwsgi.sh mode=0755
 
 - name: build uWSGI and plugins
   shell: build_uwsgi.sh chdir=/root/

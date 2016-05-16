@@ -1,4 +1,5 @@
 #!/bin/sh
+cd /root/uwsgi-{{ uwsgi_version }}
 python uwsgiconfig.py --build centos
 python uwsgiconfig.py --plugin plugins/python centos python
 python uwsgiconfig.py --plugin plugins/gevent centos gevent
