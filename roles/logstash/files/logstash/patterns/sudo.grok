@@ -1,0 +1,2 @@
+SUDOLOG %{USERNAME:user} : TTY=%{DATA:tty} ; PWD=%{UNIXPATH:pwd} ; USER=%{USERNAME:sudo_user} ; COMMAND=%{GREEDYDATA:command}
+SUDOCONTINUEDLOG %{USERNAME:user} : \(command continued\) %{GREEDYDATA:command}

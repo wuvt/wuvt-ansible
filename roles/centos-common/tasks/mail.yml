@@ -1,8 +1,11 @@
 - name: Set postfix_relayhost
   lineinfile: dest=/etc/postfix/main.cf regexp=^relayhost line="relayhost = {{ postfix_relayhost }}" state=present
-  notify:
-  - Restart postfix
+  notify: Restart postfix
+  tags:
+  - common
+
 - name: Set mail alias for root
   lineinfile: "dest=/etc/aliases regexp='^root:' line='root: {{ root_email }}' state=present"
-  notify:
-  - Update aliases
+  notify: Update aliases
+  tags:
+  - common

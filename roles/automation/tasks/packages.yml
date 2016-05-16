@@ -1,0 +1,27 @@
+---
+- name: Apt update
+  apt: update_cache=yes upgrade=yes
+  tags:
+  - apt
+  - packages
+
+- name: Install automation packages
+  apt: name={{ item }} state=latest
+  with_items:
+  - alsa-utils
+  - liquidsoap
+  - liquidsoap-mode
+  - liquidsoap-plugin-all
+  - python3
+  - python3-requests
+  - socat
+  tags:
+  - packages
+
+- name: Make sure pulseaudio is not installed
+  apt: name={{ item }} state=absent
+  with_items:
+  - pulseaudio
+  - pulseaudio-module-x11
+  tags:
+  - packages

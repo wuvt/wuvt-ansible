@@ -1,0 +1,6 @@
+---
+- name: Restart logstash
+  service: name=logstash state=restarted
+
+- name: Restart elastalert
+  service: name=elastalert state=restarted

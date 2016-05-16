@@ -13,12 +13,27 @@ Note that RHEL systems prior to RHEL6 require bootstrapping, as they come with
 python <= 2.4, which lacks python-simplejson. The bootstrap.sh script will run 
 this on all machines in the "rhel5" category.
 
-### Not-yet automated
-Several things have not yet been added to ansible, including the mail server and NFS home
-
-For nfs /home, just add this to `/etc/fstab`:
-
-    `192.168.0.55:/mnt/mckillican/home       /home       nfs     rw,intr,noacl,nocto 0 0`
+Several things have not yet been added to ansible, including the mail server
 
 Note that for Ubuntu 14.04 machines (the `ubuntu-common` role), you need to 
 add the `vers=3` option.
+
+### Client-side config required
+
+In your client's config file, be sure to change the `remote_tmp` parameter
+if you are working with an NFS mount using root squash.
+
+```
+remote_tmp  = /tmp/$USER-ansible/tmp
+```
+
+This is usually found in /etc/ansible/ansible.cfg.
+
+### Troubleshooting
+
+You may need to set the environment variable ANSIBLE_SCP_IF_SSH=y if you are
+using an SSH proxy.
+
+See ansible issue #13401 as to why.
+
+

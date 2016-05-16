@@ -1,0 +1,70 @@
+---
+- name: Install sources.list
+  copy: src=sources.list dest=/etc/apt/sources.list mode=0664 owner=root group=root
+  tags:
+  - apt
+  - dropbox
+
+
+- name: Install common packages
+  apt: name={{ item }} state=latest
+  with_items:
+  - git
+  - htop
+  - vim
+  - man
+  - nmap
+  - ncdu
+  - rsync
+  - screen
+  - tmux
+  - wget
+  - zsh
+  - cowsay
+  - ntp
+  - ranger
+  - aptitude
+  - pwgen
+  - mutt
+  tags:
+  - packages
+
+- name: Install packages for development
+  apt: name={{ item }} state=latest
+  with_items:
+  - gcc
+  - ruby
+  - ansible
+  - sshpass
+  tags:
+  - packages
+
+#- name: Install ansible config
+#  copy: src=ansible.cfg dest=/etc/ansible/ansible.cfg mode=0644 owner=root group=root
+#  tags:
+#  - ansible
+
+#- name: Add dropbox repo
+#  apt_repository: repo='deb http://linux.dropbox.com/ubuntu trusty main' update_cache=yes
+
+#- name: Add dropbox gpg key
+#  apt_key: data="{{ lookup('file', 'dropbox.key') }}" 
+#
+#- name: Force install dropbox
+#  apt: name={{ item }} state=latest force=yes
+#  with_items:
+#  - dropbox
+#  tags:
+#  - packages
+#  - dropbox
+#
+
+# Apparently update_cache breaks if you're sudoing and root can't
+# CD to the user's home directory (as is the case with our NFS setup)
+# -- mhazinsk 2015-06-08
+
+#- name: Apt update
+#  apt: update_cache=yes upgrade=yes
+#  tags:
+#  - apt
+#  - packages

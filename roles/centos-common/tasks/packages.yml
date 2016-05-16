@@ -3,20 +3,25 @@
   get_url: url=https://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm dest=/tmp/epel-release-6.8.noarch.rpm mode=0400
   when: ansible_distribution_version.split(".")[0] == "6"
 #  when: ansible_distribution_major_version == "6"
-
+  tags:
+  - common
 
 - name: Enable EPEL - CentOS 6
   command: rpm -Uvh /tmp/epel-release-6.8.noarch.rpm creates=/etc/yum.repos.d/epel.repo
 #  when: ansible_distribution_major_version == "6"
   when: ansible_distribution_version.split(".")[0] == "6"
+  tags:
+  - common
 
 - name: Enable EPEL - CentOS 7
-  yum: pkg=epel-release state=latest
+  yum: name=epel-release state=present
   when: ansible_distribution_version.split(".")[0] == "7"
 #  when: ansible_distribution_major_version == "7"
+  tags:
+  - common
 
 - name: Install common packages
-  yum: name={{ item }} state=latest
+  yum: name={{ item }} state=present
   with_items:
   - yum-cron
   - smartmontools
@@ -50,17 +55,10 @@
   - nfs-utils
   tags:
   - packages
-  - nfs
-
-- name: Enable and start rpc-statd
-  service: name=rpc-statd state=started enabled=yes
-  when: ansible_distribution_version.split(".")[0] == "7"
-  tags:
-  - nfs
-
+  - common
 
 - name: Install packages for development
-  yum: name={{ item }} state=latest
+  yum: name={{ item }} state=present
   with_items:
   - gcc
   - make
@@ -93,3 +91,4 @@
   - libselinux-python
   tags:
   - packages
+  - common

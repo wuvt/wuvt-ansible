@@ -1,0 +1,15 @@
+---
+- name: Install elastic RPM signing key
+  command: rpm --import https://packages.elastic.co/GPG-KEY-elasticsearch
+  tags:
+  - packages
+
+- name: Install OpenJDK
+  yum: pkg=java-1.8.0-openjdk state=present
+  tags:
+  - packages
+
+- include: elasticsearch.yml
+- include: kibana.yml
+- include: logstash.yml
+- include: elastalert.yml

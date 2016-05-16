@@ -1,0 +1,7 @@
+---
+- name: Restart sshd
+  service: name=sshd state=restarted
+
+- name: Restart nslcd
+  service: name=nslcd state=restarted
+  tags: nslcd

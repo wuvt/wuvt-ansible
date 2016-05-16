@@ -1,0 +1,18 @@
+---
+- name: Install elasticsearch repository
+  copy: src=elasticsearch.repo dest=/etc/yum.repos.d/elasticsearch.repo
+  tags:
+  - packages
+  - elasticsearch
+
+- name: Install elasticsearch
+  yum: pkg=elasticsearch state=present
+  tags:
+  - packages
+  - elasticsearch
+
+- name: Enable and start elasticsearch
+  service: name=elasticsearch enabled=yes state=started
+  tags:
+  - services
+  - elasticsearch

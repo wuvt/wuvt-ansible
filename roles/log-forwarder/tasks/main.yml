@@ -1,0 +1,24 @@
+---
+- include: centos.yml
+  when: ansible_os_family == "RedHat"
+
+- include: apt.yml
+  when: ansible_pkg_mgr == "apt"
+
+- name: Install logstash TLS certificate
+  copy: src=logstash.pem dest=/etc/filebeat/logstash.pem
+  notify: Restart filebeat
+  tags:
+  - log-forwarder
+
+- name: Install filebeat config
+  copy: src=filebeat.yml dest=/etc/filebeat/filebeat.yml
+  notify: Restart filebeat
+  tags:
+  - log-forwarder
+
+- name: Enable and start filebeat
+  service: name=filebeat enabled=yes state=started
+  tags:
+  - services
+  - log-forwarder

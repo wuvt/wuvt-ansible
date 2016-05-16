@@ -5,11 +5,15 @@
   - nfs-utils-lib
   - nfs-utils-lib-devel
   - nfs4-acl-tools
+  when: ansible_distribution_version.split(".")[0] == "6"
   tags:
   - packages
-- name: Add NFS home directory mount to fstab
-  lineinfile: >
-    dest=/etc/fstab regexp="" insertafter=EOF 
-    line="192.168.0.55:/mnt/mckillican/home       /home       nfs     rw,intr,noacl,nocto 0 0"
-- name: Remount everything in fstab to mount new home directories
-  command: mount -a
+
+- name: Enable and start nfs-client.target
+  service: name=nfs-client.target state=started enabled=yes
+  when: ansible_distribution_version.split(".")[0] == "7"
+  tags:
+  - nfs
+
+- name: Mount /home from NFS
+  mount: fstype=nfs name=/home src=192.168.0.55:/mnt/mckillican/home state=mounted

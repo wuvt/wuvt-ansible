@@ -1,41 +1,43 @@
 - hosts: centos
-  sudo: yes
+  become: yes
   handlers:
   - include: handlers/mail.yml
   - include: handlers/ssh.yml
   roles:
-  - common
   - centos-common
+  - common
+  - ldap-client
+  - log-forwarder
 
 - hosts: stream
-  sudo: yes
+  become: yes
   roles:
   - stream
 
 - hosts: kvm
-  sudo: yes
+  become: yes
   roles:
   - kvm
 
 - hosts: file
-  sudo: yes
+  become: yes
   roles:
   - file
 
 - hosts: ldap
-  sudo: yes
+  become: yes
   roles:
   - ldap
 
 # TODO: Write the mail role
 - hosts: mail
-  sudo: yes
+  become: yes
   roles:
   - mail
 
 # TODO: Write internal-site role
 - hosts: internal-webserver
-  sudo: yes
+  become: yes
   roles:
   - webserver
   - db
@@ -45,22 +47,37 @@
 
 # TODO: Write external-site role
 - hosts: external-webserver
-  sudo: yes
+  become: yes
   roles:
   - webserver
   - db
   - object-store
   - website
 
-- hosts: workstations
-  #user: ladmin
+- hosts: debian
+ # become: yes
+  handlers:
+  - include: handlers/mail.yml
+  - include: handlers/ssh.yml
   roles:
+  - debian-common
   - common
-  - ubuntu-common
-  - role: jnv.unattended-upgrades
-    unattended_origins_patterns:
-    - 'origin=Ubuntu,archive=${distro_codename}-security'
-    - 'o=Ubuntu,a=${distro_codename}-updates'
-    #unattended_package_blacklist: [cowsay, vim]
-    unattended_mail: 'root@wuvt.vt.edu'
-  sudo: yes
+  - ldap-client
+  - log-forwarder
+
+- hosts: logstash
+  become: yes
+  vars:
+    nginx_ocsp_stapling: false
+  roles:
+  - logstash
+
+- hosts: automation
+  become: yes
+  roles:
+  - automation
+
+#- hosts: aircheck
+#  become: yes
+#  roles:
+#  - aircheck

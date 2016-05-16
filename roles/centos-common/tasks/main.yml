@@ -1,11 +1,17 @@
 ---
-- include: packages.yml
-- include: hostname.yml
-- include: sudo.yml
-#- include: yum.yml
-- include: mail.yml
 - include: noselinux.yml
-- include: ntp.yml
-#- include: iptables.yml
+- include: packages.yml
+
+- include: hostname.yml
+  when: hostname is defined
+
+- include: sudo.yml
+- include: yum.yml
+- include: mail.yml
 - include: ldap-client.yml
-#- include: nfs-client.yml
+
+- include: nfs-client.yml
+  when: nfs_client
+
+- include: iptables.yml
+  when: ansible_distribution_version.split(".")[0] == "6"

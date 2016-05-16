@@ -1,0 +1,6 @@
+---
+- name: Create /usr/local/home
+  file: dest=/usr/local/home state=directory
+
+- name: Create backup user
+  user: name=backup group=users home=/usr/local/home/ comment="Backup receiver"

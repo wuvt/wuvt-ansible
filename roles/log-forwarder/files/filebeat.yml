@@ -1,0 +1,39 @@
+filebeat:
+  prospectors:
+    -
+      paths:
+        - "/var/log/audit/*.log"
+      document_type: selinux
+    -
+      paths:
+        - "/var/log/icecast/access.log"
+      document_type: icecast
+    -
+      paths:
+        - "/var/log/letsencrypt/*.log"
+      document_type: letsencrypt
+    -
+      paths:
+        - "/var/log/nginx/access.log"
+      document_type: nginx
+    -
+      paths:
+        - "/var/log/cron"
+      document_type: cron
+    -
+      paths:
+        - "/var/log/auth.log"
+        - "/var/log/maillog"
+        - "/var/log/messages"
+        - "/var/log/secure"
+      document_type: syslog
+    -
+      paths:
+        - "/var/log/yum.log"
+      document_type: yum
+output:
+  logstash:
+    hosts: ["192.168.0.223:5043"]
+    tls:
+      certificate_authorities: ["/etc/filebeat/logstash.pem"]
+    index: filebeat

@@ -1,0 +1,22 @@
+---
+- name: Install desktop software
+  apt: name={{ item }} state=latest
+  with_items:
+  - libreoffice
+  - mpv
+  - vlc
+  - texmaker
+  - tex4ht
+  - cheese
+  - k3b
+  - k3b-data
+  - libk3b6-extracodecs
+  - thunderbird
+  tags:
+  - packages
+
+- name: Ubuntu 14.04-specific software
+  when: ansible_distribution_version == "14.04"
+  apt: name={{ item }} state=latest
+  with_items:
+  - morituri

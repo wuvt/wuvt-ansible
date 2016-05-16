@@ -5,15 +5,8 @@
   tags:
   - packages
 
-- name: Set local home dir
-  file: path=/local/ladmin state=directory owner=ladmin
-  tags: 
-  - local
+- name: Install /etc/idmapd.conf
+  copy: src=idmapd.conf dest=/etc/idmapd.conf
 
-- name: Move user's home dir
-  user: name=ladmin home=/local/ladmin
-  tags:
-  - local
-
-# TODO: 
-# - change /etc/fstab
+- name: Mount /home from NFS
+  mount: fstype=nfs name=/home src=192.168.0.55:/mnt/mckillican/home state=mounted

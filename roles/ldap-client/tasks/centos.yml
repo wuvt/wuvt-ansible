@@ -1,0 +1,27 @@
+---
+- name: Install sssd packages
+  yum: name={{ item }} state=present
+  with_items:
+  - openldap-clients
+  - sssd
+  tags:
+  - packages
+
+- name: Remove old LDAP packages
+  yum: name=nss-pam-ldapd state=absent
+  tags:
+  - packages
+
+- name: Enable sssd auth with authconfig
+  command: >
+    authconfig
+    --enablelocauthorize
+    --enablesssd
+    --enablesssdauth
+    --enableldap
+    --enableldapauth
+    --disableldaptls
+    --ldapserver=192.168.0.203
+    --ldapbasedn="dc=wuvt,dc=vt,dc=edu"
+    --enablecachecreds
+    --updateall

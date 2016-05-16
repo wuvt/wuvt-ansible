@@ -1,0 +1,25 @@
+---
+- name: Pull johnny-six source from GitHub
+  git: repo=https://github.com/wuvt/johnny-six.git
+       update=yes
+       dest=/opt/johnny-six
+
+- name: Install johnny-six.service
+  copy: src=johnny-six.service dest=/etc/systemd/system/johnny-six.service
+
+- name: Start and enable johnny-six
+  service: name=johnny-six state=started enabled=yes
+  tags:
+  - services
+
+- name: Install underwriting cronjob
+  cron: name="johnny-six underwriting" user="liquidsoap" minute="55"
+        job="python3 /opt/johnny-six/queue_underwriting.py" state=present
+
+- name: Install playlist loader cronjob
+  cron: name="johnny-six playlist loader" user="liquidsoap" minute="30"
+        job="python3 /opt/johnny-six/playlist-loader/loader.py" state=present
+
+- name: Change johnny-six output to ALSA
+  lineinfile: dest=/opt/johnny-six/wuvt.liq regexp=^output\.
+              line="output.alsa(device=\"plughw:CARD=USB,DEV=0\", radio)"

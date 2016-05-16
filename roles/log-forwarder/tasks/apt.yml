@@ -1,0 +1,29 @@
+---
+- name: Add signing key for elastic APT repository
+  apt_key: data="{{ lookup('file', 'elastic.asc') }}" state=present
+  tags:
+  - packages
+  - log-forwarder
+
+# " fix vim syntax highlight bug
+
+- name: Make sure apt-transport-https is installed
+  apt: pkg=apt-transport-https state=present
+  tags:
+  - packages
+  - log-forwarder
+
+- name: Install beats repository
+  copy: src=beats.list dest=/etc/apt/sources.list.d/beats.list
+  notify: Update APT cache
+  tags:
+  - packages
+  - log-forwarder
+
+- meta: flush_handlers
+
+- name: Install filebeat
+  apt: pkg=filebeat state=present
+  tags:
+  - packages
+  - log-forwarder
