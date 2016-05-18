@@ -20,10 +20,18 @@
   tags:
   - common
 
+- name: Import EPEL signing key - CentOS 7
+  rpm_key: key=/etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
+  when: ansible_distribution_version.split(".")[0] == "7"
+#  when: ansible_distribution_major_version == "7"
+  tags:
+  - common
+
 - name: Install common packages
   yum: name={{ item }} state=present
   with_items:
-  - yum-cron
+  # XXX: apparently yum-cron conflicts with yum? disabled until we figure this out
+  #- yum-cron
   - smartmontools
   - emacs-nox
   - elinks

@@ -5,8 +5,9 @@
   tags:
   - common
 
-- name: Enable and start yum-cron service
-  service: name=yum-cron state=started enabled=yes
-  tags:
-  - services
-  - common
+# XXX: apparently yum-cron conflicts with yum? disabled until we figure this out
+#- name: Enable and start yum-cron service
+#  service: name=yum-cron state=started enabled=yes
+#  tags:
+#  - services
+#  - common
