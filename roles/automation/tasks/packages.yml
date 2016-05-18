@@ -17,11 +17,3 @@
   - socat
   tags:
   - packages
-
-- name: Make sure pulseaudio is not installed
-  apt: name={{ item }} state=absent
-  with_items:
-  - pulseaudio
-  - pulseaudio-module-x11
-  tags:
-  - packages
