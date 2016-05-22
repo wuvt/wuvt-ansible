@@ -1,1 +1,41 @@
-- include: kvm.yml
+- name: Install kvm packages
+  yum: name={{ item }} state=latest
+  with_items:
+  - kvm
+  - libvirt
+  - qemu-kvm
+  - bridge-utils
+  tags:
+  - packages
+  - kvm
+
+- name: Start libvirtd service
+  service: name=libvirtd state=started
+  tags:
+  - services
+  - kvm
+
+- name: create libvirt group
+  group: name=libvirt system=no state=present
+  tags:
+  - groups
+  - kvm
+
+- name: Add users to libvirt group
+  user: name={{ item }} groups=libvirt,kvm,qemu state=present
+  with_items: virt_users
+  tags:
+  - users
+  - kvm
+
+- name: Install libvirtd config file
+  copy: src=libvirtd.conf dest=/etc/libvirt/libvirtd.conf owner=root group=root mode=0644
+  tags:
+  - kvm
+  - files
+
+- name: Restart libvirtd service
+  service: name=libvirtd state=restarted enabled=yes
+  tags:
+  - services
+  - kvm
