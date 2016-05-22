@@ -20,3 +20,6 @@
 
 - name: Install /etc/sssd
   file: dest=/etc/sssd mode=0711
+
+- name: Install /etc/ldap/ldap.conf
+  copy: src=ldap.conf dest=/etc/ldap/ldap.conf

@@ -12,6 +12,9 @@
   tags:
   - packages
 
+- name: Install /etc/openldap/ldap.conf
+  copy: src=ldap.conf dest=/etc/openldap/ldap.conf
+
 - name: Enable sssd auth with authconfig
   command: >
     authconfig

@@ -27,8 +27,6 @@
   copy: src=sssd.conf dest=/etc/sssd/sssd.conf owner=root group=root mode=0600
   notify: Restart sssd
 
-- name: Install /etc/openldap/ldap.conf
-  copy: src=ldap.conf dest=/etc/openldap/ldap.conf
 
 - name: Start and enable sssd
   service: name=sssd state=started enabled=yes
