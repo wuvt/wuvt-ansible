@@ -2,3 +2,11 @@
 - include: ldap-client.yml
 - include: nfs.yml
 - include: packages.yml
+
+# https://unix.stackexchange.com/questions/209832/debian-systemd-network-online-target-not-working
+- name: Install ifup-wait-all-auto.service
+  copy: src=ifup-wait-all-auto.service
+        dest=/etc/systemd/system/ifup-wait-all-auto.service
+
+- name: Enable ifup-wait-all-auto.service
+  service: name=ifup-wait-all-auto.service enabled=yes
