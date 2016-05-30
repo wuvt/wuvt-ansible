@@ -66,6 +66,8 @@
   - website
   - db
 
+# " fix vim syntax highlight bug
+
 - name: Create run directory
   file: dest=/run/uwsgi owner=nginx group=nginx
   tags:
@@ -73,6 +75,11 @@
 
 - name: Install /etc/tmpfiles.d/uwsgi.conf
   copy: src=tmpfiles.d/uwsgi.conf dest=/etc/tmpfiles.d/uwsgi.conf
+  tags:
+  - website
+
+- name: Install /srv/http/wuvt-site/ldap.pem
+  copy: src=ldap.pem dest=/srv/http/wuvt-site/ldap.pem
   tags:
   - website
 
