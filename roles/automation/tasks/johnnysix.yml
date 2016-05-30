@@ -21,4 +21,4 @@
 
 - name: Change johnny-six output to ALSA
   lineinfile: dest=/opt/johnny-six/wuvt.liq regexp=^output\.
-              line="output.alsa(device=\"plughw:CARD=USB,DEV=0\", radio)"
+              line="output.alsa(device=\"{{ automation_alsa_output }}\", radio)"
