@@ -1,7 +1,6 @@
 ---
 - name: Pull johnny-six source from GitHub
-  git: repo=https://github.com/wuvt/johnny-six.git
-       update=yes
+  git: repo=https://github.com/wuvt/johnny-six.git update=yes force=yes
        dest=/opt/johnny-six
 
 - name: Install johnny-six.service
