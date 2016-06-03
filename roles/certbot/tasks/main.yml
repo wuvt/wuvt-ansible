@@ -1,0 +1,20 @@
+---
+- name: install certbot
+  yum: name=certbot state=present
+  become: yes
+  tags: packages
+
+- name: install /etc/letsencrypt/cli.ini
+  template: src=cli.ini.j2 dest=/etc/letsencrypt/cli.ini
+  become: yes
+
+- name: create /var/lib/letsencrypt/public_html
+  file: dest=/var/lib/letsencrypt/public_html state=directory
+  become: yes
+
+- name: install systemd units
+  copy: src={{ item }} dest=/etc/systemd/system/{{ item }}
+  with_items:
+  - letsencrypt-renewer.service
+  - letsencrypt-renewer.timer
+  become: yes
