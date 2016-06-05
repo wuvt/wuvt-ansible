@@ -3,7 +3,7 @@ Description=uWSGI for WUVT site
 
 [Service]
 User=nginx
-ExecStart=/usr/bin/uwsgi --yaml /srv/http/wuvt-site/uwsgi.yml
+ExecStart=/usr/bin/uwsgi --ini /srv/http/wuvt-site/uwsgi.ini
 ExecReload=/bin/kill -HUP $MAINPID
 KillSignal=SIGQUIT
 Restart=always
