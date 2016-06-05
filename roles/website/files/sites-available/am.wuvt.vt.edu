@@ -1,0 +1,49 @@
+upstream wuvtsite {
+    ip_hash;
+    server unix:/run/uwsgi/wuvt-site.sock;
+}
+
+server {
+    listen        80;
+    listen        [::]:80;
+    server_name   am.wuvt.vt.edu;
+
+    add_header X-Frame-Options SAMEORIGIN;
+
+    location /.well-known/acme-challenge {
+        root /var/lib/letsencrypt/public_html;
+        default_type text/plain;
+    }
+
+    location / {
+        return 301 https://am.wuvt.vt.edu$request_uri;
+    }
+}
+
+
+server {
+    listen        443      ssl;
+    listen        [::]:443 ssl;
+    server_name   am.wuvt.vt.edu;
+    add_header X-Frame-Options DENY;
+
+    ssl_certificate     /etc/letsencrypt/live/am.wuvt.vt.edu/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/am.wuvt.vt.edu/privkey.pem;
+
+    location /static/media {
+        alias /srv/http/media;
+        expires 1d;
+        autoindex on;
+    }
+
+    location /static {
+        root /srv/http/wuvt-site/wuvt;
+        expires 7d;
+    }
+
+    location / {
+        include uwsgi_params;
+        uwsgi_buffering off;
+        uwsgi_pass wuvtsite;
+    }
+}

@@ -40,13 +40,14 @@
   - packages
 
 - name: Install nginx config
-  copy: src={{ website_nginx_conf_src }} dest=/etc/nginx/sites-available/www.wuvt.vt.edu
+  copy: src=sites-available/{{ website_nginx_conf }}
+        dest=/etc/nginx/sites-available/{{ website_nginx_conf }}
   tags:
   - website
 
 - name: Enable nginx config
-  file: src=/etc/nginx/sites-available/www.wuvt.vt.edu
-        dest=/etc/nginx/sites-enabled/www.wuvt.vt.edu state=link
+  file: src=/etc/nginx/sites-available/{{ website_nginx_conf }}
+        dest=/etc/nginx/sites-enabled/{{ website_nginx_conf }} state=link
   tags:
   - website
 
