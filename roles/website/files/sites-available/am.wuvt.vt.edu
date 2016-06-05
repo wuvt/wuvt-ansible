@@ -15,6 +15,14 @@ server {
         default_type text/plain;
     }
 
+    location /trackman/api/automation/log {
+        # Liquidsoap doesn't support HTTPS
+        # https://github.com/savonet/liquidsoap/issues/336
+        include uwsgi_params;
+        uwsgi_buffering off;
+        uwsgi_pass wuvtsite;
+    }
+
     location / {
         return 301 https://am.wuvt.vt.edu$request_uri;
     }
