@@ -8,8 +8,6 @@ server {
     listen        [::]:80 default_server;
     server_name   www.wuvt.vt.edu wuvt.vt.edu;
 
-    add_header X-Frame-Options SAMEORIGIN;
-
     location /.well-known/acme-challenge {
         root /var/lib/letsencrypt/public_html;
         default_type text/plain;
@@ -56,7 +54,6 @@ server {
     include tls.conf;
 
     #add_header Strict-Transport-Security max-age=15552000;
-    add_header X-Frame-Options SAMEORIGIN;
 
     # redirect paths from old site
     rewrite ^/Alumni/$ /alumni permanent;
@@ -106,38 +103,41 @@ server {
     rewrite ^/rss.xml$ /feed.atom;
 
     location /static/media {
+        add_header X-Frame-Options SAMEORIGIN;
         alias /srv/http/media;
         expires 1d;
         autoindex on;
     }
     
     location /rtfm {
+        add_header X-Frame-Options SAMEORIGIN;
         alias /srv/http/rtfm;
         autoindex on;
     }
 
     location /static {
+        add_header X-Frame-Options SAMEORIGIN;
         root /srv/http/wuvt-site/wuvt;
         expires 7d;
     }
 
-    location / {
-        include uwsgi_params;
-        uwsgi_pass wuvtsite;
-        uwsgi_read_timeout 1800s;
-        uwsgi_buffering off;
-    }
-
-    location ~ /.well-known/acme-challenge/(.*) {
+    location /.well-known/acme-challenge {
         root /var/lib/letsencrypt/public_html;
         default_type text/plain;
     }
 
     location /jira {
+        add_header X-Frame-Options SAMEORIGIN;
         proxy_set_header X-Forwarded-Host $host;
         proxy_set_header X-Forwarded-Server $host;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_pass http://192.168.0.216:8080/jira;
         client_max_body_size 10M;
+    }
+
+    location / {
+        include uwsgi_params;
+        uwsgi_pass wuvtsite;
+        uwsgi_buffering off;
     }
 }
