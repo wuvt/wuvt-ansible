@@ -1,25 +1,27 @@
 accessLogsFile = "/var/log/traefik/access.log"
 defaultEntryPoints = ["http", "https"]
 
-#[acme]
-#email = "webmaster@wuvt.vt.edu"
-#storageFile = "/etc/traefik/acme.json"
+[acme]
+email = "webmaster@wuvt.vt.edu"
+storageFile = "/etc/traefik/acme.json"
 # WARNING, must point to an entrypoint on port 443
-#entryPoint = "https"
-# TODO: acme domains
+entryPoint = "https"
+
+[[acme.domains]]
+    main = "www.wuvt.vt.edu"
+    sans = ["wuvt.vt.edu"]
+
+[[acme.domains]]
+    main = "am.wuvt.vt.edu"
 
 [entryPoints]
   [entryPoints.http]
-  address = ":81"
+  address = ":80"
     [entryPoints.http.redirect]
       entryPoint = "https"
   [entryPoints.https]
-  address = ":444"
+  address = ":443"
     [entryPoints.https.tls]
-      # FIXME
-      [[entryPoints.https.tls.certificates]]
-      CertFile = "/etc/traefik/https/test.cert.pem"
-      KeyFile = "/etc/traefik/https/test.privkey.pem"
 
 [etcd]
 endpoint = "{{ traefik_etcd_endpoint }}"

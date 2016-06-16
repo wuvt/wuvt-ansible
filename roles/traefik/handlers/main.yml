@@ -1,0 +1,6 @@
+---
+- name: Restart etcd
+  service: name=etcd state=restarted
+
+- name: Restart traefik
+  service: name=traefik state=restarted
