@@ -1,0 +1,11 @@
+[Unit]
+Description=Traefik reverse proxy server
+After=network.target
+
+[Service]
+User=traefik
+ExecStart=/usr/local/bin/traefik -c /etc/traefik/traefik.toml
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

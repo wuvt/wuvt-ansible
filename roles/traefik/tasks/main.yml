@@ -18,3 +18,12 @@
 - name: Create /var/log/traefik
   file: dest=/var/log/traefik owner=traefik group=traefik mode=0750
         state=directory
+
+- name: Create /etc/traefik
+  file: dest=/etc/traefik state=directory
+
+- name: Install traefik.toml
+  template: src=traefik.toml.j2 dest=/etc/traefik/traefik.toml
+
+- name: Install traefik.service
+  copy: src=traefik.service dest=/etc/systemd/system/traefik.service
