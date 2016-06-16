@@ -55,6 +55,7 @@
   - db
   - object-store
   - website
+  - traefik
 
 - hosts: debian
  # become: yes
