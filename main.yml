@@ -40,6 +40,7 @@
   become: yes
   roles:
   - webserver
+  - certbot
   - db
   - media-wiki
   - radiothon
@@ -50,9 +51,11 @@
   become: yes
   roles:
   - webserver
+  - certbot
   - db
   - object-store
   - website
+  - traefik
 
 - hosts: debian
  # become: yes

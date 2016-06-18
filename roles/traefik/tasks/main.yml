@@ -1,0 +1,31 @@
+---
+- include: etcd.yml
+
+- name: Download and install traefik
+  get_url: url="https://github.com/containous/traefik/releases/download/{{ traefik_version }}/traefik"
+           checksum="{{ traefik_checksum }}" dest=/usr/local/bin/traefik
+
+# " fix vim syntax highlight bug
+
+- name: Set permissions on /usr/local/bin/traefik
+  file: dest=/usr/local/bin/traefik mode=0755
+
+- name: Create a traefik group
+  group: name=traefik system=yes state=present
+
+- name: Create a traefik user
+  user: name=traefik group=traefik home=/ shell=/sbin/nologin system=yes 
+        state=present
+
+- name: Create /var/log/traefik
+  file: dest=/var/log/traefik owner=traefik group=traefik mode=0750
+        state=directory
+
+- name: Create /etc/traefik
+  file: dest=/etc/traefik state=directory
+
+#- name: Install traefik.toml
+#  template: src=traefik.toml.j2 dest=/etc/traefik/traefik.toml
+
+- name: Install traefik.service
+  copy: src=traefik.service dest=/etc/systemd/system/traefik.service

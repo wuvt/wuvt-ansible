@@ -1,0 +1,29 @@
+accessLogsFile = "/var/log/traefik/access.log"
+defaultEntryPoints = ["http", "https"]
+
+[acme]
+email = "webmaster@wuvt.vt.edu"
+storageFile = "/etc/traefik/acme.json"
+# WARNING, must point to an entrypoint on port 443
+entryPoint = "https"
+
+[[acme.domains]]
+    main = "www.wuvt.vt.edu"
+    sans = ["wuvt.vt.edu"]
+
+[[acme.domains]]
+    main = "am.wuvt.vt.edu"
+
+[entryPoints]
+  [entryPoints.http]
+  address = ":80"
+    [entryPoints.http.redirect]
+      entryPoint = "https"
+  [entryPoints.https]
+  address = ":443"
+    [entryPoints.https.tls]
+
+[etcd]
+endpoint = "{{ traefik_etcd_endpoint }}"
+watch = true
+prefix = "{{ traefik_etcd_prefix }}"

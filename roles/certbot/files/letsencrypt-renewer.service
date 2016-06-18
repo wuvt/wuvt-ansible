@@ -1,0 +1,7 @@
+[Unit]
+Description=Renew Let's Encrypt certificates
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/certbot renew --keep-until-expiring
+ExecStartPost=-/usr/bin/systemctl reload nginx.service

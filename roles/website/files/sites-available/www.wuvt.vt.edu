@@ -7,87 +7,23 @@ server {
     listen        80 default_server;
     listen        [::]:80 default_server;
     server_name   www.wuvt.vt.edu wuvt.vt.edu;
-    return 301 https://www.wuvt.vt.edu$request_uri;
-}
 
-server {
-    # Internal access
-    listen        192.168.0.57:80;
-    #listen        [::]:80;
-    server_name   192.168.0.57;
-
-    add_header X-Frame-Options SAMEORIGIN;
-
-    # redirect paths from old site
-    rewrite ^/Alumni/$ /alumni permanent;
-    rewrite ^/Communtity/$ /community permanent;
-    rewrite ^/Get-Involved/?$ /community permanent;
-    rewrite ^/LZ-Schedule/?$ /local-zone permanent;
-    rewrite ^/LZCD/?$ /local-zone permanent;
-    rewrite ^/News/?$ /category/nrv-news permanent;
-    rewrite ^/Program-Schedule/?$ /shows permanent;
-    rewrite ^/ProgramGuide/?$ /shows permanent;
-    rewrite ^/Staff/?$ /contact permanent;
-    rewrite ^/WOOVE/?$ /category/woove permanent;
-    rewrite ^/donate.html$ /donate permanent;
-    rewrite ^/donatemonthly/?$ /donate permanent;
-    rewrite ^/engineering/webplayer/streamplayer.php$ /listen-live permanent;
-    rewrite ^/index.php/last15/?$ /last15 permanent;
-    rewrite ^/joomla/index.php/Program-Schedule$ /shows permanent;
-    rewrite ^/last15/$ /last15 permanent;
-    rewrite ^/listen-$ /listen-live permanent;
-    rewrite ^/listenlive/?$ /listen-live permanent;
-    rewrite ^/liveplayer/?$ /listen-live permanent;
-    rewrite ^/liveplayer/stream_hi_frameset.html$ /listen-live permanent;
-    rewrite ^/news/?$ /category/nrv-news permanent;
-    rewrite ^/playlists/playlist_archive_by_date.php$ /playlists/date permanent;
-    rewrite ^/playlists/playlist_archive_by_host.php$ /playlists/dj permanent;
-    rewrite ^/playlists_date/?$ /playlists/date permanent;
-    rewrite ^/playlists_dj/?$ /playlists/dj permanent;
-    rewrite ^/staff/?$ /contact permanent;
-    rewrite ^/woove/?$ /category/woove permanent;
-
-    rewrite ^/2014/img-20141110-201217.jpg$ /static/media/2014/img-20141110-201217.jpg permanent;
-    rewrite ^/2014/shaun.jpg$ /static/media/2014/shaun.jpg permanent;
-    rewrite ^/EEO.pdf$ /static/media/legal/equalopportunity.pdf permanent;
-    rewrite ^/favicon.ico$ /static/img/favicon.ico permanent;
-    rewrite ^/images(/.*)?$ /static/media/oldimages$1 permanent;
-    rewrite ^/liveplayer/wuvtstream_hi.m3u http://engine.wuvt.vt.edu:8000/wuvt-hq.m3u permanent;
-    rewrite ^/liveplayer/wuvtstream_low.m3u http://engine.wuvt.vt.edu:8000/wuvt-lb.m3u permanent;
-    rewrite ^/liveplayer/wuvtstream_med.m3u http://engine.wuvt.vt.edu:8000/wuvt.m3u permanent;
-    rewrite ^/psa_form.pdf$ /static/media/legal/psa-form.pdf permanent;
-
-    rewrite ^/atom.xml$ /feed.atom;
-    rewrite ^/data/rss/?$ /feed.atom;
-    rewrite ^/feed/?$ /feed.atom;
-    rewrite ^/rss/?$ /feed.atom;
-    rewrite ^/rss-feed/All-Articles/?$ /feed.atom;
-    rewrite ^/rss-feed/The-Local-Zone/?$ /category/programming.atom;
-    rewrite ^/rss.xml$ /feed.atom;
-
-    location /static/media {
-        alias /srv/http/media;
-        expires 1d;
-        autoindex on;
+    location /.well-known/acme-challenge {
+        root /var/lib/letsencrypt/public_html;
+        default_type text/plain;
     }
 
-    location /rtfm {
-        alias /srv/http/rtfm;
-        autoindex on;
-    }
-
-    location /static {
-        root /srv/http/wuvt-site/wuvt;
-        expires 1d;
+    location /trackman/api/automation/log {
+        # Liquidsoap doesn't support HTTPS
+        # https://github.com/savonet/liquidsoap/issues/336
+        include uwsgi_params;
+        uwsgi_buffering off;
+        uwsgi_pass wuvtsite;
     }
 
     location / {
-        include uwsgi_params;
-        uwsgi_pass wuvtsite;
-        uwsgi_read_timeout 1800s;
-        uwsgi_buffering off;
+        return 301 https://www.wuvt.vt.edu$request_uri;
     }
-
 }
 
 server {
@@ -118,7 +54,6 @@ server {
     include tls.conf;
 
     #add_header Strict-Transport-Security max-age=15552000;
-    add_header X-Frame-Options SAMEORIGIN;
 
     # redirect paths from old site
     rewrite ^/Alumni/$ /alumni permanent;
@@ -168,38 +103,41 @@ server {
     rewrite ^/rss.xml$ /feed.atom;
 
     location /static/media {
+        add_header X-Frame-Options SAMEORIGIN;
         alias /srv/http/media;
         expires 1d;
         autoindex on;
     }
     
     location /rtfm {
+        add_header X-Frame-Options SAMEORIGIN;
         alias /srv/http/rtfm;
         autoindex on;
     }
 
     location /static {
+        add_header X-Frame-Options SAMEORIGIN;
         root /srv/http/wuvt-site/wuvt;
-        expires 1d;
+        expires 7d;
     }
 
-    location / {
-        include uwsgi_params;
-        uwsgi_pass wuvtsite;
-        uwsgi_read_timeout 1800s;
-        uwsgi_buffering off;
-    }
-
-    location ~ /.well-known/acme-challenge/(.*) {
+    location /.well-known/acme-challenge {
         root /var/lib/letsencrypt/public_html;
         default_type text/plain;
     }
 
     location /jira {
+        add_header X-Frame-Options SAMEORIGIN;
         proxy_set_header X-Forwarded-Host $host;
         proxy_set_header X-Forwarded-Server $host;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_pass http://192.168.0.216:8080/jira;
         client_max_body_size 10M;
+    }
+
+    location / {
+        include uwsgi_params;
+        uwsgi_pass wuvtsite;
+        uwsgi_buffering off;
     }
 }
