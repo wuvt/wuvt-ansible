@@ -1,0 +1,11 @@
+[Unit]
+Description=Update nginx upstreams from etcd
+Requires=nginx.service
+After=etcd.service
+After=nginx.service
+
+[Service]
+ExecStart=/usr/bin/python /usr/local/bin/nginx_config_etcd.py
+
+[Install]
+WantedBy=multi-user.target

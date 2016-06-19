@@ -1,6 +1,13 @@
 ---
-- name: install certbot
+# XXX: this is disabled because it needs to be manually installed from backports
+#- name: install certbot (apt)
+#  apt: name=certbot state=present
+#  when: ansible_pkg_mgr == "apt"
+#  tags: packages
+
+- name: install certbot (yum)
   yum: name=certbot state=present
+  when: ansible_pkg_mgr == "yum"
   tags: packages
 
 - name: create /etc/letsencrypt
