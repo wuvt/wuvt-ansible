@@ -1,0 +1,31 @@
+---
+- name: Pull RDS source from GitHub
+  git: repo=https://github.com/wuvt/PiFmRds.git update=yes force=yes
+          dest=/opt/PiFmRds
+
+- name: Install RDS-specific deps
+  apt: name={{ item }} state=latest
+  with_items:
+  - ffmpeg
+  tags:
+  - packages
+
+- name: Prepare RDS source for packaging
+  script: prep.sh PiFmRds
+  copy: src=control dest=/opt/PiFmRds/src/debian/control force=yes
+  copy: src=copyright dest=/opt/PiFmRds/src/debian/copyright force=yes
+
+- name: Build and Package RDS
+  script: build.sh
+
+- name: Install RDS Package
+  apt: deb=/opt/PiFmRds/fm-rds_0.0.1-1_i386.deb
+
+# TODO: rds.service
+# - name: Install rds.service
+#   copy: src=rds.service dest=/etc/systemd/system/rds.service
+#
+# - name: Start and enable rds.service
+#   service: name=rds state=started enabled=yes
+#   tags:
+#   - services

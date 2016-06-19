@@ -29,15 +29,15 @@
   tags:
   - packages
 
-- name: Install packages for development
-  apt: name={{ item }} state=latest
-  with_items:
-  - gcc
-  - ruby
-  - ansible
-  - sshpass
-  tags:
-  - packages
+#- name: Install packages for development
+#  apt: name={{ item }} state=latest
+#  with_items:
+#  - gcc
+#  - ruby
+#  - ansible
+#  - sshpass
+#  tags:
+#  - packages
 
 #- name: Install ansible config
 #  copy: src=ansible.cfg dest=/etc/ansible/ansible.cfg mode=0644 owner=root group=root

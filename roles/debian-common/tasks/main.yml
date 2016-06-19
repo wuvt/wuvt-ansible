@@ -3,6 +3,7 @@
 - include: nfs.yml
 - include: packages.yml
 - include: backports.yml
+- include: packaging.yml
 
 # https://unix.stackexchange.com/questions/209832/debian-systemd-network-online-target-not-working
 - name: Install ifup-wait-all-auto.service

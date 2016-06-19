@@ -1,0 +1,22 @@
+---
+- name: Install packages for development
+  apt: name={{ item }} state=latest
+  with_items:
+  - gcc
+  - ruby
+  - ansible
+  - sshpass
+  tags:
+  - packages
+
+- name: Install debian packaging tools
+  apt: name={{ item }} state=latest
+  with_items:
+  - build-essential
+  - make
+  - debhelper
+  - dh-make
+  - fakeroot
+  tags:
+  - packages
+

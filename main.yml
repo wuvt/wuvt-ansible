@@ -89,3 +89,8 @@
   roles:
   - nginx
   - certbot
+
+- hosts: rds
+  become: yes
+  roles:
+  - rds

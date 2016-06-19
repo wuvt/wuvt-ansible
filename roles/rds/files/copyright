@@ -1,0 +1,7 @@
+Format-Specification: http://svn.debian.org/wsvn/dep/web/deps/dep5.mdwn?op=file&rev=135
+Name: fm-rds
+Maintainer: WUVT IT <it@wuvt.vt.edu>
+Source: https://github.com/wuvt/PiFmRds
+
+Copyright: 2015-2016 WUVT IT <it@wuvt.vt.edu>
+License: GPL-3

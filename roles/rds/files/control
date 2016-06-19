@@ -1,0 +1,13 @@
+Source: PiFmRds
+Maintainer: WUVT IT <it@wuvt.vt.edu>
+Build-Depends: debhelper (>= 9)
+Vcs-Git: https://github.com/wuvt/PiFmRds.git
+Vcs-Browser: https://github.com/wuvt/PiFmRds.git
+Homepage: https://github.com/wuvt/PiFmRds
+
+Package: fm-rds
+Architecture: any
+Depends: ffmpeg (>= 2.8.5), python (>= 3)
+Description: RDS encoder for WUVT-FM
+ This is a terrible hack of an RDS encoder.
+
