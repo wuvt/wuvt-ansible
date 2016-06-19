@@ -1,0 +1,94 @@
+#upstream wuvt-site-am {
+#    ip_hash;
+#    server dreyfus.wuvt.vt.edu:8444;
+#}
+
+server {
+    listen        80;
+    listen        [::]:80;
+    server_name   am.wuvt.vt.edu;
+
+    location /.well-known/acme-challenge {
+        root /var/lib/letsencrypt/public_html;
+        default_type text/plain;
+    }
+
+    location /trackman/api/automation/log {
+        # Liquidsoap doesn't support HTTPS
+        # https://github.com/savonet/liquidsoap/issues/336
+
+        allow 192.168.0.0/16;
+        allow 128.173.235.21;
+        allow 128.173.235.22;
+        allow 128.173.235.23;
+        deny all;
+
+        proxy_set_header Host              $host;
+        proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $http_x_forwarded_proto;
+        proxy_set_header X-Real-IP         $remote_addr;
+
+        proxy_buffering off;
+        proxy_cache off;
+        proxy_http_version 1.1;
+        proxy_set_header Connection "";
+        chunked_transfer_encoding off;
+
+        proxy_pass https://wuvt-site-am;
+        client_max_body_size 10M;
+    }
+
+    location / {
+        return 301 https://am.wuvt.vt.edu$request_uri;
+    }
+}
+
+
+server {
+    listen        443      ssl;
+    listen        [::]:443 ssl;
+    server_name   am.wuvt.vt.edu;
+
+    ssl_certificate     /etc/letsencrypt/live/am.wuvt.vt.edu/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/am.wuvt.vt.edu/privkey.pem;
+    include tls.conf;
+    gzip off;
+
+    allow 192.168.0.0/16;
+    allow 128.173.235.21;
+    allow 128.173.235.22;
+    allow 128.173.235.23;
+    deny all;
+
+#    location /static/media {
+#        add_header X-Frame-Options SAMEORIGIN;
+#        alias /srv/http/media;
+#        expires 1d;
+#        autoindex on;
+#    }
+
+#    location /static {
+#        add_header X-Frame-Options SAMEORIGIN;
+#        root /srv/http/wuvt-site/wuvt;
+#        expires 7d;
+#    }
+
+    location / {
+        proxy_set_header Host              $host;
+        proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $http_x_forwarded_proto;
+        proxy_set_header X-Real-IP         $remote_addr;
+
+        proxy_buffering off;
+        proxy_cache off;
+        proxy_http_version 1.1;
+        proxy_set_header Connection "";
+        chunked_transfer_encoding off;
+
+        proxy_ssl_trusted_certificate /etc/nginx/certs/upstream-ca.pem;
+        proxy_ssl_verify on;
+
+        proxy_pass https://wuvt-site-am;
+        client_max_body_size 10M;
+    }
+}

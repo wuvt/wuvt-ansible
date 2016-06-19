@@ -2,7 +2,7 @@
 Description=Renew Let's Encrypt certificates
 
 [Timer]
-OnUnitActiveSec=15d
+OnUnitActiveSec=12h
 
 [Install]
 WantedBy=multi-user.target

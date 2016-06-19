@@ -55,10 +55,9 @@
   - db
   - object-store
   - website
-  - traefik
 
 - hosts: debian
- # become: yes
+  become: yes
   handlers:
   - include: handlers/mail.yml
   - include: handlers/ssh.yml
@@ -84,3 +83,9 @@
 #  become: yes
 #  roles:
 #  - aircheck
+
+- hosts: nginx
+  become: yes
+  roles:
+  - nginx
+  - certbot

@@ -1,0 +1,8 @@
+---
+- name: Enable jessie-backports
+  copy: src=jessie-backports.list
+        dest=/etc/apt/sources.list.d/jessie-backports.list
+  when: ansible_distribution_release == "jessie"
+
+- name: Update APT cache
+  apt: update_cache=yes

@@ -1,0 +1,33 @@
+server {
+    listen        80;
+    listen        [::]:80;
+    server_name   lists.wuvt.vt.edu;
+
+    rewrite ^ https://lists.wuvt.vt.edu$request_uri permanent;
+}
+
+server {
+    listen	443	ssl;
+    listen	[::]:443 ssl;
+    server_name	lists.wuvt.vt.edu;
+    ssl_certificate     /etc/nginx/certs/wuvt.vt.edu.crt;
+    ssl_certificate_key /etc/nginx/certs/private/wuvt.vt.edu.key;
+    include tls.conf;
+    gzip off;
+
+    location /mailman/ {
+        # mhazinsk 2015-03-12 - this IP will change eventually
+        proxy_pass http://192.168.0.50/mailman/;
+        proxy_set_header Host lists.wuvt.vt.edu;
+    }
+
+    location /pipermail/ {
+        # mhazinsk 2015-03-12 - this IP will change eventually
+        proxy_pass http://192.168.0.50/pipermail/;
+        proxy_set_header Host lists.wuvt.vt.edu;
+    }
+
+    location / {
+        rewrite ^ https://lists.wuvt.vt.edu/mailman/;
+    }
+}
