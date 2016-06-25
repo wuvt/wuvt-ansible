@@ -10,6 +10,9 @@
 - include: debian.yml
   when: ansible_os_family == "Debian"
 
+- name: Add the sudoers group to allowed sudoers
+  copy: src=sudoers.d/sudoers dest=/etc/sudoers.d/sudoers
+
 - name: Make sure openldap and sssd configuration directories exist
   file: path={{ item }} state=directory
   with_items:
@@ -26,7 +29,6 @@
 - name: Install /etc/sssd/sssd.conf
   copy: src=sssd.conf dest=/etc/sssd/sssd.conf owner=root group=root mode=0600
   notify: Restart sssd
-
 
 - name: Start and enable sssd
   service: name=sssd state=started enabled=yes

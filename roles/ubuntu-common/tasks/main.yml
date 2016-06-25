@@ -1,6 +1,6 @@
 ---
-- include: ldap-client.yml
 - include: nfs.yml
+
 - include: packages.yml
   when: ansible_distribution_version == "14.04"
 

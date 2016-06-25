@@ -5,7 +5,6 @@
 - include: hostname.yml
   when: hostname is defined
 
-- include: sudo.yml
 - include: yum.yml
 - include: mail.yml
 - include: ldap-client.yml
