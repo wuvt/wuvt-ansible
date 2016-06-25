@@ -11,7 +11,7 @@
   when: ansible_os_family == "Debian"
 
 - name: Add the sudoers group to allowed sudoers
-  copy: src=sudoers.d/sudoers dest=/etc/sudoers.d/sudoers
+  copy: src=sudoers.d/01_sudoers dest=/etc/sudoers.d/01_sudoers
 
 - name: Make sure openldap and sssd configuration directories exist
   file: path={{ item }} state=directory
