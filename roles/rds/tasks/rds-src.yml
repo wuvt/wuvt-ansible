@@ -1,7 +1,7 @@
 ---
 - name: Pull RDS source from GitHub
   git: repo=https://github.com/wuvt/PiFmRds.git update=yes force=yes
-          dest=/opt/PiFmRds
+        dest=/opt/PiFmRds
 
 - name: Install RDS-specific deps
   apt: name={{ item }} state=latest
@@ -12,8 +12,12 @@
 
 - name: Prepare RDS source for packaging
   script: prep.sh PiFmRds
-  copy: src=control dest=/opt/PiFmRds/src/debian/control force=yes
-  copy: src=copyright dest=/opt/PiFmRds/src/debian/copyright force=yes
+
+- name: Copy files for packaging
+  copy: src={{ item }} dest=/opt/PiFmRds/src/debian/{{ item }} force=yes
+  with_items:
+  - control
+  - copyright
 
 - name: Build and Package RDS
   script: build.sh
