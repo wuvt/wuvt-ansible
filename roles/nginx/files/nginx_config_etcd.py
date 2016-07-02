@@ -44,9 +44,12 @@ def generate_config(etcd_url, routes_dir):
         output += "upstream {} {{\n".format(upstream)
         output += "    ip_hash;\n"
 
-        for url in urls:
-            u = urlparse.urlparse(url)
-            output += "    server {};\n".format(u.netloc)
+        if len(urls) > 0:
+            for url in urls:
+                u = urlparse.urlparse(url)
+                output += "    server {};\n".format(u.netloc)
+        else:
+            output += "    server unix:/dev/null down;\n"
 
         output += "}\n"
 
