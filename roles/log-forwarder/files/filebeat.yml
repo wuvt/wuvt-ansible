@@ -6,18 +6,6 @@ filebeat:
       document_type: selinux
     -
       paths:
-        - "/var/log/icecast/access.log"
-      document_type: icecast
-    -
-      paths:
-        - "/var/log/letsencrypt/*.log"
-      document_type: letsencrypt
-    -
-      paths:
-        - "/var/log/nginx/access.log"
-      document_type: nginx
-    -
-      paths:
         - "/var/log/cron"
       document_type: cron
     -
