@@ -59,15 +59,16 @@
   - db
 
 - name: Create user
-  mysql_user: name=wuvtsite
-              password="{{ lookup('password', 'credentials/db_pass length=20') }}"
-              priv=wuvtsite.*:ALL state=present
-              login_user=root login_password="{{ mysql_root_password }}"
+  mysql_user:
+    name: wuvtsite
+    password: "{{ lookup('password', 'credentials/db_pass length=20') }}"
+    priv: "wuvtsite.*:ALL"
+    state: present
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
   tags:
   - website
   - db
-
-# " fix vim syntax highlight bug
 
 - name: Create run directory
   file: dest=/run/uwsgi owner=nginx group=nginx

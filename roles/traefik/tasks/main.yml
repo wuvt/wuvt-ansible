@@ -2,10 +2,10 @@
 - include: etcd.yml
 
 - name: Download and install traefik
-  get_url: url="https://github.com/containous/traefik/releases/download/{{ traefik_version }}/traefik"
-           checksum="{{ traefik_checksum }}" dest=/usr/local/bin/traefik
-
-# " fix vim syntax highlight bug
+  get_url:
+    url: "https://github.com/containous/traefik/releases/download/{{ traefik_version }}/traefik"
+    checksum: "{{ traefik_checksum }}"
+    dest: /usr/local/bin/traefik
 
 - name: Set permissions on /usr/local/bin/traefik
   file: dest=/usr/local/bin/traefik mode=0755

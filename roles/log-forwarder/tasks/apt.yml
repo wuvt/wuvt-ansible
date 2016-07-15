@@ -1,11 +1,11 @@
 ---
 - name: Add signing key for elastic APT repository
-  apt_key: data="{{ lookup('file', 'elastic.asc') }}" state=present
+  apt_key:
+    data: "{{ lookup('file', 'elastic.asc') }}"
+    state: present
   tags:
   - packages
   - log-forwarder
-
-# " fix vim syntax highlight bug
 
 - name: Make sure apt-transport-https is installed
   apt: pkg=apt-transport-https state=present
