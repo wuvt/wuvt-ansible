@@ -1,3 +1,6 @@
 ---
-- include: ubuntu.yml
-  when: ansible_distribution_version == "16.04" 
+- include: apt.yml
+  when: ansible_pkg_mgr == "apt"
+
+- name: Install krb5.conf
+  copy: src=krb5.conf dest=/etc/krb5.conf

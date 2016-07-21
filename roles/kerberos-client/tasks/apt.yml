@@ -1,0 +1,6 @@
+---
+- name: Install Kerberos packages
+  apt: name={{ item }} state=latest
+  with_items:
+  - krb5-user
+  - krb5-config
