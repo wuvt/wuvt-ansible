@@ -9,8 +9,8 @@
   when: ansible_os_family == "RedHat"
   tags: [auth]
 
-- include: debian.yml
-  when: ansible_os_family == "Debian"
+- include: ubuntu.yml
+  when: ansible_distribution == "Ubuntu"
   tags: [auth]
 
 - name: Add the sudoers group to allowed sudoers
