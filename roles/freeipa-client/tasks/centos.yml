@@ -1,0 +1,17 @@
+---
+- name: Install ipa-client
+  yum: name=ipa-client state=present
+  tags: [auth]
+
+- name: Check if already joined
+  register: keytab_exists
+  stat: path=/etc/krb5.keytab
+  tags: [auth]
+
+- name: Join freeipa domain
+  when: keytab_exists.stat.exists == False
+  tags: [auth]
+  command: >
+    ipa-client-install --enable-dns-updates --domain=wuvt.vt.edu 
+    --server=zolitude.wuvt.vt.edu -p joinaccount@WUVT.VT.EDU 
+    -w {{ joindomain_password }} -U

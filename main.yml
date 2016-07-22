@@ -6,7 +6,7 @@
   roles:
   - centos-common
   - common
-  - ldap-client
+  - freeipa-client
   - log-forwarder
 
 - hosts: stream
