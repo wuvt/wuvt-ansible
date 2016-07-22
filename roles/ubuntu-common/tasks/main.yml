@@ -1,6 +1,12 @@
 ---
 - include: nfs.yml
 
+- name: Configure system hostname
+  hostname:
+    name: "{{ hostname }}"
+  tags:
+  - common
+
 - include: packages.yml
   when: ansible_distribution_version == "14.04"
 
