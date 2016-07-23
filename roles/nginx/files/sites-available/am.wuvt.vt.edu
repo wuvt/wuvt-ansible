@@ -45,8 +45,8 @@ server {
 
 
 server {
-    listen        443      ssl;
-    listen        [::]:443 ssl;
+    listen        443      ssl http2;
+    listen        [::]:443 ssl http2;
     server_name   am.wuvt.vt.edu;
 
     ssl_certificate     /etc/letsencrypt/live/am.wuvt.vt.edu/fullchain.pem;
@@ -86,7 +86,7 @@ server {
         chunked_transfer_encoding off;
 
         proxy_ssl_trusted_certificate /etc/nginx/certs/upstream-ca.pem;
-        proxy_ssl_verify on;
+        #proxy_ssl_verify on;
 
         proxy_pass https://wuvt-site-am;
         client_max_body_size 10M;

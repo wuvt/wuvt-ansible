@@ -13,7 +13,11 @@ ssl_prefer_server_ciphers on;
 # OCSP Stapling
 ssl_stapling on;
 ssl_stapling_verify on;
+{% if ansible_os_family == "RedHat" -%}
+ssl_trusted_certificate /etc/ssl/certs/ca-bundle.crt;
+{% else -%}
 ssl_trusted_certificate /etc/ssl/certs/ca-certificates.crt;
+{% endif %}
 
 # resolvers (for OCSP stapling, etc.)
 resolver{% for resolver in resolvers %} {{ resolver }}{% endfor %};

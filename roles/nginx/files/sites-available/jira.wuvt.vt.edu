@@ -14,8 +14,8 @@ server {
 }
 
 server {
-    listen        443      ssl;
-    listen        [::]:443 ssl;
+    listen        443      ssl http2;
+    listen        [::]:443 ssl http2;
     server_name   jira.wuvt.vt.edu;
 
     ssl_certificate     /etc/letsencrypt/live/jira.wuvt.vt.edu/fullchain.pem;

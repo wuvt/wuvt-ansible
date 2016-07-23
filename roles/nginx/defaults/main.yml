@@ -4,7 +4,7 @@ etcd_discovery_srv: wuvt.vt.edu
 nginx_ocsp_stapling: true
 nginx_sites:
 - am.wuvt.vt.edu
-#- jira.wuvt.vt.edu
+- jira.wuvt.vt.edu
 #- lists.wuvt.vt.edu
 - registry.wuvt.vt.edu
-#- www.wuvt.vt.edu
+- www.wuvt.vt.edu

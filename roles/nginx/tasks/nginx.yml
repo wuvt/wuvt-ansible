@@ -7,6 +7,27 @@
 #  - packages
 #  - web
 
+- name: Copy nginx signing key
+  copy: src=nginx_signing.key dest=/etc/pki/rpm-gpg/nginx_signing.key mode=0644
+  when: ansible_pkg_mgr == "yum"
+  tags:
+  - packages
+  - web
+
+- name: Copy nginx.repo
+  copy: src=yum.repos.d/nginx.repo dest=/etc/yum.repos.d/nginx.repo mode=0644
+  when: ansible_pkg_mgr == "yum"
+  tags:
+  - packages
+  - web
+
+- name: Import nginx signing key
+  rpm_key: key=/etc/pki/rpm-gpg/nginx_signing.key
+  when: ansible_pkg_mgr == "yum"
+  tags:
+  - packages
+  - web
+
 - name: Install nginx (yum)
   yum: name=nginx state=latest
   when: ansible_pkg_mgr == "yum"
@@ -50,9 +71,8 @@
   tags:
   - web
 
-- name: Install nginx.conf (CentOS only)
+- name: Install nginx.conf
   copy: src=nginx.conf dest=/etc/nginx/nginx.conf
-  when: ansible_distribution == "CentOS"
   notify: Reload nginx
   tags:
   - web
