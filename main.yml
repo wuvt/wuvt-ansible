@@ -94,3 +94,8 @@
   become: yes
   roles:
   - rds
+
+- hosts: macpros
+  become: yes
+  roles:
+  - macpros

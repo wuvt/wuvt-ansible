@@ -1,0 +1,6 @@
+---
+- name: Add line to rc.local
+  lineinfile: create=yes line="/usr/bin/setpci -s 0:1f.0 0xa4.b=0" insertbefore="exit 0" state=present
+
+- name: Enable rc.local in systemd
+  service: name=rc-local state=started enabled=yes
