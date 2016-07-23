@@ -1,8 +1,3 @@
-#upstream wuvt-site-am {
-#    ip_hash;
-#    server dreyfus.wuvt.vt.edu:8444;
-#}
-
 server {
     listen        80;
     listen        [::]:80;
