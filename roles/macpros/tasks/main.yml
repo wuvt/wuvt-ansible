@@ -1,6 +1,11 @@
 ---
-- name: Add line to rc.local
+- name: Add line to rc.local for debian
   lineinfile: create=yes line="/usr/bin/setpci -s 0:1f.0 0xa4.b=0" insertbefore="exit 0" state=present dest=/etc/rc.local
+  when: ansible_os_family == "Debian"
+
+- name: Add line to rc.local for debian
+  lineinfile: create=yes line="/usr/sbin/setpci -s 0:1f.0 0xa4.b=0" insertbefore="exit 0" state=present dest=/etc/rc.local
+  when: ansible_os_family == "RedHat"
 
 - name: Enable rc.local in systemd
   service: name=rc-local state=started enabled=yes
