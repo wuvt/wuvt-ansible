@@ -3,10 +3,10 @@
   roles:
   - ubuntu-common
   - common
-  - ldap-client
+  - freeipa-client
   - log-forwarder
   - ubuntu-desktop
-  - kerberos-client
+    #- kerberos-client
   - role: jnv.unattended-upgrades
     unattended_origins_patterns:
     - 'origin=Ubuntu,archive=${distro_codename}-security'
