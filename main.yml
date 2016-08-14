@@ -24,6 +24,12 @@
   roles:
   - file
 
+- hosts: fileserver
+  become: yes
+  roles:
+  - freeipa-client
+  - log-forwarder
+
 - hosts: ldap
   become: yes
   roles:
