@@ -4,7 +4,9 @@ This is a repository of ansible playbooks for hosts on WUVT's network. Currently
 Add files containing passwords to .gitignore before staging so they are not stored in the repo.
 
 To execute a playbook on all machines, run 
-"ansible-playbook main.yml -i hosts.cfg --limit=workstations -K"
+
+    "ansible-playbook main.yml -i hosts.cfg --limit=workstations -K"
+
 (replacing "workstations" with the hosts group you would like to deploy on)
 
 For more info, man ansible-playbook or see http://ansible.cc

@@ -96,12 +96,25 @@
   - nginx
   - certbot
 
+- hosts: macpros
+  become: yes
+  roles:
+  - macpros
+
+- hosts: ubuntu-serv
+  become: yes
+  roles:
+  - ubuntu-common
+  - common
+  - freeipa-client
+  - log-forwarder
+  - role: jnv.unattended-upgrades
+    unattended_origins_patterns:
+    - 'origin=Ubuntu,archive=${distro_codename}-security'
+    unattended_mail: 'root@wuvt.vt.edu'
+
 - hosts: rds
   become: yes
   roles:
   - rds
 
-- hosts: macpros
-  become: yes
-  roles:
-  - macpros
