@@ -10,20 +10,21 @@
   tags:
   - packages
 
-- name: Prepare RDS source for packaging
-  script: prep.sh PiFmRds
-
-- name: Copy files for packaging
-  copy: src={{ item }} dest=/opt/PiFmRds/src/debian/{{ item }} force=yes
-  with_items:
-  - control
-  - copyright
-
-- name: Build and Package RDS
-  script: build.sh
-
-- name: Install RDS Package
-  apt: deb=/opt/PiFmRds/fm-rds_0.0.1-1_i386.deb
+# TODO: Ensure packaging works?
+#- name: Prepare RDS source for packaging
+#  script: prep.sh PiFmRds
+#
+#- name: Copy files for packaging
+#  copy: src={{ item }} dest=/opt/PiFmRds/src/debian/{{ item }} force=yes
+#  with_items:
+#  - control
+#  - copyright
+#
+#- name: Build and Package RDS
+#  script: build.sh
+#
+#- name: Install RDS Package
+#  apt: deb=/opt/PiFmRds/fm-rds_0.0.1-1_i386.deb
 
 # TODO: rds.service
 # - name: Install rds.service
