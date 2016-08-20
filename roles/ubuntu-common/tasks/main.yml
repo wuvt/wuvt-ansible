@@ -1,4 +1,7 @@
 ---
+- name: bootstrap python, just in case.
+  raw: apt-get install python
+
 - include: nfs.yml
 
 - name: Configure system hostname

@@ -20,3 +20,7 @@
 - name: Configure autofs mounts
   tags: [auth]
   command: ipa-client-automount -U
+  register: command_result
+  failed_when:
+  - "'already configured' not in command_result.stderr"
+  - "command_result.rc != 0"
