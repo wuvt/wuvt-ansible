@@ -8,6 +8,9 @@
   stat: path=/etc/krb5.keytab
   tags: [auth]
 
+- name: Install autofs
+  apt: name=autofs state=present
+
 - name: Join freeipa domain
   when: keytab_exists.stat.exists == False
   tags: [auth]
@@ -17,10 +20,37 @@
     -w {{ joindomain_password }} -U
 
 # Note this only works if the old auth has been removed from sssd.conf
+- name: Check if automount is configured
+  register: automount_nss
+  failed_when: automount_nss.rc == 254
+  shell: /bin/grep automount /etc/nsswitch.conf
+  tags: [auth]
+
+- name: Add automount line to nsswitch
+  lineinfile: dest=/etc/nsswitch.conf line="automount:{{ ' ' }} sss" regexp='^automount:.*$' state=present
+  tags: [auth]
+
 - name: Configure autofs mounts
   tags: [auth]
+  when: automount_nss.rc != 0
   command: ipa-client-automount -U
   register: command_result
   failed_when:
   - "'already configured' not in command_result.stderr"
   - "command_result.rc != 0"
+
+- name: Remove keyring line
+  lineinfile: dest=/etc/krb5.conf regexp=".*default_ccache_name.*" state=absent
+  tags: [auth]
+
+- name: Restart rpc-gssd
+  service: name=rpc-gssd state=restarted
+  tags: [auth]
+
+- name: Restart autofs
+  service: name=autofs state=restarted
+  tags: [auth]
+
+- name: Restart sssd
+  service: name=sssd state=restarted
+  tags: [auth]
