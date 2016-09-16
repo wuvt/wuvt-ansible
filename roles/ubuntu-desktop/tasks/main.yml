@@ -20,3 +20,9 @@
   apt: name={{ item }} state=latest
   with_items:
   - morituri
+
+- name: LightDM config file to disable guest login
+  copy: src=50-no-guest.conf dest=/usr/share/lightdm/lightdm.conf.d/50-no-guest.conf
+
+- name: Restart lightDM
+  service: name=lightdm state=restarted
