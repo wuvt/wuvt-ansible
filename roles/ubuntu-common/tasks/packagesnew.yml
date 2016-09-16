@@ -38,21 +38,6 @@
   tags:
   - packages
 
-#This is broken on xenial as of 2016-april
-#- name: Add dropbox repo
-#  apt_repository: repo='deb http://linux.dropbox.com/ubuntu trusty main' update_cache=yes
-#
-#- name: Add dropbox gpg key
-#  apt_key: data="{{ lookup('file', 'dropbox.key') }}"
-
-# - name: Force install dropbox
-#  apt: name={{ item }} state=latest force=yes
-#  with_items:
-#  - dropbox
-#  tags:
-#  - packages
-#  - dropbox
-
 # Apparently update_cache breaks if you're sudoing and root can't
 # CD to the user's home directory (as is the case with our NFS setup)
 # -- mhazinsk 2015-06-08

@@ -15,3 +15,12 @@
     ipa-client-install --enable-dns-updates --domain=wuvt.vt.edu 
     --server=zolitude.wuvt.vt.edu -p joinaccount@WUVT.VT.EDU 
     -w {{ joindomain_password }} -U
+
+# Note this only works if the old auth has been removed from sssd.conf
+- name: Configure autofs mounts
+  tags: [auth]
+  command: ipa-client-automount -U
+  register: command_result
+  failed_when:
+  - "'already configured' not in command_result.stderr"
+  - "command_result.rc != 0"
