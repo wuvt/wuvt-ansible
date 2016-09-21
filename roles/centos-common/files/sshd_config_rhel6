@@ -83,7 +83,7 @@ PasswordAuthentication yes
 ChallengeResponseAuthentication no
 
 # Restrict groups to IT/engineering and root
-AllowGroups itstaff engineering root sudoers
+AllowGroups it-staff engineering root sudoers
 
 # Kerberos options
 #KerberosAuthentication no
