@@ -1,0 +1,3 @@
+---
+- name: install prune_logs.py into /etc/cron.daily/
+  copy: src=prune_logs.py dest=/etc/cron.daily/prune_logs.py mode=0700

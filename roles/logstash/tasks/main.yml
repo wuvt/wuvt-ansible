@@ -13,3 +13,4 @@
 - include: kibana.yml
 - include: logstash.yml
 - include: elastalert.yml
+- include: prune.yml
