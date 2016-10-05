@@ -35,6 +35,7 @@
   - ruby
   - ansible
   - sshpass
+  - golang-go
   tags:
   - packages
 
