@@ -1,36 +1,36 @@
 ---
 - name: Pull RDS source from GitHub
-  git: repo=https://github.com/wuvt/PiFmRds.git update=yes force=yes
+  git: repo=https://github.com/wuvt/PiFmRds.git update=yes
         dest=/opt/PiFmRds
 
-- name: Install RDS-specific deps
+- name: Install PiFmRds deps
   apt: name={{ item }} state=latest
   with_items:
+  - build-essential
+  - libsndfile-dev
   - ffmpeg
+  - alsa-utils
   tags:
   - packages
 
-# TODO: Ensure packaging works?
-#- name: Prepare RDS source for packaging
-#  script: prep.sh PiFmRds
-#
-#- name: Copy files for packaging
-#  copy: src={{ item }} dest=/opt/PiFmRds/src/debian/{{ item }} force=yes
-#  with_items:
-#  - control
-#  - copyright
-#
-#- name: Build and Package RDS
-#  script: build.sh
-#
-#- name: Install RDS Package
-#  apt: deb=/opt/PiFmRds/fm-rds_0.0.1-1_i386.deb
+- name: Build PiFmRds
+  script: build.sh
 
-# TODO: rds.service
-# - name: Install rds.service
-#   copy: src=rds.service dest=/etc/systemd/system/rds.service
-#
-# - name: Start and enable rds.service
-#   service: name=rds state=started enabled=yes
-#   tags:
-#   - services
+- name: Configure sound card
+  command: /opt/PiFmRds/hw-setup.sh
+
+- name: Install rds_wuvt.service
+  command: cp /opt/PiFmRds/rds_wuvt.service /etc/systemd/system/
+- name: Install rds_play.service
+  command: cp /opt/PiFmRds/rds_play.service /etc/systemd/system/
+- name: Reload unit files
+  command: systemctl daemon-reload
+
+- name: Restart rds_wuvt.service
+  service: name=rds_wuvt state=restarted enabled=yes
+  tags:
+  - services
+- name: Restart rds_play.service
+  service: name=rds_play state=restarted enabled=yes
+  tags:
+  - services
