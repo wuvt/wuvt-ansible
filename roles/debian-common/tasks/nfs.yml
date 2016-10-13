@@ -15,8 +15,8 @@
 #  tags: 
 #  - local
 
-- name: change /etc/fstab
-  mount: fstype=nfs name=/home src=192.168.0.55:/mnt/mckillican/home state=mounted
+#- name: change /etc/fstab
+#  mount: fstype=nfs name=/home src=192.168.0.55:/mnt/mckillican/home state=unmounted
 
 #- name: Move user's home dir
 #  user: name=ladmin home=/local/ladmin

@@ -15,5 +15,5 @@
   tags:
   - nfs
 
-- name: Unmount /home from NFS
-  mount: fstype=nfs name=/home src=192.168.0.55:/mnt/mckillican/home state=unmounted
+#- name: Unmount /home from NFS
+#  mount: fstype=nfs name=/home src=192.168.0.55:/mnt/mckillican/home state=unmounted
