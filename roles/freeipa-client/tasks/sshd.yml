@@ -1,0 +1,47 @@
+---
+- name: Set OpenSSH AuthorizedKeysCommandUser for sssd
+  lineinfile: dest=/etc/ssh/sshd_config
+              line="AuthorizedKeysCommandUser nobody"
+              regexp='^AuthorizedKeysCommandUser'
+              validate='sshd -tf %s' state=present
+  notify: Restart sshd
+
+- name: Set OpenSSH AuthorizedKeysCommand for sssd
+  lineinfile: dest=/etc/ssh/sshd_config
+              line="AuthorizedKeysCommand /usr/bin/sss_ssh_authorizedkeys"
+              regexp='^AuthorizedKeysCommand '
+              validate='sshd -tf %s' state=present
+  notify: Restart sshd
+
+- name: Disable OpenSSH ChallengeResponseAuthentication
+  lineinfile: dest=/etc/ssh/sshd_config
+              line="ChallengeResponseAuthentication no"
+              regexp='^ChallengeResponseAuthentication'
+              validate='sshd -tf %s' state=present
+  notify: Restart sshd
+
+- name: Disable OpenSSH GSSAPIAuthentication
+  lineinfile: dest=/etc/ssh/sshd_config
+              line="GSSAPIAuthentication no" regexp='^GSSAPIAuthentication'
+              validate='sshd -tf %s' state=present
+  notify: Restart sshd
+
+- name: Disable OpenSSH KerberosAuthentication
+  # this is off by default but we just want to be sure
+  lineinfile: dest=/etc/ssh/sshd_config
+              line="KerberosAuthentication no" regexp='^KerberosAuthentication'
+              validate='sshd -tf %s' state=present
+  notify: Restart sshd
+
+- name: Disable OpenSSH PasswordAuthentication
+  lineinfile: dest=/etc/ssh/sshd_config
+              line="PasswordAuthentication no" regexp='^PasswordAuthentication'
+              validate='sshd -tf %s' state=present
+  notify: Restart sshd
+
+- name: Set OpenSSH AllowGroups
+  lineinfile: dest=/etc/ssh/sshd_config
+              line="AllowGroups engineering it-staff sudoers"
+              regexp='^AllowGroups'
+              validate='sshd -tf %s' state=present
+  notify: Restart sshd

@@ -16,3 +16,6 @@
 - name: Add the sudoers group to allowed sudoers
   copy: src=sudoers.d/01_sudoers dest=/etc/sudoers.d/01_sudoers
   tags: [auth]
+
+- name: Update OpenSSH configuration
+  include: sshd.yml

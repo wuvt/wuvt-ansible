@@ -2,7 +2,6 @@
   become: yes
   handlers:
   - include: handlers/mail.yml
-  - include: handlers/ssh.yml
   roles:
   - centos-common
   - common
@@ -66,7 +65,6 @@
   become: yes
   handlers:
   - include: handlers/mail.yml
-  - include: handlers/ssh.yml
   roles:
   - debian-common
   - common
