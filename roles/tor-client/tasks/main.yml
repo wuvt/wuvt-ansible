@@ -1,0 +1,11 @@
+---
+- name: Install tor
+  yum: name=tor state=present
+  tags: packages
+
+#- name: Install torrc
+#  template: src=torrc.j2 dest=/etc/tor/torrc
+#  notify: Reload tor
+
+- name: Enable and start tor
+  service: name=tor state=started enabled=yes
