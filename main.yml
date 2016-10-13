@@ -118,3 +118,7 @@
   roles:
   - rds
 
+- hosts: automation-ubu
+  become: yes
+  roles:
+  - automation

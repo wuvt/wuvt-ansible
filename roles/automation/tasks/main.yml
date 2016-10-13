@@ -7,4 +7,8 @@
          src=192.168.0.55:/mnt/mckillican/automation state=mounted
 
 - include: packages.yml
+
+- name: Add liquidsoap user to audio group
+  user: name=liquidsoap groups=liquidsoap,audio
+
 - include: johnnysix.yml
