@@ -1,0 +1,32 @@
+---
+- hosts: tacomanarrows.wuvt.vt.edu
+  become: yes
+  vars_files:
+  - vars/tacomanarrows_users.yml
+  roles:
+  - log-forwarder
+  tasks:
+  - name: Install shell server packages
+    pacman: name={{ item }} state=present
+    with_items:
+    - ansible
+    - cowsay
+    - termite-terminfo
+    - weechat
+    - zsh
+    tags: [packages]
+
+  - name: Create users
+    user:
+      name: "{{ item.name }}"
+      group: users
+      state: present
+    with_items: "{{ users }}"
+
+  - name: Add authorized keys for users
+    authorized_key:
+      user: "{{ item.0.name }}"
+      key: "{{ item.1 }}"
+    with_subelements:
+    - "{{ users }}"
+    - ssh_keys
