@@ -1,0 +1,6 @@
+---
+- name: install filebeat
+  pacman: name=filebeat state=present
+  tags:
+  - packages
+  - log-forwarder
