@@ -1,0 +1,11 @@
+[Unit]
+Description=Ship journal to sampoong
+                                                                                                                                   
+[Service]
+TimeoutStartSec=0
+ExecStart=/bin/sh -c "journalctl -o json -f | ncat --ssl --ssl-trustfile /etc/filebeat/logstash.pem sampoong.wuvt.vt.edu 5044"
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

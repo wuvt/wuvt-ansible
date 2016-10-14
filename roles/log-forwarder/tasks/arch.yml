@@ -4,3 +4,14 @@
   tags:
   - packages
   - log-forwarder
+
+- name: install nmap (for ncat)
+  pacman: name=nmap state=present
+  tags:
+  - packages
+  - log-forwarder
+
+- name: install ship-journal.service
+  copy: src=ship-journal.service dest=/etc/systemd/system/ship-journal.service
+  tags:
+  - log-forwarder

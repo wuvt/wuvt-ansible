@@ -25,3 +25,10 @@
   tags:
   - services
   - log-forwarder
+
+- name: start and enable ship-journal.service
+  service: name=ship-journal.service state=started enabled=yes
+  when: ansible_os_family == "Archlinux"
+  tags:
+  - services
+  - log-forwarder
