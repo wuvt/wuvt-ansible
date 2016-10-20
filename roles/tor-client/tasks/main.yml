@@ -1,6 +1,12 @@
 ---
-- name: Install tor
+- name: Install tor (pacman)
+  pacman: name=tor state=present
+  when: ansible_pkg_mgr == "pacman"
+  tags: packages
+
+- name: Install tor (yum)
   yum: name=tor state=present
+  when: ansible_pkg_mgr == "yum"
   tags: packages
 
 #- name: Install torrc
