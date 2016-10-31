@@ -29,11 +29,6 @@
   - freeipa-client
   - log-forwarder
 
-- hosts: ldap
-  become: yes
-  roles:
-  - ldap
-
 # TODO: Write the mail role
 - hosts: mail
   become: yes
@@ -68,7 +63,7 @@
   roles:
   - debian-common
   - common
-  - ldap-client
+  - freeipa-client
   - log-forwarder
 
 - hosts: logstash

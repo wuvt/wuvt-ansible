@@ -1,3 +1,0 @@
-- name: Place the desired sysconfig file
-  copy: src=ldap dest=/etc/sysconfig/ldap group=root owner=root mode=0644 force=yes
-
