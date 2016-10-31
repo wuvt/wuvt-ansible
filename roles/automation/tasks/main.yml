@@ -3,8 +3,12 @@
   file: dest=/mnt/automation state=directory
 
 - name: Set up /mnt/automation mount
-  mount: name=/mnt/automation fstype=nfs
-         src=192.168.0.55:/mnt/mckillican/automation state=mounted
+  mount:
+    name: /mnt/automation
+    src: alexandria.wuvt.vt.edu:/tank/automation
+    fstype: nfs
+    opts: sec=krb5p
+    state: mounted
 
 - include: packages.yml
 
