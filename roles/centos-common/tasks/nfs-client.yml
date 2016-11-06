@@ -14,6 +14,3 @@
   when: ansible_distribution_version.split(".")[0] == "7"
   tags:
   - nfs
-
-#- name: Unmount /home from NFS
-#  mount: fstype=nfs name=/home src=192.168.0.55:/mnt/mckillican/home state=unmounted
