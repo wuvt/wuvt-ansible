@@ -22,8 +22,10 @@
   template: src=idmapd.conf.j2 dest=/etc/idmapd.conf mode=0644
   tags: configure
 
-- name: Enable NFS services
-  service: name=nfs state=restarted enabled=yes
-  tags: nfs
+- name: Enable rpcbind service
   service: name=rpcbind state=restarted enabled=yes
   tags: rpcbind
+
+- name: Enable NFS service
+  service: name=nfs state=restarted enabled=yes
+  tags: nfs
