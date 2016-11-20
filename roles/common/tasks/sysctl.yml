@@ -1,0 +1,4 @@
+- name: Install /etc/sysctl.d/10-raid-speed-limit.conf
+  copy:
+    src: 10-raid-speed-limit.conf
+    dest: /etc/sysctl.d/10-raid-speed-limit.conf
