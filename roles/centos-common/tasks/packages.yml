@@ -45,6 +45,7 @@
   - mtr
   - nmap
   - ncdu
+  - net-tools
   - vim
   - rsync
   - screen
