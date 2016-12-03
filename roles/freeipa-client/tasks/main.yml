@@ -2,7 +2,7 @@
 - name: Stop and disable nscd
   service: name=nscd state=stopped enabled=no
   ignore_errors: yes
-  when: ansible_distribution_version == "14.04" or ansible_os_family == "RedHat"
+  when: ansible_os_family == "RedHat"
   tags: [auth]
 
 - include: centos.yml

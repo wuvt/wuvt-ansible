@@ -1,0 +1,6 @@
+---
+- name: Restart lightDM
+  service: name=lightdm state=restarted
+
+- name: Restart network mangler
+  service: name=NetworkManager state=restarted

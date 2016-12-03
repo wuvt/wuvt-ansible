@@ -17,9 +17,6 @@ this on all machines in the "rhel5" category.
 
 Several things have not yet been added to ansible, including the mail server
 
-Note that for Ubuntu 14.04 machines (the `ubuntu-common` role), you need to 
-add the `vers=3` option.
-
 ### Client-side config required
 
 In your client's config file, be sure to change the `remote_tmp` parameter

@@ -11,7 +11,4 @@
   - common
 
 - include: packages.yml
-  when: ansible_distribution_version == "14.04"
-
-- include: packagesnew.yml
   when: ansible_distribution_version == "16.04"
