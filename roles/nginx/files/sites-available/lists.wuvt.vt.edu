@@ -13,7 +13,6 @@ server {
     ssl_certificate     /etc/nginx/certs/wuvt.vt.edu.crt;
     ssl_certificate_key /etc/nginx/certs/private/wuvt.vt.edu.key;
     include tls.conf;
-    gzip off;
 
     location /mailman/ {
         # mhazinsk 2015-03-12 - this IP will change eventually

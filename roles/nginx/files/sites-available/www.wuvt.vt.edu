@@ -1,7 +1,7 @@
 server {
     listen        80;
     listen        [::]:80;
-    server_name   www.wuvt.vt.edu wuvt.vt.edu;
+    server_name   www.wuvt.vt.edu wuvt.vt.edu wuvt.org www.wuvt.org;
 
     location /.well-known/acme-challenge {
         root /var/lib/letsencrypt/public_html;
@@ -23,7 +23,7 @@ server {
         proxy_set_header Connection "";
         chunked_transfer_encoding off;
 
-        proxy_ssl_trusted_certificate /etc/nginx/certs/upstream-ca.pem;
+        proxy_ssl_trusted_certificate /etc/ssl/certs/upstream-ca.pem;
         proxy_ssl_verify on;
 
         proxy_pass https://wuvt-site-prod;
@@ -44,6 +44,21 @@ server {
     ssl_certificate_key /etc/letsencrypt/live/www.wuvt.vt.edu/privkey.pem;
     #ssl_certificate     /etc/nginx/certs/wuvt.vt.edu.crt;
     #ssl_certificate_key /etc/nginx/certs/private/wuvt.vt.edu.key;
+    include tls.conf;
+    gzip off;
+
+    #add_header Strict-Transport-Security max-age=15552000;
+
+    return 301 https://www.wuvt.vt.edu$request_uri;
+}
+
+server {
+    listen        443      ssl http2;
+    listen        [::]:443 ssl http2;
+    server_name   wuvt.org www.wuvt.org;
+
+    ssl_certificate     /etc/letsencrypt/live/wuvt.org/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/wuvt.org/privkey.pem;
     include tls.conf;
     gzip off;
 
@@ -142,7 +157,7 @@ server {
         proxy_set_header Connection "";
         chunked_transfer_encoding off;
 
-        proxy_ssl_trusted_certificate /etc/nginx/certs/upstream-ca.pem;
+        proxy_ssl_trusted_certificate /etc/ssl/certs/upstream-ca.pem;
         proxy_ssl_verify on;
 
         proxy_pass https://wuvt-site-prod;
