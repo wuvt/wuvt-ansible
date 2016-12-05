@@ -9,7 +9,7 @@ timeframe:
 filter:
 - query:
     query_string:
-      query: "program:journal AND Exception"
+      query: "program:docker AND ERROR in app"
 
 alert:
 - "email"
