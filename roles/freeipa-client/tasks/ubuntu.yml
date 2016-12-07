@@ -35,9 +35,12 @@
   when: automount_nss.rc != 0
   command: ipa-client-automount -U
   register: command_result
-  failed_when:
-  - "'already configured' not in command_result.stderr"
-  - "command_result.rc != 0"
+  ignore_errors: yes
+
+  # This is broken. Using ignore_errors in the meantime. --mhazinsk
+  #failed_when:
+  #- "'already configured' not in command_result.stderr"
+  #- "command_result.rc != 0"
 
 - name: Remove keyring line
   lineinfile: dest=/etc/krb5.conf regexp=".*default_ccache_name.*" state=absent
