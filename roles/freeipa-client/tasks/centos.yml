@@ -3,18 +3,14 @@
   yum: name=ipa-client state=present
   tags: [auth]
 
-- name: Check if already joined
-  register: keytab_exists
-  stat: path=/etc/krb5.keytab
-  tags: [auth]
-
 - name: Join freeipa domain
-  when: keytab_exists.stat.exists == False
   tags: [auth]
   command: >
-    ipa-client-install --enable-dns-updates --domain=wuvt.vt.edu 
-    --server=zolitude.wuvt.vt.edu -p joinaccount@WUVT.VT.EDU 
+    ipa-client-install --enable-dns-updates --domain=wuvt.vt.edu
+    --server=zolitude.wuvt.vt.edu -p joinaccount@WUVT.VT.EDU
     -w {{ joindomain_password }} -U
+    creates=/etc/krb5.keytab
+  when: joindomain_password is defined
 
 # Note this only works if the old auth has been removed from sssd.conf
 - name: Configure autofs mounts
