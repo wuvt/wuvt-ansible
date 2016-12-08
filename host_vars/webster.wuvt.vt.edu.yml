@@ -1,4 +1,4 @@
 coreos_guest_hostname: genesis
 coreos_guest_public_ipv4: 192.168.0.243
-coreos_locksmith_window_start: 04:00
+coreos_locksmith_window_start: 06:00
 coreos_locksmith_window_length: 1h
