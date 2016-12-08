@@ -114,7 +114,7 @@
 - hosts: automation-ubu
   become: yes
   roles:
-  - automation
+  - automation-ubu
 
 - hosts: marshall.wuvt.vt.edu
   become: yes
