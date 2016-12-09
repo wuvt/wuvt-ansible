@@ -35,6 +35,8 @@
   - "'already configured' not in command_result.stderr"
   - "command_result.rc != 0"
 
+# Ubuntu does not package gssproxy, so we cannot use the kernel keyring for the
+# ccache.  We remove the line so it will default to using the FILE ccache.
 - name: Remove keyring line
   lineinfile: dest=/etc/krb5.conf regexp=".*default_ccache_name.*" state=absent
   tags: [auth]
