@@ -18,6 +18,12 @@
   tags:
   - packages
 
+- name: Remove liquidsoap opus plugin on Ubuntu hosts
+  apt: name=liquidsoap-plugin-opus state=absent
+  when: ansible_distribution == "Ubuntu"
+  tags:
+  - packages
+
 - name: Make sure pulseaudio is not installed
   apt: name={{ item }} state=absent
   with_items:
