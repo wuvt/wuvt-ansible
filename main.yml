@@ -8,6 +8,28 @@
   - freeipa-client
   - log-forwarder
 
+- hosts: debian
+  become: yes
+  handlers:
+  - include: handlers/mail.yml
+  roles:
+  - debian-common
+  - common
+  - freeipa-client
+  - log-forwarder
+
+- hosts: ubuntu-serv
+  become: yes
+  roles:
+  - ubuntu-common
+  - common
+  - freeipa-client
+  - log-forwarder
+  - role: jnv.unattended-upgrades
+    unattended_origins_patterns:
+    - 'origin=Ubuntu,archive=${distro_codename}-security'
+    unattended_mail: 'root@wuvt.vt.edu'
+
 - hosts: stream
   become: yes
   roles:
@@ -34,37 +56,6 @@
   become: yes
   roles:
   - mail
-
-# TODO: Write internal-site role
-- hosts: internal-webserver
-  become: yes
-  roles:
-  - webserver
-  - certbot
-  - db
-  - media-wiki
-  - radiothon
-  - music-db
-
-# TODO: Write external-site role
-- hosts: external-webserver
-  become: yes
-  roles:
-  - webserver
-  - certbot
-  - db
-  - object-store
-  - website
-
-- hosts: debian
-  become: yes
-  handlers:
-  - include: handlers/mail.yml
-  roles:
-  - debian-common
-  - common
-  - freeipa-client
-  - log-forwarder
 
 - hosts: logstash
   become: yes
@@ -94,27 +85,10 @@
   roles:
   - macpros
 
-- hosts: ubuntu-serv
-  become: yes
-  roles:
-  - ubuntu-common
-  - common
-  - freeipa-client
-  - log-forwarder
-  - role: jnv.unattended-upgrades
-    unattended_origins_patterns:
-    - 'origin=Ubuntu,archive=${distro_codename}-security'
-    unattended_mail: 'root@wuvt.vt.edu'
-
 - hosts: rds
   become: yes
   roles:
   - rds
-
-- hosts: automation-ubu
-  become: yes
-  roles:
-  - automation-ubu
 
 - hosts: marshall.wuvt.vt.edu
   become: yes
