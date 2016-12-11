@@ -4,3 +4,6 @@
 
 - name: Restart network mangler
   service: name=NetworkManager state=restarted
+
+- name: Restart Cups
+  service: name=cups state=restarted

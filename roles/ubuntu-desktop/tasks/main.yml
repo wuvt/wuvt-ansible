@@ -21,11 +21,16 @@
           dest: /etc/NetworkManager/NetworkManager.conf
           regexp: dnsmasq
           state: absent
-   notify:
-   - Restart network mangler
+  notify:
+  - Restart network mangler
 
 - name: LightDM config file to disable guest login
   copy: src=50-no-guest.conf dest=/usr/share/lightdm/lightdm.conf.d/50-no-guest.conf
   notify:
   - Restart lightDM
+
+- name: Configure Cups
+  copy: src=printers.conf dest=/etc/cups/printers.conf owner=root group=lp mode=0600
+  notify:
+  - Restart Cups
 
