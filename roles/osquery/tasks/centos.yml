@@ -1,0 +1,14 @@
+- name: Install osquery yum repository (CentOS 7)
+  yum: name=https://osquery-packages.s3.amazonaws.com/centos7/noarch/osquery-s3-centos7-repo-1-0.0.noarch.rpm
+       state=present
+  when: ansible_distribution_major_version == "7"
+
+- name: Install osquery yum repository (CentOS 6)
+  yum: name=https://osquery-packages.s3.amazonaws.com/centos6/noarch/osquery-s3-centos6-repo-1-0.0.noarch.rpm
+       state=present
+  when: ansible_distribution_major_version == "6"
+
+- name: Install osquery
+  yum: name=osquery state=present
+  tags:
+  - packages
