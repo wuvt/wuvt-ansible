@@ -3,6 +3,7 @@
   roles:
   - ubuntu-common
   - common
+  - osquery
   - freeipa-client
   - log-forwarder
   - ubuntu-desktop
