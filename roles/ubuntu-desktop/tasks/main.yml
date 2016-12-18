@@ -13,6 +13,7 @@
   - libk3b6-extracodecs
   - thunderbird
   - redshift
+  - gtk-redshift
   tags:
   - packages
 
@@ -30,7 +31,17 @@
   - Restart lightDM
 
 - name: Configure Cups
-  copy: src=printers.conf dest=/etc/cups/printers.conf owner=root group=lp mode=0600
+  copy: src={{ item.src }} dest=/etc/cups/{{ item.dest }} owner=root group=lp mode=0640
+  with_items:
+  - src: printers.conf
+    dest: printers.conf
+  - src: shiva.ppd
+    dest: ppd/shiva.ppd
+  - src: vishnu.ppd
+    dest: ppd/vishnu.ppd
   notify:
   - Restart Cups
+
+
+
 
