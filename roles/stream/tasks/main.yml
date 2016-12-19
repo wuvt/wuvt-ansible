@@ -1,6 +1,12 @@
-- include: packages.yml
-- include: compiling.yml
-- include: configure.yml
+#- include: packages.yml
+
+# XXX: Disabled these on 2016-12-18 because I'm not sure if this is fully
+# up-to-date and I don't want to clobber things. Someone should review.
+# -- mutantmonkey
+#- include: compiling.yml
+#- include: configure.yml
 
 # TODO add /usr/local/{bin,sbin} to paths
 
+- name: Install /etc/logrotate.d/icecast
+  copy: src=logrotate.d/icecast dest=/etc/logrotate.d/icecast
