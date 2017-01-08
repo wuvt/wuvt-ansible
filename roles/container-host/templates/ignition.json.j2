@@ -87,7 +87,9 @@
                 "contents": {
                     "source": "data:,{{ lookup('file', 'sssd/ca.pem') | replace('\n', '\\n') }}"
                 }
-            }{% if ignition_extra_files | length > 0 %},{{ ignition_extra_files | map('to_json') | join(',') }}{% endif %}
+            }{% if ignition_extra_files | length > 0 %},
+            {{ ignition_extra_files | map('to_json') | join(',') }}{% endif %}
+
         ]
     },
     "systemd": {
