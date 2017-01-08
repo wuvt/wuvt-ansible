@@ -1,0 +1,16 @@
+# Use most defaults for sshd configuration.
+UsePrivilegeSeparation sandbox
+Subsystem sftp internal-sftp
+ClientAliveInterval 180
+UseDNS no
+UsePAM yes
+PrintLastLog no # handled by PAM
+PrintMotd no # handled by PAM
+
+AuthorizedKeysCommandUser nobody
+AuthorizedKeysCommand /usr/bin/sss_ssh_authorizedkeys
+ChallengeResponseAuthentication no
+GSSAPIAuthentication no
+KerberosAuthentication no
+PasswordAuthentication no
+AllowGroups engineering it-staff sudoers wheel

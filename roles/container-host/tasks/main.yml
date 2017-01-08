@@ -1,0 +1,56 @@
+- name: Create guest image data directory
+  file:
+    dest: /var/lib/libvirt/images/coreos/{{ coreos_guest_hostname }}
+    state: directory
+    mode: 0700
+    owner: qemu
+    group: qemu
+
+- name: Install ignition.json
+  template:
+    src: ignition.json.j2
+    dest: /var/lib/libvirt/images/coreos/{{ coreos_guest_hostname }}/ignition.json
+    mode: 0600
+    owner: qemu
+    group: qemu
+
+- name: Create cloud-config directory
+  file:
+    dest: /var/lib/libvirt/images/coreos/{{ coreos_guest_hostname }}/openstack/latest
+    state: directory
+    mode: 0700
+    owner: qemu
+    group: qemu
+
+- name: Install cloud-config file
+  template:
+    src: cloud-config.yaml.j2
+    dest: /var/lib/libvirt/images/coreos/{{ coreos_guest_hostname }}/openstack/latest/user_data
+
+- name: Build config drive ISO (for use when virtfs is not available)
+  command: /usr/bin/mkisofs -R -V config-2 -o "/var/lib/libvirt/images/coreos/{{ coreos_guest_hostname }}_configdrive.iso" /var/lib/libvirt/images/coreos/{{ coreos_guest_hostname }}
+  when: ansible_distribution == "CentOS"
+
+- name: Create guest disk image
+  command: /usr/bin/qemu-img create -f qcow2 -b coreos_production_qemu_image.img {{ coreos_guest_hostname }}.qcow2 80G
+  args:
+    chdir: /var/lib/libvirt/images/coreos
+    creates: /var/lib/libvirt/images/coreos/{{ coreos_guest_hostname }}.qcow2
+  become: yes
+  become_user: qemu
+
+- name: Install libvirt-python
+  yum: name=libvirt-python state=present
+
+- name: Define libvirt guest
+  virt:
+    name: "{{ coreos_guest_hostname }}"
+    command: define
+    xml: "{{ lookup('template', 'domain.xml.j2') }}"
+    uri: qemu:///system
+
+# FIXME: doesn't work if domain is already running
+#- name: Start libvirt guest
+#  virt:
+#    name: "{{ coreos_guest_hostname }}"
+#    command: start

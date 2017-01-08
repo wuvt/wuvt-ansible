@@ -1,0 +1,123 @@
+#cloud-config
+
+ssh_authorized_keys:
+{% for key in ssh_authorized_keys -%}
+- {{ key }}
+{% endfor %}
+
+write_files:
+- path: /etc/hostname
+  permissions: 644
+  owner: root
+  content: |
+    {{ coreos_guest_hostname }}
+
+- path: /etc/coreos/update.conf
+  permissions: 644
+  owner: root
+  content: |
+    GROUP={{ coreos_update_channel }}
+    REBOOT_STRATEGY={{ coreos_update_reboot_strategy }}
+
+- path: /etc/sudoers.d/01_sudoers
+  permissions: 644
+  owner: root
+  content: |
+    {{ lookup('file', 'sudoers.d/01_sudoers') | indent(4, false) }}
+
+- path: /etc/ssh/sshd_config
+  permissions: 644
+  owner: root
+  content: |
+    {{ lookup('file', 'sshd_config') | indent(4, false) }}
+
+- path: /etc/ssl/etcd/ca.pem
+  permissions: 644
+  owner: etcd:etcd
+  content: |
+    {{ etcd_ca | indent(4, false) }}
+
+- path: /etc/ssl/etcd/{{ coreos_guest_hostname }}.pem
+  permissions: 644
+  owner: etcd:etcd
+  content: |
+    {{ etcd_cert | indent(4, false) }}
+
+- path: /etc/ssl/etcd/{{ coreos_guest_hostname }}-key.pem
+  permissions: 600
+  owner: etcd:etcd
+  content: |
+    {{ etcd_key | indent(4, false) }}
+
+- path: /etc/ssl/logstash/logstash.pem
+  permissions: 644
+  owner: root
+  content: |
+    {{ lookup('file', 'logstash.pem') | indent(4, false) }}
+
+- path: /etc/sssd/sssd.conf
+  permissions: 600
+  owner: root
+  content: |
+    {{ lookup('file', 'sssd/sssd.conf') | indent(4, false) }}
+
+- path: /etc/ssl/sssd/ca.pem
+  permissions: 644
+  owner: root
+  content: |
+    {{ lookup('file', 'sssd/ca.pem') | indent(4, false) }}
+
+{% for f in ignition_extra_files -%}
+- path: {{ f.path }}
+  permissions: {{ "%o" | format(f.mode | default(420)) }}
+  {% if 'user' in f -%}
+  owner: {{ f.user }}{% if 'group' in f %}:{{ f.group }}{% endif %}
+  {% endif -%}
+  content: |
+    {{ f.contents.source | replace('data:,', '', 1) | replace('\\n', '\n') | indent(4, false) }}
+{% endfor %}
+
+coreos:
+  units:
+  - name: etcd2.service
+    enable: true
+    drop-ins:
+    - name: 20-cluster.conf
+      content: |
+        {{ lookup('template', '20-cluster.conf.j2') | indent(8, false) }}
+  - name: locksmithd.service
+    enable: true
+    {% if coreos_locksmith_window_start != "" and coreos_locksmith_window_length != "" -%}
+    drop-ins:
+    - name: 20-reboot-window.conf
+      content: |
+        [Service]
+        Environment="REBOOT_WINDOW_START={{ coreos_locksmith_window_start }}"
+        Environment="REBOOT_WINDOW_LENGTH={{ coreos_locksmith_window_length }}"
+    {%- endif %}
+  - name: rpc-statd.service
+    enable: true
+  - name: ship-journal.service
+    enable: true
+    content: |
+      [Unit]
+      Description=Ship journal to sampoong
+
+      [Service]
+      TimeoutStartSec=0
+      ExecStart=/bin/sh -c "journalctl -o json -f | ncat --ssl --ssl-trustfile /etc/ssl/logstash/logstash.pem sampoong.wuvt.vt.edu 5044"
+      Restart=always
+      RestartSec=5
+
+      [Install]
+      WantedBy=multi-user.target
+  - name: media-local\x2dstorage.mount
+    enable: true
+    content: |
+      [Mount]
+      What=/dev/storage/local-storage
+      Where=/media/local-storage
+      Type=ext4
+
+      [Install]
+      WantedBy=multi-user.target

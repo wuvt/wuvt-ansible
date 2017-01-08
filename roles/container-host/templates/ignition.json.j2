@@ -1,0 +1,139 @@
+{
+    "ignition": { "version": "2.0.0" },
+    "storage": {
+        "files": [
+            {
+                "filesystem": "root",
+                "path": "/etc/hostname",
+                "mode": 420,
+                "contents": {
+                    "source": "data:,{{ coreos_guest_hostname }}"
+                }
+            },
+            {
+                "filesystem": "root",
+                "path": "/etc/coreos/update.conf",
+                "mode": 420,
+                "contents": {
+                    "source": "data:,GROUP={{ coreos_update_channel }}\nREBOOT_STRATEGY={{ coreos_update_reboot_strategy }}"
+                }
+            },
+            {
+                "filesystem": "root",
+                "path": "/etc/sudoers.d/01_sudoers",
+                "mode": 420,
+                "contents": {
+                    "source": "data:,{{ lookup('file', 'sudoers.d/01_sudoers') | replace('\n', '\\n') }}"
+                }
+            },
+            {
+                "filesystem": "root",
+                "path": "/etc/ssh/sshd_config",
+                "mode": 420,
+                "contents": {
+                    "source": "data:,{{ lookup('file', 'sshd_config') | replace('\n', '\\n') }}"
+                }
+            },
+            {
+                "filesystem": "root",
+                "path": "/etc/ssl/etcd/ca.pem",
+                "mode": 420,
+                "user": "etcd",
+                "group": "etcd",
+                "contents": {
+                    "source": "data:,{{ etcd_ca | replace('\n', '\\n') }}"
+                }
+            },
+            {
+                "filesystem": "root",
+                "path": "/etc/ssl/etcd/{{ coreos_guest_hostname }}.pem",
+                "mode": 420,
+                "user": "etcd",
+                "group": "etcd",
+                "contents": {
+                    "source": "data:,{{ etcd_cert | replace('\n', '\\n') }}"
+                }
+            },
+            {
+                "filesystem": "root",
+                "path": "/etc/ssl/etcd/{{ coreos_guest_hostname }}-key.pem",
+                "mode": 384,
+                "user": "etcd",
+                "group": "etcd",
+                "contents": {
+                    "source": "data:,{{ etcd_key | replace('\n', '\\n') }}"
+                }
+            },
+            {
+                "filesystem": "root",
+                "path": "/etc/ssl/logstash/logstash.pem",
+                "mode": 420,
+                "contents": {
+                    "source": "data:,{{ lookup('file', 'logstash.pem') | replace('\n', '\\n') }}"
+                }
+            },
+            {
+                "filesystem": "root",
+                "path": "/etc/sssd/sssd.conf",
+                "mode": 384,
+                "contents": {
+                    "source": "data:,{{ lookup('file', 'sssd/sssd.conf') | replace('\n', '\\n') }}"
+                }
+            },
+            {
+                "filesystem": "root",
+                "path": "/etc/ssl/sssd/ca.pem",
+                "mode": 420,
+                "contents": {
+                    "source": "data:,{{ lookup('file', 'sssd/ca.pem') | replace('\n', '\\n') }}"
+                }
+            }{% if ignition_extra_files | length > 0 %},{{ ignition_extra_files | map('to_json') | join(',') }}{% endif %}
+        ]
+    },
+    "systemd": {
+        "units": [
+            {
+                "name": "etcd2.service",
+                "enable": true,
+                "dropins": [
+                    {
+                        "name": "20-cluster.conf",
+                        "contents": "{{ lookup('template', '20-cluster.conf.j2') | replace('\n', '\\n') }}"
+                    }
+                ]
+            },
+            {
+                "name": "locksmithd.service",
+                "enable": true{% if coreos_locksmith_window_start != "" and coreos_locksmith_window_length != "" %},
+                "dropins": [
+                    {
+                        "name": "20-reboot-window.conf",
+                        "contents": "[Service]\nEnvironment=\"REBOOT_WINDOW_START={{ coreos_locksmith_window_start }}\"\nEnvironment=\"REBOOT_WINDOW_LENGTH={{ coreos_locksmith_window_length }}\""
+                    }
+                ]{% endif %}
+            },
+            {
+                "name": "rpc-statd.service",
+                "enable": true
+            },
+            {
+                "name": "ship-journal.service",
+                "enable": true,
+                "contents": "[Unit]\nDescription=Ship journal to sampoong\n\n[Service]\nTimeoutStartSec=0\nExecStart=/bin/sh -c \"journalctl -o json -f | ncat --ssl --ssl-trustfile /etc/ssl/logstash/logstash.pem sampoong.wuvt.vt.edu 5044\"\nRestart=always\nRestartSec=5\n\n[Install]\nWantedBy=multi-user.target"
+            },
+            {
+                "name": "media-local\\x2dstorage.mount",
+                "enable": true,
+                "contents": "[Mount]\nWhat=/dev/storage/local-storage\nWhere=/media/local-storage\nType=ext4\n\n[Install]\nWantedBy=multi-user.target"
+            }
+        ]
+    },
+    "passwd": {
+        "users": [
+            {
+                "name": "core",
+                "sshAuthorizedKeys": {{ ssh_authorized_keys | to_json }}
+            }
+        ]
+    }
+}
