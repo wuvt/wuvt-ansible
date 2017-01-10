@@ -10,13 +10,13 @@ write_files:
   permissions: 644
   owner: root
   content: |
-    {{ coreos_guest_hostname }}
+    {{ hostname }}
 - path: /etc/coreos/update.conf
   permissions: 644
   owner: root
   content: |
-    GROUP={{ coreos_update_channel }}
-    REBOOT_STRATEGY={{ coreos_update_reboot_strategy }}
+    GROUP={{ update_channel }}
+    REBOOT_STRATEGY={{ update_reboot_strategy }}
 - path: /etc/sudoers.d/01_sudoers
   permissions: 644
   owner: root
@@ -32,12 +32,12 @@ write_files:
   owner: etcd:etcd
   content: |
     {{ etcd_ca | indent(4, false) }}
-- path: /etc/ssl/etcd/{{ coreos_guest_hostname }}.pem
+- path: /etc/ssl/etcd/{{ hostname }}.pem
   permissions: 644
   owner: etcd:etcd
   content: |
     {{ etcd_cert | indent(4, false) }}
-- path: /etc/ssl/etcd/{{ coreos_guest_hostname }}-key.pem
+- path: /etc/ssl/etcd/{{ hostname }}-key.pem
   permissions: 600
   owner: etcd:etcd
   content: |
@@ -71,13 +71,13 @@ coreos:
   units:
   - name: locksmithd.service
     enable: true
-    {% if coreos_locksmith_window_start != "" and coreos_locksmith_window_length != "" -%}
+    {% if locksmith_window_start != "" and locksmith_window_length != "" -%}
     drop-ins:
     - name: 20-reboot-window.conf
       content: |
         [Service]
-        Environment="REBOOT_WINDOW_START={{ coreos_locksmith_window_start }}"
-        Environment="REBOOT_WINDOW_LENGTH={{ coreos_locksmith_window_length }}"
+        Environment="REBOOT_WINDOW_START={{ locksmith_window_start }}"
+        Environment="REBOOT_WINDOW_LENGTH={{ locksmith_window_length }}"
 {% endif %}
   - name: rpc-statd.service
     enable: true

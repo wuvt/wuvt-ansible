@@ -7,7 +7,7 @@
                 "path": "/etc/hostname",
                 "mode": 420,
                 "contents": {
-                    "source": "data:,{{ coreos_guest_hostname }}"
+                    "source": "data:,{{ hostname }}"
                 }
             },
             {
@@ -15,7 +15,7 @@
                 "path": "/etc/coreos/update.conf",
                 "mode": 420,
                 "contents": {
-                    "source": "data:,GROUP={{ coreos_update_channel }}\nREBOOT_STRATEGY={{ coreos_update_reboot_strategy }}"
+                    "source": "data:,GROUP={{ update_channel }}\nREBOOT_STRATEGY={{ update_reboot_strategy }}"
                 }
             },
             {
@@ -46,7 +46,7 @@
             },
             {
                 "filesystem": "root",
-                "path": "/etc/ssl/etcd/{{ coreos_guest_hostname }}.pem",
+                "path": "/etc/ssl/etcd/{{ hostname }}.pem",
                 "mode": 420,
                 "user": "etcd",
                 "group": "etcd",
@@ -56,7 +56,7 @@
             },
             {
                 "filesystem": "root",
-                "path": "/etc/ssl/etcd/{{ coreos_guest_hostname }}-key.pem",
+                "path": "/etc/ssl/etcd/{{ hostname }}-key.pem",
                 "mode": 384,
                 "user": "etcd",
                 "group": "etcd",
@@ -96,11 +96,11 @@
         "units": [
             {
                 "name": "locksmithd.service",
-                "enable": true{% if coreos_locksmith_window_start != "" and coreos_locksmith_window_length != "" %},
+                "enable": true{% if locksmith_window_start != "" and locksmith_window_length != "" %},
                 "dropins": [
                     {
                         "name": "20-reboot-window.conf",
-                        "contents": "[Service]\nEnvironment=\"REBOOT_WINDOW_START={{ coreos_locksmith_window_start }}\"\nEnvironment=\"REBOOT_WINDOW_LENGTH={{ coreos_locksmith_window_length }}\""
+                        "contents": "[Service]\nEnvironment=\"REBOOT_WINDOW_START={{ locksmith_window_start }}\"\nEnvironment=\"REBOOT_WINDOW_LENGTH={{ locksmith_window_length }}\""
                     }
                 ]{% endif %}
             },

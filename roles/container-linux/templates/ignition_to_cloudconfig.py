@@ -71,7 +71,7 @@ for unit in d['systemd']['units']:
         print('    enable: true')
 
     if unit['name'] == "locksmithd.service":
-        print('    {% if coreos_locksmith_window_start != "" and coreos_locksmith_window_length != "" -%}')
+        print('    {% if locksmith_window_start != "" and locksmith_window_length != "" -%}')
     if 'dropins' in unit and len(unit['dropins']) > 0:
         print('    drop-ins:')
         for dropin in unit['dropins']:

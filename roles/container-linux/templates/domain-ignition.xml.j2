@@ -1,5 +1,5 @@
 <domain type='kvm' xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'>
-  <name>{{ coreos_guest_hostname }}</name>
+  <name>{{ hostname }}</name>
   <memory unit='KiB'>7168000</memory>
   <currentMemory unit='KiB'>7168000</currentMemory>
   <vcpu placement='static'>8</vcpu>
@@ -30,7 +30,7 @@
     <emulator>/usr/libexec/qemu-kvm</emulator>
     <disk type='file' device='disk'>
       <driver name='qemu' type='qcow2'/>
-      <source file='/var/lib/libvirt/images/coreos/{{ coreos_guest_hostname }}.qcow2'/>
+      <source file='/var/lib/libvirt/images/coreos/{{ hostname }}.qcow2'/>
       <backingStore type='file' index='1'>
         <format type='raw'/>
         <source file='/var/lib/libvirt/images/coreos/coreos_production_qemu_image.img'/>
@@ -96,6 +96,6 @@
   </devices>
   <qemu:commandline>
     <qemu:arg value='-fw_cfg'/>
-    <qemu:arg value='name=opt/com.coreos/config,file=/var/lib/libvirt/images/coreos/{{ coreos_guest_hostname }}/ignition.json'/>
+    <qemu:arg value='name=opt/com.coreos/config,file=/var/lib/libvirt/images/coreos/{{ hostname }}/ignition.json'/>
   </qemu:commandline>
 </domain>
