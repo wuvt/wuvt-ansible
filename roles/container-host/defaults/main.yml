@@ -3,4 +3,5 @@ coreos_update_reboot_strategy: etcd-lock
 coreos_locksmith_window_start: ''
 coreos_locksmith_window_length: ''
 ignition_extra_files: []
+ignition_extra_services: []
 etcd_cluster_member: false

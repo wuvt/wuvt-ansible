@@ -11,62 +11,52 @@ write_files:
   owner: root
   content: |
     {{ coreos_guest_hostname }}
-
 - path: /etc/coreos/update.conf
   permissions: 644
   owner: root
   content: |
     GROUP={{ coreos_update_channel }}
     REBOOT_STRATEGY={{ coreos_update_reboot_strategy }}
-
 - path: /etc/sudoers.d/01_sudoers
   permissions: 644
   owner: root
   content: |
     {{ lookup('file', 'sudoers.d/01_sudoers') | indent(4, false) }}
-
 - path: /etc/ssh/sshd_config
   permissions: 644
   owner: root
   content: |
     {{ lookup('file', 'sshd_config') | indent(4, false) }}
-
 - path: /etc/ssl/etcd/ca.pem
   permissions: 644
   owner: etcd:etcd
   content: |
     {{ etcd_ca | indent(4, false) }}
-
 - path: /etc/ssl/etcd/{{ coreos_guest_hostname }}.pem
   permissions: 644
   owner: etcd:etcd
   content: |
     {{ etcd_cert | indent(4, false) }}
-
 - path: /etc/ssl/etcd/{{ coreos_guest_hostname }}-key.pem
   permissions: 600
   owner: etcd:etcd
   content: |
     {{ etcd_key | indent(4, false) }}
-
 - path: /etc/ssl/logstash/logstash.pem
   permissions: 644
   owner: root
   content: |
     {{ lookup('file', 'logstash.pem') | indent(4, false) }}
-
 - path: /etc/sssd/sssd.conf
   permissions: 600
   owner: root
   content: |
     {{ lookup('file', 'sssd/sssd.conf') | indent(4, false) }}
-
 - path: /etc/ssl/sssd/ca.pem
   permissions: 644
   owner: root
   content: |
     {{ lookup('file', 'sssd/ca.pem') | indent(4, false) }}
-
 {% for f in ignition_extra_files -%}
 - path: {{ f.path }}
   permissions: {{ "%o" | format(f.mode | default(420)) }}
@@ -79,12 +69,6 @@ write_files:
 
 coreos:
   units:
-  - name: etcd2.service
-    enable: true
-    drop-ins:
-    - name: 20-cluster.conf
-      content: |
-        {{ lookup('template', '20-cluster.conf.j2') | indent(8, false) }}
   - name: locksmithd.service
     enable: true
     {% if coreos_locksmith_window_start != "" and coreos_locksmith_window_length != "" -%}
@@ -94,7 +78,7 @@ coreos:
         [Service]
         Environment="REBOOT_WINDOW_START={{ coreos_locksmith_window_start }}"
         Environment="REBOOT_WINDOW_LENGTH={{ coreos_locksmith_window_length }}"
-    {%- endif %}
+{% endif %}
   - name: rpc-statd.service
     enable: true
   - name: ship-journal.service
@@ -111,13 +95,23 @@ coreos:
 
       [Install]
       WantedBy=multi-user.target
-  - name: media-local\x2dstorage.mount
+  - name: sssd.service
     enable: true
+{% for unit in ignition_extra_services %}
+  - name: {{ unit.name }}
+    {% if 'enable' in unit and unit.enable -%}
+    enable: true
+    {% endif -%}
+    {% if 'contents' in unit -%}
     content: |
-      [Mount]
-      What=/dev/storage/local-storage
-      Where=/media/local-storage
-      Type=ext4
-
-      [Install]
-      WantedBy=multi-user.target
+      {{ unit.contents | replace('\\n', '\n') | indent(6, false) }}
+    {% endif -%}
+    {% if 'dropins' in unit and unit.dropins | length > 0 -%}
+    drop-ins:
+{% for dropin in unit.dropins %}
+    - name: {{ dropin.name }}
+      content: |
+        {{ dropin.contents | replace('\\n', '\n') | indent(8, false) }}
+{% endfor %}
+{% endif %}
+{% endfor %}

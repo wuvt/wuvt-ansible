@@ -18,6 +18,9 @@ replace_re = re.compile(r'{%.*%}')
 data = replace_re.sub('', data)
 data = data.replace('{{ ssh_authorized_keys | to_json }}', '[]')
 
+replace2_re = re.compile(',\n\s+{{ ignition_extra.* }}')
+data = replace2_re.sub('', data)
+
 d = json.loads(data)
 
 print("""\
@@ -45,8 +48,7 @@ for f in d['storage']['files']:
   permissions: {permissions}
   owner: {owner}
   content: |
-{content}
-""".format(
+{content}""".format(
         path=f['path'],
         permissions=oct(f['mode'])[2:],
         owner=owner,
@@ -80,8 +82,27 @@ for unit in d['systemd']['units']:
                 name=dropin['name'],
                 content=textwrap.indent(process_content(dropin['contents'], 8), ' ' * 8)))
     if unit['name'] == "locksmithd.service":
-        print('    {%- endif %}')
+        print('{% endif %}')
 
     if 'contents' in unit:
         print('    content: |\n{}'.format(
             textwrap.indent(process_content(unit['contents'], 6), ' ' * 6)))
+print("""\
+{% for unit in ignition_extra_services %}
+  - name: {{ unit.name }}
+    {% if 'enable' in unit and unit.enable -%}
+    enable: true
+    {% endif -%}
+    {% if 'contents' in unit -%}
+    content: |
+      {{ unit.contents | replace('\\\\n', '\\n') | indent(6, false) }}
+    {% endif -%}
+    {% if 'dropins' in unit and unit.dropins | length > 0 -%}
+    drop-ins:
+{% for dropin in unit.dropins %}
+    - name: {{ dropin.name }}
+      content: |
+        {{ dropin.contents | replace('\\\\n', '\\n') | indent(8, false) }}
+{% endfor %}
+{% endif %}
+{% endfor %}""")
