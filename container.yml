@@ -1,0 +1,10 @@
+- hosts: coreos
+  become: yes
+  vars:
+    locksmith_window_start: 06:00
+    locksmith_window_length: 1h
+  vars_files:
+  - vars/container_private.yml
+  gather_facts: false
+  roles:
+  - container-linux
