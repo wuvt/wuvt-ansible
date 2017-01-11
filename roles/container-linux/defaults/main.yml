@@ -1,3 +1,6 @@
+memory: 4096
+vcpu: 4
+
 update_channel: stable
 update_reboot_strategy: etcd-lock
 

@@ -1,8 +1,8 @@
 <domain type='kvm' xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'>
   <name>{{ hostname }}</name>
-  <memory unit='KiB'>7168000</memory>
-  <currentMemory unit='KiB'>7168000</currentMemory>
-  <vcpu placement='static'>8</vcpu>
+  <memory unit='MiB'>{{ memory }}</memory>
+  <currentMemory unit='MiB'>{{ memory }}</currentMemory>
+  <vcpu placement='static'>{{ vcpu }}</vcpu>
   <resource>
     <partition>/machine</partition>
   </resource>
@@ -31,11 +31,6 @@
     <disk type='file' device='disk'>
       <driver name='qemu' type='qcow2'/>
       <source file='/var/lib/libvirt/images/coreos/{{ hostname }}.qcow2'/>
-      <backingStore type='file' index='1'>
-        <format type='raw'/>
-        <source file='/var/lib/libvirt/images/coreos/coreos_production_qemu_image.img'/>
-        <backingStore/>
-      </backingStore>
       <target dev='vda' bus='virtio'/>
       <alias name='virtio-disk0'/>
       <address type='pci' domain='0x0000' bus='0x00' slot='0x04' function='0x0'/>
