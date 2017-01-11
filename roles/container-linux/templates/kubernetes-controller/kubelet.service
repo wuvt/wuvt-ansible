@@ -1,0 +1,37 @@
+[Service]
+Environment=KUBELET_VERSION={{ k8s_ver }}
+Environment=KUBELET_ACI={{ hyperkube_image_repo }}
+Environment="RKT_OPTS=--uuid-file-save={{ kubelet_uuid_file }} \
+  --volume dns,kind=host,source=/etc/resolv.conf \
+  --mount volume=dns,target=/etc/resolv.conf \
+  --volume rkt,kind=host,source=/opt/bin/host-rkt \
+  --mount volume=rkt,target=/usr/bin/rkt \
+  --volume var-lib-rkt,kind=host,source=/var/lib/rkt \
+  --mount volume=var-lib-rkt,target=/var/lib/rkt \
+  --volume stage,kind=host,source=/tmp \
+  --mount volume=stage,target=/tmp \
+  --volume var-log,kind=host,source=/var/log \
+  --mount volume=var-log,target=/var/log"
+ExecStartPre=/usr/bin/mkdir -p /etc/kubernetes/manifests
+ExecStartPre=/usr/bin/mkdir -p /opt/cni/bin
+ExecStartPre=/usr/bin/mkdir -p /var/log/containers
+ExecStartPre=-/usr/bin/rkt rm --uuid-file={{ kubelet_uuid_file }}
+ExecStart=/usr/lib/coreos/kubelet-wrapper \
+  --api-servers=http://127.0.0.1:8080 \
+  --register-schedulable=false \
+  --cni-conf-dir=/etc/kubernetes/cni/net.d \
+  --network-plugin=cni \
+  --container-runtime={{ kube_container_runtime }} \
+  --rkt-path=/usr/bin/rkt \
+  --rkt-stage1-image=coreos.com/rkt/stage1-coreos \
+  --allow-privileged=true \
+  --pod-manifest-path=/etc/kubernetes/manifests \
+  --hostname-override={{ hostname }} \
+  --cluster_dns={{ kube_dns_service_ip }} \
+  --cluster_domain=cluster.local
+ExecStop=-/usr/bin/rkt stop --uuid-file={{ kubelet_uuid_file }}
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
