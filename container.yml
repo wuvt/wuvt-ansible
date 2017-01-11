@@ -3,6 +3,15 @@
   vars:
     locksmith_window_start: 06:00
     locksmith_window_length: 1h
+
+    etcd_endpoints: https://192.168.0.155:2379,https://192.168.0.237:2379,https://192.168.0.238:2379,https://192.168.0.243:2379
+    k8s_ver: v1.5.1_coreos.0
+    hyperkube_image_repo: quay.io/coreos/hyperkube
+    kube_container_runtime: docker
+    kube_controller_endpoint: https://192.168.0.246:443
+    kube_dns_service_ip: 10.3.0.10
+    kube_pod_network: 10.1.0.0/16
+    kubelet_uuid_file: /var/run/kubelet-pod.uuid
   vars_files:
   - vars/container_private.yml
   gather_facts: false
