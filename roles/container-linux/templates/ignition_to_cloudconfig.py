@@ -68,7 +68,7 @@ print('\ncoreos:\n  units:')
 for unit in d['systemd']['units']:
     print('  - name: {}'.format(unit['name']))
     if unit['enable']:
-        print('    enable: true')
+        print('    enable: true\n    command: start')
 
     if unit['name'] == "locksmithd.service":
         print('    {% if locksmith_window_start != "" and locksmith_window_length != "" -%}')
@@ -90,14 +90,15 @@ for unit in d['systemd']['units']:
 print("""\
 {% for unit in ignition_extra_services %}
   - name: {{ unit.name }}
-    {% if 'enable' in unit and unit.enable -%}
+{% if 'enable' in unit and unit.enable %}
     enable: true
-    {% endif -%}
-    {% if 'contents' in unit -%}
+    command: start
+{% endif %}
+{% if 'contents' in unit %}
     content: |
       {{ unit.contents | replace('\\\\n', '\\n') | indent(6, false) }}
-    {% endif -%}
-    {% if 'dropins' in unit and unit.dropins | length > 0 -%}
+{% endif %}
+{% if 'dropins' in unit and unit.dropins | length > 0 %}
     drop-ins:
 {% for dropin in unit.dropins %}
     - name: {{ dropin.name }}

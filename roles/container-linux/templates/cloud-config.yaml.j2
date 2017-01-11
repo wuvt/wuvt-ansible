@@ -71,6 +71,7 @@ coreos:
   units:
   - name: locksmithd.service
     enable: true
+    command: start
     {% if locksmith_window_start != "" and locksmith_window_length != "" -%}
     drop-ins:
     - name: 20-reboot-window.conf
@@ -81,8 +82,10 @@ coreos:
 {% endif %}
   - name: rpc-statd.service
     enable: true
+    command: start
   - name: ship-journal.service
     enable: true
+    command: start
     content: |
       [Unit]
       Description=Ship journal to sampoong
@@ -97,16 +100,18 @@ coreos:
       WantedBy=multi-user.target
   - name: sssd.service
     enable: true
+    command: start
 {% for unit in ignition_extra_services %}
   - name: {{ unit.name }}
-    {% if 'enable' in unit and unit.enable -%}
+{% if 'enable' in unit and unit.enable %}
     enable: true
-    {% endif -%}
-    {% if 'contents' in unit -%}
+    command: start
+{% endif %}
+{% if 'contents' in unit %}
     content: |
       {{ unit.contents | replace('\\n', '\n') | indent(6, false) }}
-    {% endif -%}
-    {% if 'dropins' in unit and unit.dropins | length > 0 -%}
+{% endif %}
+{% if 'dropins' in unit and unit.dropins | length > 0 %}
     drop-ins:
 {% for dropin in unit.dropins %}
     - name: {{ dropin.name }}
