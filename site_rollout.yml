@@ -7,7 +7,7 @@
     - build
 
   - name: Build wuvt-site container
-    raw: docker build -t registry.wuvt.vt.edu/wuvt-site -f wuvt-site/Dockerfile.prod wuvt-site
+    raw: docker build -t registry.wuvt.vt.edu/wuvt-site -f wuvt-site/Dockerfile wuvt-site
     tags:
     - build
 
