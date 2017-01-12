@@ -13,9 +13,9 @@ spec:
     - apiserver
     - --bind-address=0.0.0.0
     - --etcd-servers={{ etcd_endpoints }}
-    - --etcd-cafile=/etc/kubernetes/ssl/ca.pem
-    - --etcd-certfile=/etc/kubernetes/ssl/apiserver.pem
-    - --etcd-keyfile=/etc/kubernetes/ssl/apiserver-key.pem
+    - --etcd-cafile=/etc/ssl/etcd/ca.pem
+    - --etcd-certfile=/etc/ssl/etcd/{{ hostname }}.pem
+    - --etcd-keyfile=/etc/ssl/etcd/{{ hostname }}-key.pem
     - --allow-privileged=true
     - --service-cluster-ip-range={{ kube_service_network }}
     - --secure-port=443
@@ -48,6 +48,9 @@ spec:
     - mountPath: /etc/ssl/certs
       name: ssl-certs-host
       readOnly: true
+    - mountPath: /etc/ssl/etcd
+      name: ssl-certs-etcd
+      readOnly: true
   volumes:
   - hostPath:
       path: /etc/kubernetes/ssl
@@ -55,3 +58,6 @@ spec:
   - hostPath:
       path: /usr/share/ca-certificates
     name: ssl-certs-host
+  - hostPath:
+      path: /etc/ssl/etcd
+    name: ssl-certs-etcd
