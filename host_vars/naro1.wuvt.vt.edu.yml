@@ -22,3 +22,18 @@ ignition_extra_files:
   mode: 384
   contents:
     source: "data:,{{ lookup('file', pki_dir + 'ca.pem') | replace('\n', '\\n') }}"
+- filesystem: root
+  path: /etc/kubelog-filebeat/filebeat.yml
+  mode: 420
+  contents:
+    source: "data:,{{ lookup('file', 'kubelog-filebeat/filebeat.yml') | replace('\n', '\\n') }}"
+- filesystem: root
+  path: /etc/kubelog-filebeat/logstash.pem
+  mode: 420
+  contents:
+    source: "data:,{{ lookup('file', 'kubelog-filebeat/logstash.pem') | replace('\n', '\\n') }}"
+- filesystem: root
+  path: /etc/kubernetes/manifests/kubelog-filebeat.yaml
+  mode: 420
+  contents:
+    source: "data:,{{ lookup('file', 'kubernetes/manifests/kubelog-filebeat.yaml') | replace('\n', '\\n') }}"

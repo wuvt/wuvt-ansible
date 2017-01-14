@@ -54,6 +54,21 @@ ignition_extra_files:
   mode: 420
   contents:
     source: "data:,{{ lookup('file', 'kubernetes/cni/net.d/10-flannel.conf') | replace('\n', '\\n') }}"
+- filesystem: root
+  path: /etc/kubelog-filebeat/filebeat.yml
+  mode: 420
+  contents:
+    source: "data:,{{ lookup('file', 'kubelog-filebeat/filebeat.yml') | replace('\n', '\\n') }}"
+- filesystem: root
+  path: /etc/kubelog-filebeat/logstash.pem
+  mode: 420
+  contents:
+    source: "data:,{{ lookup('file', 'kubelog-filebeat/logstash.pem') | replace('\n', '\\n') }}"
+- filesystem: root
+  path: /etc/kubernetes/manifests/kubelog-filebeat.yaml
+  mode: 420
+  contents:
+    source: "data:,{{ lookup('file', 'kubernetes/manifests/kubelog-filebeat.yaml') | replace('\n', '\\n') }}"
 
 ignition_extra_services:
 - name: kubelet.service
