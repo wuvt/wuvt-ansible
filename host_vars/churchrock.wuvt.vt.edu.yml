@@ -1,0 +1,74 @@
+hypervisor: valdistava.wuvt.vt.edu
+vcpu: 8
+memory: 5120
+hostname: churchrock
+public_ipv4: 192.168.0.249
+
+etcd_ca: "{{ lookup('file', pki_dir + 'ca.pem') }}"
+etcd_cert: "{{ lookup('file', pki_dir + hostname + '.pem') }}"
+etcd_key: "{{ lookup('file', pki_dir + hostname + '-key.pem') }}"
+
+ignition_extra_files:
+- filesystem: root
+  path: /etc/kubernetes/ssl/worker.pem
+  mode: 384
+  contents:
+    source: "data:,{{ lookup('file', pki_dir + hostname + '.pem') | replace('\n', '\\n') }}"
+- filesystem: root
+  path: /etc/kubernetes/ssl/worker-key.pem
+  mode: 384
+  contents:
+    source: "data:,{{ lookup('file', pki_dir + hostname + '-key.pem') | replace('\n', '\\n') }}"
+- filesystem: root
+  path: /etc/kubernetes/ssl/ca.pem
+  mode: 384
+  contents:
+    source: "data:,{{ lookup('file', pki_dir + 'ca.pem') | replace('\n', '\\n') }}"
+- filesystem: root
+  path: /opt/bin/host-rkt
+  mode: 493
+  contents:
+    source: "data:,{{ lookup('file', 'host-rkt') | replace('\n', '\\n') }}"
+- filesystem: root
+  path: /etc/kubernetes/worker-kubeconfig.yaml
+  mode: 420
+  contents:
+    source: "data:,{{ lookup('file', 'kubernetes/worker-kubeconfig.yaml') | replace('\n', '\\n') }}"
+- filesystem: root
+  path: /etc/kubernetes/manifests/kube-proxy.yaml
+  mode: 420
+  contents:
+    source: "data:,{{ lookup('template', 'kubernetes/manifests/kube-proxy.yaml.j2') | replace('\n', '\\n') }}"
+- filesystem: root
+  path: /etc/flannel/options.env
+  mode: 420
+  contents:
+    source: "data:,{{ lookup('template', 'flannel/options.env.j2') | replace('\n', '\\n') }}"
+- filesystem: root
+  path: /etc/kubernetes/cni/docker_opts_cni.env
+  mode: 420
+  contents:
+    source: "data:,{{ lookup('file', 'kubernetes/cni/docker_opts_cni.env') | replace('\n', '\\n') }}"
+- filesystem: root
+  path: /etc/kubernetes/cni/net.d/10-flannel.conf
+  mode: 420
+  contents:
+    source: "data:,{{ lookup('file', 'kubernetes/cni/net.d/10-flannel.conf') | replace('\n', '\\n') }}"
+
+ignition_extra_services:
+- name: kubelet.service
+  enable: true
+  contents: "{{ lookup('template', 'kubernetes/kubelet.service') | replace('\n', '\\n') }}"
+#- name: load-rkt-stage1.service
+#  contents: "{{ lookup('file', 'systemd/system/load-rkt-stage1.service') | replace('\n', '\\n') }}"
+#- name: rkt-api.service
+#  contents: "{{ lookup('file', 'systemd/system/rkt-api.service') | replace('\n', '\\n') }}"
+- name: flanneld.service
+  enable: true
+  dropins:
+  - name: 40-ExecStartPre-symlink.conf
+    contents: "{{ lookup('file', 'systemd/system/flanneld.service.d/40-ExecStartPre-symlink.conf') | replace('\n', '\\n') }}"
+- name: docker.service
+  dropins:
+  - name: 40-flannel.conf
+    contents: "{{ lookup('file', 'systemd/system/docker.service.d/40-flannel.conf') | replace('\n', '\\n') }}"
