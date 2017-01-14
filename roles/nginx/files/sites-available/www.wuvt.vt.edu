@@ -1,3 +1,9 @@
+upstream wuvt-site-prod {
+    server naro1.wuvt.vt.edu:8443;
+    server naro2.wuvt.vt.edu:8443;
+    server columbia.wuvt.vt.edu:8443;
+}
+
 server {
     listen        80;
     listen        [::]:80;

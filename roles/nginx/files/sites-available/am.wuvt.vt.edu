@@ -1,3 +1,9 @@
+upstream wuvt-site-am {
+    server naro1.wuvt.vt.edu:8444;
+    server naro2.wuvt.vt.edu:8444;
+    server columbia.wuvt.vt.edu:8444;
+}
+
 server {
     listen        80;
     listen        [::]:80;

@@ -1,3 +1,9 @@
+upstream musicbrainz-webservice {
+    server naro1.wuvt.vt.edu:8002;
+    server naro2.wuvt.vt.edu:8002;
+    server columbia.wuvt.vt.edu:8002;
+}
+
 server {
     listen        80;
     listen        [::]:80;
