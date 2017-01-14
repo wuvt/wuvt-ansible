@@ -52,12 +52,12 @@
   with_items:
   - cron
   - icecast
+  - kubernetes
   - nginx
   - ntp
   - postfix
   - selinux
   - syslog
-  - uwsgi
   - yum
   notify: Restart logstash
   tags:

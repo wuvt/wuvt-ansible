@@ -10,7 +10,7 @@ else:
     import urllib
 
 endpoint = "http://localhost:9200"
-prune_types = ['cron', 'icecast', 'nginx', 'ntp', 'postfix', 'selinux', 'syslog', 'uwsgi', 'yum']
+prune_types = ['cron', 'icecast', 'kubernetes', 'nginx', 'ntp', 'postfix', 'selinux', 'syslog', 'yum']
 prune_start = datetime.datetime.utcnow() - datetime.timedelta(days=60)
 
 r = requests.get('{0}/_cat/indices'.format(endpoint))
