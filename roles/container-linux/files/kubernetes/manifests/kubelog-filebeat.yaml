@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kubelog-filebeat
+  namespace: kube-system
+spec:
+  containers:
+  - name: filebeat
+    image: quay.io/wuvt/docker-filebeat:latest
+    volumeMounts:
+    - mountPath: /var/lib/docker/containers
+      name: containers
+      readOnly: true
+    - mountPath: /var/log/containers
+      name: container-logs
+      readOnly: true
+    - mountPath: /etc/filebeat
+      name: filebeat-config
+      readOnly: true
+  volumes:
+  - name: containers
+    hostPath:
+      path: /var/lib/docker/containers
+  - name: container-logs
+    hostPath:
+      path: /var/log/containers
+  - name: filebeat-config
+    hostPath:
+      path: /etc/kubelog-filebeat
