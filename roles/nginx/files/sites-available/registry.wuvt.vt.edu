@@ -46,7 +46,7 @@ server {
         chunked_transfer_encoding off;
 
         proxy_ssl_trusted_certificate /etc/nginx/certs/upstream-ca.pem;
-        #proxy_ssl_verify on;
+        proxy_ssl_verify on;
 
         proxy_pass https://registry;
         client_max_body_size 500M;
