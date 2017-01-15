@@ -69,6 +69,11 @@ ignition_extra_files:
   mode: 420
   contents:
     source: "data:,{{ lookup('file', 'kubernetes/manifests/kubelog-filebeat.yaml') | replace('\n', '\\n') }}"
+- filesystem: root
+  path: /etc/kubernetes/manifests/jira.yaml
+  mode: 420
+  contents:
+    source: "data:,{{ lookup('file', 'kubernetes/manifests/jira.yaml') | replace('\n', '\\n') }}"
 
 ignition_extra_services:
 - name: kubelet.service
