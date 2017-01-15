@@ -1,3 +1,2 @@
 ---
 - include: nginx.yml
-- include: etcd.yml
