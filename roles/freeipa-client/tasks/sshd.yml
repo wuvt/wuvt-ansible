@@ -41,7 +41,7 @@
 
 - name: Set OpenSSH AllowGroups
   lineinfile: dest=/etc/ssh/sshd_config
-              line="AllowGroups engineering it-staff sudoers"
+              line="AllowGroups engineering it-staff sudoers sudo"
               regexp='^AllowGroups'
               validate='sshd -tf %s' state=present
   notify: Reload sshd
