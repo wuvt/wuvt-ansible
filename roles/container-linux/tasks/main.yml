@@ -1,3 +1,15 @@
+- name: Update ignition_extra_files
+  set_fact:
+    ignition_extra_files: "{{ ignition_role_files + ignition_extra_files }}"
+  when:
+    ignition_role_files is defined
+
+- name: Update ignition_extra_services
+  set_fact:
+    ignition_extra_services: "{{ ignition_role_services + ignition_extra_services }}"
+  when:
+    ignition_extra_services is defined
+
 - name: Create guest image data directory
   file:
     dest: /var/lib/libvirt/images/coreos/{{ hostname }}
