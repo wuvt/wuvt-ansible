@@ -1,3 +1,9 @@
+upstream jira {
+    server naro1.wuvt.vt.edu:8001;
+    server naro2.wuvt.vt.edu:8001;
+    server columbia.wuvt.vt.edu:8001;
+}
+
 server {
     listen        80;
     listen        [::]:80;
