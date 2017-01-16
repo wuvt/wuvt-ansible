@@ -1,0 +1,26 @@
+kubernetes_controller_files:
+- filesystem: root
+  path: /etc/kubernetes/manifests/kube-proxy.yaml
+  mode: 420
+  contents:
+    source: "data:,{{ lookup('template', 'manifests/kube-proxy.yaml.j2') | replace('\n', '\\n') }}"
+- filesystem: root
+  path: /etc/kubernetes/manifests/kube-apiserver.yaml
+  mode: 420
+  contents:
+    source: "data:,{{ lookup('template', 'manifests/kube-apiserver.yaml.j2') | replace('\n', '\\n') }}"
+- filesystem: root
+  path: /etc/kubernetes/manifests/kube-controller-manager.yaml
+  mode: 420
+  contents:
+    source: "data:,{{ lookup('template', 'manifests/kube-controller-manager.yaml.j2') | replace('\n', '\\n') }}"
+- filesystem: root
+  path: /etc/kubernetes/manifests/kube-scheduler.yaml
+  mode: 420
+  contents:
+    source: "data:,{{ lookup('template', 'manifests/kube-scheduler.yaml.j2') | replace('\n', '\\n') }}"
+
+kubernetes_controller_services:
+- name: kubelet.service
+  enable: true
+  contents: "{{ lookup('template', 'kubelet.service.j2') | replace('\n', '\\n') }}"

@@ -1,0 +1,4 @@
+dependencies:
+- role: kubernetes
+  kubernetes_role_files: "{{ kubernetes_controller_files }}"
+  kubernetes_role_services: "{{ kubernetes_controller_services }}"
