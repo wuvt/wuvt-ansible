@@ -7,3 +7,6 @@
 
 - name: Restart Cups
   service: name=cups state=restarted
+
+- name: Restart autofs.service
+  service: name=autofs state=restarted
