@@ -1,14 +1,13 @@
-- name: Install kvm packages
-  yum: name={{ item }} state=latest
-  with_items:
-  - kvm
-  - libvirt
-  - qemu-kvm
-  - bridge-utils
+- include: ubuntu.yml
+  when: ansible_distribution == "Ubuntu"
   tags:
-  - packages
-  - kvm
+          - kvm
 
+- include: centos.yml
+  when: ansible_os_family == "RedHat"
+  tags:
+          - kvm
+ 
 - name: Start libvirtd service
   service: name=libvirtd state=started
   tags:
@@ -17,6 +16,12 @@
 
 - name: create libvirt group
   group: name=libvirt system=no state=present
+  tags:
+  - groups
+  - kvm
+
+- name: create qemu group
+  group: name=qemu system=no state=present
   tags:
   - groups
   - kvm

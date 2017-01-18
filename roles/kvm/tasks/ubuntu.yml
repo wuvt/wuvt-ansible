@@ -1,0 +1,11 @@
+- name: Install kvm packages
+  apt: name={{ item }} state=latest
+  with_items:
+  - kvm
+  - libvirt-bin
+  - qemu-kvm
+  - bridge-utils
+  tags:
+  - packages
+  - kvm
+
