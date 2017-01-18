@@ -72,7 +72,7 @@ coreos:
   - name: locksmithd.service
     enable: true
     command: start
-    {% if locksmith_window_start != "" and locksmith_window_length != "" -%}
+{% if locksmith_window_start != "" and locksmith_window_length != "" -%}
     drop-ins:
     - name: 20-reboot-window.conf
       content: |
