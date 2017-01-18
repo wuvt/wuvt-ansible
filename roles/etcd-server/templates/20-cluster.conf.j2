@@ -2,7 +2,7 @@
 Environment="ETCD_ADVERTISE_CLIENT_URLS=https://{{ public_ipv4 }}:2379"
 Environment="ETCD_CLIENT_CERT_AUTH=true"
 Environment="ETCD_INITIAL_ADVERTISE_PEER_URLS=https://{{ public_ipv4 }}:2380"
-Environment="ETCD_LISTEN_CLIENT_URLS=https://0.0.0.0:2379,http://127.0.0.1:4001"
+Environment="ETCD_LISTEN_CLIENT_URLS=https://0.0.0.0:2379"
 Environment="ETCD_LISTEN_PEER_URLS=https://0.0.0.0:2380"
 Environment="ETCD_CERT_FILE=/etc/ssl/etcd/{{ hostname }}.pem"
 Environment="ETCD_DISCOVERY_SRV=wuvt.vt.edu"
