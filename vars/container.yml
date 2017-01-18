@@ -1,7 +1,4 @@
-locksmith_window_start: 06:00
-locksmith_window_length: 1h
-
-etcd_endpoints: https://192.168.0.155:2379,https://192.168.0.237:2379,https://192.168.0.238:2379,https://192.168.0.243:2379
+etcd_endpoints: https://192.168.0.155:2379,https://192.168.0.157:2379,https://192.168.0.237:2379,https://192.168.0.238:2379,https://192.168.0.243:2379
 k8s_ver: v1.5.1_coreos.0
 hyperkube_image_repo: quay.io/coreos/hyperkube
 kube_container_runtime: docker
