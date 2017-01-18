@@ -1,0 +1,6 @@
+etcd_services:
+- name: etcd2.service
+  enable: true
+  dropins:
+  - name: 20-cluster.conf
+    contents: "{{ lookup('template', '20-cluster.conf.j2') | replace('\n', '\\n') }}"
