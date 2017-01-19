@@ -1,6 +1,6 @@
 hypervisor: valdistava.wuvt.vt.edu
 vcpu: 8
-memory: 5120
+memory: 8192
 hostname: churchrock
 public_ipv4: 192.168.0.249
 
