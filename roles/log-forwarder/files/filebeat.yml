@@ -11,9 +11,13 @@ filebeat:
     -
       paths:
         - "/var/log/auth.log"
+        - "/var/log/kern.log"
+        - "/var/log/krb5kdc.log"
+        - "/var/log/mail.log"
         - "/var/log/maillog"
         - "/var/log/messages"
         - "/var/log/secure"
+        - "/var/log/syslog"
       document_type: syslog
     -
       paths:
