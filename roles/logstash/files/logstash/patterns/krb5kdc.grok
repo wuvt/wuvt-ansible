@@ -1,0 +1,5 @@
+KDC_ISSUE_DATA authtime %{NUMBER:authtime}, etypes %{DATA}
+KDC_PRINCIPAL [a-zA-Z0-9\._\-\/]+
+KDC_DOMAIN [a-zA-Z0-9\._\-\/]+
+
+KDC_LOG %{NOTSPACE:request_type} %{DATA} %{IPORHOST:clientip}: %{NOTSPACE:request_subtype}:%{DATA} %{KDC_PRINCIPAL:auth_principal}@%{KDC_DOMAIN:auth_domain} for %{KDC_PRINCIPAL:service_principal}@%{KDC_DOMAIN:service_domain}([,:]%{GREEDYDATA})?
