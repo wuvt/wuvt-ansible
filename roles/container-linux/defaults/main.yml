@@ -7,6 +7,7 @@ update_reboot_strategy: etcd-lock
 locksmith_window_start: ''
 locksmith_window_length: ''
 
+use_apt: false
 use_ignition: false
 ignition_extra_files: []
 ignition_extra_services: []
