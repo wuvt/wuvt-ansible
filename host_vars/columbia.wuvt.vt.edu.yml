@@ -3,6 +3,8 @@ vcpu: 8
 memory: 6144
 hostname: columbia
 public_ipv4: 192.168.0.248
+locksmith_window_start: 'Sun 19:00'
+locksmith_window_length: 1h
 
 etcd_ca: "{{ lookup('file', pki_dir + 'ca.pem') }}"
 etcd_cert: "{{ lookup('file', pki_dir + hostname + '.pem') }}"
