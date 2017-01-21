@@ -10,41 +10,23 @@
   when:
     ignition_extra_services is defined
 
+- name: Install libvirt-python (apt)
+  apt: name=python-libvirt state=present
+  delegate_to: "{{ hypervisor }}"
+  when: use_apt
+
+- name: Install libvirt-python (yum)
+  yum: name=libvirt-python state=present
+  delegate_to: "{{ hypervisor }}"
+  when: not use_apt
+
 - name: Create guest image data directory
   file:
     dest: /var/lib/libvirt/images/coreos/{{ hostname }}
     state: directory
     mode: 0700
-    owner: qemu
-    group: qemu
-  delegate_to: "{{ hypervisor }}"
-
-- name: Install ignition.json
-  template:
-    src: ignition.json.j2
-    dest: /var/lib/libvirt/images/coreos/{{ hostname }}/ignition.json
-    mode: 0600
-    owner: qemu
-    group: qemu
-  delegate_to: "{{ hypervisor }}"
-
-- name: Create cloud-config directory
-  file:
-    dest: /var/lib/libvirt/images/coreos/{{ hostname }}/openstack/latest
-    state: directory
-    mode: 0700
-    owner: qemu
-    group: qemu
-  delegate_to: "{{ hypervisor }}"
-
-- name: Install cloud-config file
-  template:
-    src: cloud-config.yaml.j2
-    dest: /var/lib/libvirt/images/coreos/{{ hostname }}/openstack/latest/user_data
-  delegate_to: "{{ hypervisor }}"
-
-- name: Build config drive ISO (for use when virtfs is not available)
-  command: /usr/bin/mkisofs -R -V config-2 -o "/var/lib/libvirt/images/coreos/{{ hostname }}_configdrive.iso" /var/lib/libvirt/images/coreos/{{ hostname }}
+    owner: "{{ qemu_user | default('qemu') }}"
+    group: "{{ qemu_group | default('qemu') }}"
   delegate_to: "{{ hypervisor }}"
 
 - name: Create guest disk image
@@ -53,20 +35,14 @@
     chdir: /var/lib/libvirt/images/coreos
     creates: /var/lib/libvirt/images/coreos/{{ hostname }}.qcow2
   become: yes
-  become_user: qemu
+  become_user: "{{ qemu_user | default('qemu') }}"
   delegate_to: "{{ hypervisor }}"
 
-- name: Install libvirt-python
-  yum: name=libvirt-python state=present
-  delegate_to: "{{ hypervisor }}"
+- include: ignition.yml
+  when: use_ignition
 
-- name: Define libvirt guest
-  virt:
-    name: "{{ hostname }}"
-    command: define
-    xml: "{{ lookup('template', 'domain.xml.j2') }}"
-    uri: qemu:///system
-  delegate_to: "{{ hypervisor }}"
+- include: cloudconfig.yml
+  when: not use_ignition
 
 # FIXME: doesn't work if domain is already running
 #- name: Start libvirt guest
