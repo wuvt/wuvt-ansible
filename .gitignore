@@ -2,3 +2,4 @@ roles/stream/vars/main.yml
 roles/ldap/templates/backup_nopass
 vars/private.yml
 credentials
+/secrets.ini
