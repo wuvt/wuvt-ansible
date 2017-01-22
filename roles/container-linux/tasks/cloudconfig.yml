@@ -1,0 +1,42 @@
+- name: Install genisoimage (apt)
+  apt: name=genisoimage state=present
+  delegate_to: "{{ hypervisor }}"
+  when: use_apt
+
+- name: Install mkisofs (yum)
+  yum: name=mkisofs state=present
+  delegate_to: "{{ hypervisor }}"
+  when: not use_apt
+
+- name: Create cloud-config directory
+  file:
+    dest: /var/lib/libvirt/images/coreos/{{ hostname }}/openstack/latest
+    state: directory
+    mode: 0700
+    owner: "{{ qemu_user | default('qemu') }}"
+    group: "{{ qemu_group | default('qemu') }}"
+  delegate_to: "{{ hypervisor }}"
+
+- name: Install cloud-config file
+  template:
+    src: cloud-config.yaml.j2
+    dest: /var/lib/libvirt/images/coreos/{{ hostname }}/openstack/latest/user_data
+  delegate_to: "{{ hypervisor }}"
+
+- name: Build config drive ISO (genisoimage)
+  command: /usr/bin/genisoimage -R -V config-2 -o "/var/lib/libvirt/images/coreos/{{ hostname }}_configdrive.iso" /var/lib/libvirt/images/coreos/{{ hostname }}
+  delegate_to: "{{ hypervisor }}"
+  when: use_apt
+
+- name: Build config drive ISO (mkisofs)
+  command: /usr/bin/mkisofs -R -V config-2 -o "/var/lib/libvirt/images/coreos/{{ hostname }}_configdrive.iso" /var/lib/libvirt/images/coreos/{{ hostname }}
+  delegate_to: "{{ hypervisor }}"
+  when: not use_apt
+
+- name: Define libvirt guest
+  virt:
+    name: "{{ hostname }}"
+    command: define
+    xml: "{{ lookup('template', 'domain.xml.j2') }}"
+    uri: qemu:///system
+  delegate_to: "{{ hypervisor }}"

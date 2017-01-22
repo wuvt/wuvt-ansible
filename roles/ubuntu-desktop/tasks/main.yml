@@ -43,18 +43,12 @@
   notify:
   - Restart Cups
 
-- name: add line to auto.master
+- name: remove line from auto.master
   lineinfile:
           dest: /etc/auto.master
-          state: present
+          state: absent
           line: "/- /etc/auto.wuvt"
   tags:
   - automount
-
-- name: copy auto.wuvt for automount
-  copy: src=auto.wuvt dest=/etc/auto.wuvt
   notify:
   - Restart autofs.service
-  tags:
-  - automount
-

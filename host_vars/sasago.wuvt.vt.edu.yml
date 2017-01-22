@@ -1,0 +1,9 @@
+hypervisor: bhopal.wuvt.vt.edu
+vcpu: 2
+memory: 1024
+hostname: sasago
+public_ipv4: 192.168.0.157
+
+etcd_ca: "{{ lookup('file', pki_dir + 'ca.pem') }}"
+etcd_cert: "{{ lookup('file', pki_dir + hostname + '.pem') }}"
+etcd_key: "{{ lookup('file', pki_dir + hostname + '-key.pem') }}"

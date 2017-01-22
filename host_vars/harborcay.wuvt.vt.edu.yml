@@ -1,8 +1,14 @@
-hypervisor: valdistava.wuvt.vt.edu
-vcpu: 8
-memory: 8192
-hostname: churchrock
-public_ipv4: 192.168.0.249
+hypervisor: dreyfus.wuvt.vt.edu
+vcpu: 2
+memory: 6144
+hostname: harborcay
+public_ipv4: 192.168.0.158
+
+qemu_machine_type: ubuntu
+qemu_emulator: /usr/bin/qemu-system-x86_64
+qemu_user: libvirt-qemu
+qemu_group: kvm
+use_apt: true
 
 etcd_ca: "{{ lookup('file', pki_dir + 'ca.pem') }}"
 etcd_cert: "{{ lookup('file', pki_dir + hostname + '.pem') }}"
@@ -25,7 +31,7 @@ ignition_extra_files:
   contents:
     source: "data:,{{ lookup('file', pki_dir + 'ca.pem') | replace('\n', '\\n') }}"
 - filesystem: root
-  path: /etc/kubernetes/manifests/jira.yaml
-  mode: 420
+  path: /etc/krb5.keytab
+  mode: 384
   contents:
-    source: "data:,{{ lookup('file', 'kubernetes/manifests/jira.yaml') | replace('\n', '\\n') }}"
+    source: "{{ lookup('ini', 'harborcay section=keytab file=secrets.ini') }}"

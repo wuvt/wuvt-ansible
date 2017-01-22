@@ -1,0 +1,4 @@
+dependencies:
+- role: container-linux
+  ignition_role_files: "{{ etcd_files }}"
+  ignition_role_services: "{{ etcd_services }}"

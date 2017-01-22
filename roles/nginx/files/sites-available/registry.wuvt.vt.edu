@@ -1,5 +1,5 @@
 upstream registry {
-    server soyuz11.wuvt.vt.edu:5000;
+    server hitomi.wuvt.vt.edu:5000;
 }
 
 server {

@@ -1,3 +1,12 @@
+- hosts: etcd-server
+  become: yes
+  vars_files:
+  - vars/container.yml
+  - vars/container_private.yml
+  gather_facts: false
+  roles:
+  - etcd-server
+
 - hosts: kubernetes-controller
   become: yes
   vars_files:

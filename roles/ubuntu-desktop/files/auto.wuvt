@@ -1,5 +1,0 @@
-#server   -fstype=nfs4   server:/
-/wuvt/dept/	-fstype=nfs4,sec=krb5p,rw	alexandria.wuvt.vt.edu:/tank/share/dept/
-/wuvt/public	-fstype=nfs4,sec=krb5p,rw	alexandria.wuvt.vt.edu:/tank/share/wuvt/
-/wuvt/music/automation	-fstype=nfs4,sec=krb5p,rw	alexandria.wuvt.vt.edu:/tank/automation/
-/wuvt/music/contrib	-fstype=nfs4,sec=krb5p,rw	alexandria.wuvt.vt.edu:/tank/library/contrib/

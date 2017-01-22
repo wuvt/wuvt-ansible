@@ -1,0 +1,16 @@
+- name: Install ignition.json
+  template:
+    src: ignition.json.j2
+    dest: /var/lib/libvirt/images/coreos/{{ hostname }}/ignition.json
+    mode: 0600
+    owner: "{{ qemu_user | default('qemu') }}"
+    group: "{{ qemu_group | default('qemu') }}"
+  delegate_to: "{{ hypervisor }}"
+
+- name: Define libvirt guest
+  virt:
+    name: "{{ hostname }}"
+    command: define
+    xml: "{{ lookup('template', 'domain-ignition.xml.j2') }}"
+    uri: qemu:///system
+  delegate_to: "{{ hypervisor }}"
