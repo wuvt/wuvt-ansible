@@ -25,8 +25,8 @@
     dest: /var/lib/libvirt/images/coreos/{{ hostname }}
     state: directory
     mode: 0700
-    owner: "{{ qemu_user | default('qemu') }}"
-    group: "{{ qemu_group | default('qemu') }}"
+    owner: "{{ qemu_user }}"
+    group: "{{ qemu_group }}"
   delegate_to: "{{ hypervisor }}"
 
 - name: Create guest disk image
@@ -35,7 +35,7 @@
     chdir: /var/lib/libvirt/images/coreos
     creates: /var/lib/libvirt/images/coreos/{{ hostname }}.qcow2
   become: yes
-  become_user: "{{ qemu_user | default('qemu') }}"
+  become_user: "{{ qemu_user }}"
   delegate_to: "{{ hypervisor }}"
 
 - include: ignition.yml

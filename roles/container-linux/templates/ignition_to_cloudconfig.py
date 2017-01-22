@@ -57,11 +57,17 @@ print("""\
 {% for f in ignition_extra_files -%}
 - path: {{ f.path }}
   permissions: {{ "%o" | format(f.mode | default(420)) }}
-  {% if 'user' in f -%}
+{% if 'user' in f %}
   owner: {{ f.user }}{% if 'group' in f %}:{{ f.group }}{% endif %}
-  {% endif -%}
+{% endif %}
+{% if f.contents.source[:12] == 'data:;base64' %}
+  encoding: base64
+  content: |
+    {{ f.contents.source | replace('data:;base64,', '', 1) | replace('\\\\n', '\\n') | indent(4, false) }}
+{% else %}
   content: |
     {{ f.contents.source | replace('data:,', '', 1) | replace('\\\\n', '\\n') | indent(4, false) }}
+{% endif %}
 {% endfor %}""")
 
 print('\ncoreos:\n  units:')

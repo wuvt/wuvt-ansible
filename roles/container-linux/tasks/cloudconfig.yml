@@ -1,3 +1,13 @@
+- name: Install genisoimage (apt)
+  apt: name=genisoimage state=present
+  delegate_to: "{{ hypervisor }}"
+  when: use_apt
+
+- name: Install mkisofs (yum)
+  yum: name=mkisofs state=present
+  delegate_to: "{{ hypervisor }}"
+  when: not use_apt
+
 - name: Create cloud-config directory
   file:
     dest: /var/lib/libvirt/images/coreos/{{ hostname }}/openstack/latest
@@ -13,9 +23,15 @@
     dest: /var/lib/libvirt/images/coreos/{{ hostname }}/openstack/latest/user_data
   delegate_to: "{{ hypervisor }}"
 
-- name: Build config drive ISO (for use when virtfs is not available)
+- name: Build config drive ISO (genisoimage)
+  command: /usr/bin/genisoimage -R -V config-2 -o "/var/lib/libvirt/images/coreos/{{ hostname }}_configdrive.iso" /var/lib/libvirt/images/coreos/{{ hostname }}
+  delegate_to: "{{ hypervisor }}"
+  when: use_apt
+
+- name: Build config drive ISO (mkisofs)
   command: /usr/bin/mkisofs -R -V config-2 -o "/var/lib/libvirt/images/coreos/{{ hostname }}_configdrive.iso" /var/lib/libvirt/images/coreos/{{ hostname }}
   delegate_to: "{{ hypervisor }}"
+  when: not use_apt
 
 - name: Define libvirt guest
   virt:
