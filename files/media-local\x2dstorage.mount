@@ -1,0 +1,4 @@
+[Mount]
+What=/dev/storage/local-storage
+Where=/media/local-storage
+Type=ext4

@@ -26,3 +26,28 @@ ignition_extra_files:
   mode: 384
   contents:
     source: "data:,{{ lookup('file', pki_dir + 'ca.pem') | replace('\n', '\\n') }}"
+- filesystem: root
+  path: /etc/kubernetes/manifests/musicbrainz-redis-store.yaml
+  mode: 420
+  contents:
+    source: "data:,{{ lookup('file', 'kubernetes/manifests/musicbrainz-redis-store.yaml') | replace('\n', '\\n') }}"
+- filesystem: root
+  path: /etc/kubernetes/manifests/postgres.yaml
+  mode: 420
+  contents:
+    source: "data:,{{ lookup('file', 'kubernetes/manifests/postgres.yaml') | replace('\n', '\\n') }}"
+- filesystem: root
+  path: /etc/kubernetes/manifests/wuvt-site-redis-am.yaml
+  mode: 420
+  contents:
+    source: "data:,{{ lookup('file', 'kubernetes/manifests/wuvt-site-redis-am.yaml') | replace('\n', '\\n') }}"
+- filesystem: root
+  path: /etc/kubernetes/manifests/wuvt-site-redis-prod.yaml
+  mode: 420
+  contents:
+    source: "data:,{{ lookup('file', 'kubernetes/manifests/wuvt-site-redis-prod.yaml') | replace('\n', '\\n') }}"
+
+ignition_extra_services:
+- name: media-local\x2dstorage.mount
+  enable: true
+  contents: "{{ lookup('file', 'media-local\\x2dstorage.mount') | replace('\n', '\\n') }}"
