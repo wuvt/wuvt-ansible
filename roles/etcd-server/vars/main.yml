@@ -1,5 +1,5 @@
 etcd_services:
-- name: etcd2.service
+- name: etcd-member.service
   enable: true
   dropins:
   - name: 20-cluster.conf
