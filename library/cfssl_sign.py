@@ -11,7 +11,6 @@ import urlparse
 from ansible.module_utils.basic import AnsibleModule
 
 
-# TODO
 DOCUMENTATION = '''
 ---
 module: cfssl_sign
