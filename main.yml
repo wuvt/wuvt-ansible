@@ -94,6 +94,11 @@
   roles:
   - rds
 
+- hosts: cfssl-server
+  become: yes
+  roles:
+  - cfssl-server
+
 - hosts: marshall.wuvt.vt.edu
   become: yes
   vars:
