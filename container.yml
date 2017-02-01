@@ -1,3 +1,24 @@
+- hosts: etcd-server:kubernetes-controller:kubernetes-worker
+  vars_files:
+  - vars/container.yml
+  - vars/container_private.yml
+  gather_facts: false
+  tasks:
+  - name: Generate certificate
+    shell: cfssl genkey - <<< {{ cfssl_request | to_json | quote }} | cfssljson -bare {{ hostname }}
+    args:
+      chdir: "{{ pki_dir }}"
+      creates: "{{ hostname }}.csr"
+    delegate_to: localhost
+
+  - name: Sign certificate
+    cfssl_sign:
+      endpoint: "{{ cfssl_endpoint }}"
+      csr: "{{ pki_dir }}{{ hostname }}.csr"
+      dest: "{{ pki_dir }}{{ hostname }}.pem"
+      auth_key: "{{ cfssl_auth_key }}"
+    delegate_to: localhost
+
 - hosts: etcd-server
   become: yes
   vars_files:

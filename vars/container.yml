@@ -1,4 +1,17 @@
+pki_dir: files/pki/
+cfssl_endpoint: http://127.0.0.1:8888
+cfssl_request:
+  CN: "{{ hostname }}.wuvt.vt.edu"
+  key:
+    algo: rsa
+    size: 4096
+  hosts: "{{ cfssl_hosts }}"
+
 etcd_endpoints: https://192.168.0.157:2379,https://192.168.0.159:2379,https://192.168.0.237:2379,https://192.168.0.238:2379,https://192.168.0.243:2379
+etcd_ca: "{{ lookup('file', pki_dir + 'ca.pem') }}"
+etcd_cert: "{{ lookup('file', pki_dir + hostname + '.pem') }}"
+etcd_key: "{{ lookup('file', pki_dir + hostname + '-key.pem') }}"
+
 kube_container_runtime: docker
 kube_controller_endpoint: https://192.168.0.246:443
 kube_pod_network: 10.1.0.0/16

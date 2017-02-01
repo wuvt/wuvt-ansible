@@ -10,10 +10,6 @@ qemu_user: libvirt-qemu
 qemu_group: kvm
 use_apt: true
 
-etcd_ca: "{{ lookup('file', pki_dir + 'ca.pem') }}"
-etcd_cert: "{{ lookup('file', pki_dir + hostname + '.pem') }}"
-etcd_key: "{{ lookup('file', pki_dir + hostname + '-key.pem') }}"
-
 ignition_extra_files:
 - filesystem: root
   path: /etc/kubernetes/ssl/worker.pem
