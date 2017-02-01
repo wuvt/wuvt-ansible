@@ -58,7 +58,8 @@ print("""\
 - path: {{ f.path }}
   permissions: {{ "%o" | format(f.mode | default(420)) }}
 {% if 'user' in f %}
-  owner: {{ f.user }}{% if 'group' in f %}:{{ f.group }}{% endif %}
+  owner: {{ f.user }}{% if 'group' in f %}:{{ f.group }}
+{% endif %}
 {% endif %}
 {% if f.contents.source[:12] == 'data:;base64' %}
   encoding: base64
