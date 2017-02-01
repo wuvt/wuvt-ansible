@@ -27,21 +27,6 @@ write_files:
   owner: root
   content: |
     {{ lookup('file', 'sshd_config') | indent(4, false) }}
-- path: /etc/ssl/etcd/ca.pem
-  permissions: 644
-  owner: etcd:etcd
-  content: |
-    {{ etcd_ca | indent(4, false) }}
-- path: /etc/ssl/etcd/{{ hostname }}.pem
-  permissions: 644
-  owner: etcd:etcd
-  content: |
-    {{ etcd_cert | indent(4, false) }}
-- path: /etc/ssl/etcd/{{ hostname }}-key.pem
-  permissions: 600
-  owner: etcd:etcd
-  content: |
-    {{ etcd_key | indent(4, false) }}
 - path: /etc/ssl/logstash/logstash.pem
   permissions: 644
   owner: root
