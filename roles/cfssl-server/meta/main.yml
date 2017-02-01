@@ -1,0 +1,4 @@
+dependencies:
+- role: container-linux
+  ignition_role_files: "{{ cfssl_files }}"
+  ignition_role_services: "{{ cfssl_services }}"

@@ -1,3 +1,26 @@
+etcd_files:
+- filesystem: root
+  path: /etc/ssl/etcd/ca.pem
+  mode: 420
+  user: etcd
+  group: etcd
+  contents:
+    source: "data:,{{ etcd_ca | replace('\n', '\\n') }}"
+- filesystem: root
+  path: /etc/ssl/etcd/{{ hostname }}.pem
+  mode: 420
+  user: etcd
+  group: etcd
+  contents:
+    source: "data:,{{ etcd_cert | replace('\n', '\\n') }}"
+- filesystem: root
+  path: /etc/ssl/etcd/{{ hostname }}-key.pem
+  mode: 384
+  user: etcd
+  group: etcd
+  contents:
+    source: "data:,{{ etcd_key | replace('\n', '\\n') }}"
+
 etcd_services:
 - name: etcd-member.service
   enable: true
