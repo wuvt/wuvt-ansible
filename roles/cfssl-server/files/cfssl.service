@@ -4,7 +4,6 @@ Documentation=https://github.com/cloudflare/cfssl
 Wants=network.target
 
 [Service]
-Type=notify
 Restart=on-failure
 RestartSec=10s
 TimeoutStartSec=0
@@ -22,9 +21,13 @@ ExecStart=/usr/bin/rkt run \
           --mount volume=etc-resolv,target=/etc/resolv.conf \
           --inherit-env \
           --stage1-from-dir=stage1-fly.aci \
-          quay.io/wuvt/cfssl:latest \
-          --user=999
-ExecStop=-/usr/bin/rkt stop --uuid-file=/var/lib/cfssl/cfsslr-tk.uuid
+          quay.io/wuvt/docker-cfssl:latest \
+          --user=999 -- /usr/bin/cfssl serve \
+            -address 0.0.0.0 \
+            -ca /etc/cfssl/ca.pem -ca-key /etc/cfssl/ca-key.pem \
+            -tls-cert /etc/cfssl/cfssl.pem -tls-key /etc/cfssl/cfssl-key.pem \
+            -config /etc/cfssl/server_config.json
+ExecStop=-/usr/bin/rkt stop --uuid-file=/var/lib/cfssl/cfssl-rkt.uuid
 
 [Install]
 WantedBy=multi-user.target
