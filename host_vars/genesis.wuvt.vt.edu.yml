@@ -3,7 +3,3 @@ vcpu: 2
 memory: 1024
 hostname: genesis
 public_ipv4: 192.168.0.243
-
-etcd_ca: "{{ lookup('file', pki_dir + 'ca.pem') }}"
-etcd_cert: "{{ lookup('file', pki_dir + hostname + '.pem') }}"
-etcd_key: "{{ lookup('file', pki_dir + hostname + '-key.pem') }}"
