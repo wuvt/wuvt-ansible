@@ -23,6 +23,7 @@
   - name: Sign certificate
     cfssl_sign:
       endpoint: "{{ cfssl_endpoint }}"
+      endpoint_ca: "{{ cfssl_endpoint_ca }}"
       csr: "{{ pki_dir }}{{ hostname }}.csr"
       dest: "{{ pki_dir }}{{ hostname }}.pem"
       auth_key: "{{ cfssl_auth_key }}"
