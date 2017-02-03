@@ -22,11 +22,9 @@ ExecStart=/usr/bin/rkt run \
           --inherit-env \
           --stage1-from-dir=stage1-fly.aci \
           quay.io/wuvt/docker-cfssl:latest \
-          --user=999 -- /usr/bin/cfssl serve \
-            -address 0.0.0.0 \
-            -ca /etc/cfssl/ca.pem -ca-key /etc/cfssl/ca-key.pem \
+          --user=999 -- /usr/bin/multirootca \
             -tls-cert /etc/cfssl/cfssl.pem -tls-key /etc/cfssl/cfssl-key.pem \
-            -config /etc/cfssl/server_config.json
+            -roots /etc/cfssl/roots.conf
 ExecStop=-/usr/bin/rkt stop --uuid-file=/var/lib/cfssl/cfssl-rkt.uuid
 
 [Install]

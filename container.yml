@@ -27,6 +27,7 @@
       csr: "{{ pki_dir }}{{ hostname }}.csr"
       dest: "{{ pki_dir }}{{ hostname }}.pem"
       auth_key: "{{ cfssl_auth_key }}"
+      label: cluster
     delegate_to: localhost
 
 - hosts: etcd-server
