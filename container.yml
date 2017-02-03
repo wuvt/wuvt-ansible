@@ -10,7 +10,8 @@
 - hosts: etcd-server:kubernetes-controller:kubernetes-worker
   vars_files:
   - vars/container.yml
-  - vars/container_private.yml
+  vars:
+    cfssl_auth_key: "{{ lookup('ini', 'auth_key_cluster section=cfssl file=secrets.ini') }}"
   gather_facts: false
   tasks:
   - name: Generate certificate
