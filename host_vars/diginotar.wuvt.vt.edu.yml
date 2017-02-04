@@ -10,6 +10,9 @@ qemu_user: libvirt-qemu
 qemu_group: kvm
 use_apt: true
 
+locksmith_window_start: 06:00
+locksmith_window_length: 1h
+
 ignition_extra_files:
 - filesystem: root
   path: /etc/krb5.keytab
