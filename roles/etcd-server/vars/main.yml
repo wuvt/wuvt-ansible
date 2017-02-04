@@ -5,21 +5,21 @@ etcd_files:
   user: etcd
   group: etcd
   contents:
-    source: "data:,{{ etcd_ca | replace('\n', '\\n') }}"
+    source: "data:,{{ lookup('file', pki_dir + 'ca.pem') | replace('\n', '\\n') }}"
 - filesystem: root
   path: /etc/ssl/etcd/{{ hostname }}.pem
   mode: 420
   user: etcd
   group: etcd
   contents:
-    source: "data:,{{ etcd_cert | replace('\n', '\\n') }}"
+    source: "data:,{{ lookup('file', pki_dir + hostname + '.pem') | replace('\n', '\\n') }}"
 - filesystem: root
   path: /etc/ssl/etcd/{{ hostname }}-key.pem
   mode: 384
   user: etcd
   group: etcd
   contents:
-    source: "data:,{{ etcd_key | replace('\n', '\\n') }}"
+    source: "data:,{{ lookup('file', pki_dir + hostname + '-key.pem') | replace('\n', '\\n') }}"
 
 etcd_services:
 - name: etcd-member.service

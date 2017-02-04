@@ -9,6 +9,21 @@ kubernetes_worker_files:
   mode: 420
   contents:
     source: "data:,{{ lookup('template', 'kube-proxy.yaml.j2') | replace('\n', '\\n') }}"
+- filesystem: root
+  path: /etc/kubernetes/ssl/worker.pem
+  mode: 384
+  contents:
+    source: "data:,{{ lookup('file', pki_dir + hostname + '.pem') | replace('\n', '\\n') }}"
+- filesystem: root
+  path: /etc/kubernetes/ssl/worker-key.pem
+  mode: 384
+  contents:
+    source: "data:,{{ lookup('file', pki_dir + hostname + '-key.pem') | replace('\n', '\\n') }}"
+- filesystem: root
+  path: /etc/kubernetes/ssl/ca.pem
+  mode: 384
+  contents:
+    source: "data:,{{ lookup('file', pki_dir + 'ca.pem') | replace('\n', '\\n') }}"
 
 kubernetes_worker_services:
 - name: kubelet.service

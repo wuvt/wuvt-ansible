@@ -3,20 +3,3 @@ vcpu: 8
 memory: 8192
 hostname: naro2
 public_ipv4: 192.168.0.247
-
-ignition_extra_files:
-- filesystem: root
-  path: /etc/kubernetes/ssl/worker.pem
-  mode: 384
-  contents:
-    source: "data:,{{ lookup('file', pki_dir + hostname + '.pem') | replace('\n', '\\n') }}"
-- filesystem: root
-  path: /etc/kubernetes/ssl/worker-key.pem
-  mode: 384
-  contents:
-    source: "data:,{{ lookup('file', pki_dir + hostname + '-key.pem') | replace('\n', '\\n') }}"
-- filesystem: root
-  path: /etc/kubernetes/ssl/ca.pem
-  mode: 384
-  contents:
-    source: "data:,{{ lookup('file', pki_dir + 'ca.pem') | replace('\n', '\\n') }}"
