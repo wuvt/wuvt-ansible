@@ -21,7 +21,7 @@
 
 - name: Install playlist loader cronjob
   cron: name="johnny-six playlist loader" user="liquidsoap" minute="30"
-        job="kinit johnny-six@WUVT.VT.EDU -k -t /etc/johnny-six.keytab python3 /opt/johnny-six/playlist-loader/loader.py" state=present
+        job="bash -c 'kinit johnny-six@WUVT.VT.EDU -k -t /etc/johnny-six.keytab; python3 /opt/johnny-six/playlist-loader/loader.py'" state=present
 
 - name: Change johnny-six output to ALSA
   lineinfile: dest=/opt/johnny-six/wuvt.liq regexp=^output\.
