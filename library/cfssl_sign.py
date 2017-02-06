@@ -59,9 +59,14 @@ options:
     default: null
   force:
     description:
-      - Sign the certificate even if there is a certificate at I(dest) that has already been signed and is not expiring soon.
+      - Sign the certificate even if there is a certificate at I(dest) that has already been signed and is not expiring within I(renew_days).
     required: false
     default: false
+  renew_days:
+    description:
+      - Renew the existing certificate only if it expires in fewer than I(renew_days).
+    required: false
+    default: 15
 requirements:
   - cryptography
   - requests
@@ -70,14 +75,15 @@ author:
 '''
 
 
-def should_sign(cert_path):
+def should_sign(cert_path, renew_days):
     if not os.path.exists(cert_path):
         return True
 
     parsed_cert = x509.load_pem_x509_certificate(open(cert_path, 'rb').read(),
                                                  default_backend())
 
-    next_sign = parsed_cert.not_valid_after - datetime.timedelta(days=15)
+    next_sign = parsed_cert.not_valid_after - \
+        datetime.timedelta(days=renew_days)
     if datetime.datetime.utcnow() >= next_sign:
         return True
 
@@ -95,6 +101,7 @@ def main():
             label=dict(default=None),
             profile=dict(default=None),
             force=dict(default=False, type='bool'),
+            renew_days=dict(default=15, type='int'),
         ),
         supports_check_mode=True
     )
@@ -105,8 +112,9 @@ def main():
     dest = module.params['dest']
     endpoint_ca = module.params['endpoint_ca']
     force = module.params['force']
+    renew_days = module.params['renew_days']
 
-    if force or should_sign(dest):
+    if force or should_sign(dest, renew_days):
         if module.check_mode:
             module.exit_json(changed=True)
         else:
