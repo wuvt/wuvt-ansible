@@ -4,9 +4,6 @@ vcpu: 4
 update_channel: stable
 update_reboot_strategy: etcd-lock
 
-locksmith_window_start: ''
-locksmith_window_length: ''
-
 qemu_emulator: /usr/libexec/qemu-kvm
 qemu_machine_type: pc-i440fx-rhel7.0.0
 qemu_user: qemu

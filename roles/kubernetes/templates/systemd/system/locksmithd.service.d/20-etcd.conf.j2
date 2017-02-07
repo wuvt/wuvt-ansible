@@ -1,0 +1,9 @@
+[Service]
+Environment="LOCKSMITHD_ENDPOINT={{ etcd_endpoints }}"
+Environment="LOCKSMITHD_ETCD_CAFILE=/etc/ssl/etcd/ca.pem"
+Environment="LOCKSMITHD_ETCD_CERTFILE=/etc/ssl/etcd/{{ hostname }}.pem"
+Environment="LOCKSMITHD_ETCD_KEYFILE=/etc/ssl/etcd/{{ hostname }}-key.pem"
+{% if locksmith_window_start != "" and locksmith_window_length != "" %}
+Environment="REBOOT_WINDOW_START={{ locksmith_window_start }}"
+Environment="REBOOT_WINDOW_LENGTH={{ locksmith_window_length }}"
+{% endif %}

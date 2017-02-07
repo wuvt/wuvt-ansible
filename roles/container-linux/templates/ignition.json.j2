@@ -65,16 +65,6 @@
     "systemd": {
         "units": [
             {
-                "name": "locksmithd.service",
-                "enable": true{% if locksmith_window_start != "" and locksmith_window_length != "" %},
-                "dropins": [
-                    {
-                        "name": "20-reboot-window.conf",
-                        "contents": "[Service]\nEnvironment=\"REBOOT_WINDOW_START={{ locksmith_window_start }}\"\nEnvironment=\"REBOOT_WINDOW_LENGTH={{ locksmith_window_length }}\""
-                    }
-                ]{% endif %}
-            },
-            {
                 "name": "rpc-statd.service",
                 "enable": true
             },

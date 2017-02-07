@@ -61,17 +61,6 @@ write_files:
 
 coreos:
   units:
-  - name: locksmithd.service
-    enable: true
-    command: start
-{% if locksmith_window_start != "" and locksmith_window_length != "" %}
-    drop-ins:
-    - name: 20-reboot-window.conf
-      content: |
-        [Service]
-        Environment="REBOOT_WINDOW_START={{ locksmith_window_start }}"
-        Environment="REBOOT_WINDOW_LENGTH={{ locksmith_window_length }}"
-{% endif %}
   - name: rpc-statd.service
     enable: true
     command: start

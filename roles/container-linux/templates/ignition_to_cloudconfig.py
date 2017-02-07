@@ -77,8 +77,6 @@ for unit in d['systemd']['units']:
     if unit['enable']:
         print('    enable: true\n    command: start')
 
-    if unit['name'] == "locksmithd.service":
-        print('{% if locksmith_window_start != "" and locksmith_window_length != "" %}')
     if 'dropins' in unit and len(unit['dropins']) > 0:
         print('    drop-ins:')
         for dropin in unit['dropins']:
@@ -88,8 +86,6 @@ for unit in d['systemd']['units']:
 {content}""".format(
                 name=dropin['name'],
                 content=textwrap.indent(process_content(dropin['contents'], 8), ' ' * 8)))
-    if unit['name'] == "locksmithd.service":
-        print('{% endif %}')
 
     if 'contents' in unit:
         print('    content: |\n{}'.format(

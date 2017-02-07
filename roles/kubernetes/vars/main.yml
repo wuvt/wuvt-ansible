@@ -57,6 +57,11 @@ kubernetes_files:
     source: "data:,{{ lookup('file', 'kubernetes/manifests/kubelog-filebeat.yaml') | replace('\n', '\\n') }}"
 
 kubernetes_services:
+- name: locksmithd.service
+  enable: true
+  dropins:
+  - name: 20-etcd.conf
+    contents: "{{ lookup('template', 'systemd/system/locksmithd.service.d/20-etcd.conf.j2') | replace('\n', '\\n') }}"
 - name: flanneld.service
   enable: true
   dropins:

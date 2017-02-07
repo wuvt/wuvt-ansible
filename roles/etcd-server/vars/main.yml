@@ -22,8 +22,13 @@ etcd_files:
     source: "data:,{{ lookup('file', pki_dir + hostname + '-key.pem') | replace('\n', '\\n') }}"
 
 etcd_services:
+- name: locksmithd.service
+  enable: true
+  dropins:
+  - name: 20-etcd.conf
+    contents: "{{ lookup('template', 'systemd/system/locksmithd.service.d/20-etcd.conf.j2') | replace('\n', '\\n') }}"
 - name: etcd-member.service
   enable: true
   dropins:
   - name: 20-cluster.conf
-    contents: "{{ lookup('template', '20-cluster.conf.j2') | replace('\n', '\\n') }}"
+    contents: "{{ lookup('template', 'systemd/system/etcd-member.service.d/20-cluster.conf.j2') | replace('\n', '\\n') }}"

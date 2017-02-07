@@ -5,5 +5,8 @@ kube_dns_service_ip: 10.3.0.10
 kube_service_network: 10.3.0.0/24
 kubelet_uuid_file: /var/run/kubelet-pod.uuid
 
+locksmith_window_start: ''
+locksmith_window_length: ''
+
 kubernetes_role_files: []
 kubernetes_role_services: []
