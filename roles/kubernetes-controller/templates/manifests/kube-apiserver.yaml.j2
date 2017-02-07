@@ -28,6 +28,12 @@ spec:
     - --runtime-config=extensions/v1beta1/networkpolicies=true
     - --runtime-config=batch/v2alpha1
     - --anonymous-auth=false
+    - --oidc-issuer-url=https://id.apps.wuvt.vt.edu
+    - --oidc-client-id=kubernetes
+    - --oidc-username-claim=sub
+    - --oidc-groups-claim=groups
+    - --authorization-mode=ABAC
+    - --authorization-policy-file=/etc/kubernetes/abac/policy.jsonl
     livenessProbe:
       httpGet:
         host: 127.0.0.1
@@ -43,6 +49,9 @@ spec:
       hostPort: 8080
       name: local
     volumeMounts:
+    - mountPath: /etc/kubernetes/abac
+      name: kubernetes-abac
+      readOnly: true
     - mountPath: /etc/kubernetes/ssl
       name: ssl-certs-kubernetes
       readOnly: true
@@ -53,6 +62,9 @@ spec:
       name: ssl-certs-etcd
       readOnly: true
   volumes:
+  - hostPath:
+      path: /etc/kubernetes/abac
+    name: kubernetes-abac
   - hostPath:
       path: /etc/kubernetes/ssl
     name: ssl-certs-kubernetes

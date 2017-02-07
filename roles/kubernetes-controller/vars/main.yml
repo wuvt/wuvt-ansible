@@ -34,6 +34,11 @@ kubernetes_controller_files:
   mode: 384
   contents:
     source: "data:,{{ lookup('file', pki_dir + 'ca.pem') | replace('\n', '\\n') }}"
+- filesystem: root
+  path: /etc/kubernetes/abac/policy.jsonl
+  mode: 420
+  contents:
+    source: "data:,{{ lookup('file', 'policy.jsonl') | replace('\n', '\\n') }}"
 
 kubernetes_controller_services:
 - name: kubelet.service

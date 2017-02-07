@@ -2,7 +2,7 @@ pki_dir: files/pki/
 cfssl_endpoint: https://diginotar.wuvt.vt.edu:8888
 cfssl_endpoint_ca: files/cfssl_ca.pem
 cfssl_request:
-  CN: "{{ hostname }}.wuvt.vt.edu"
+  CN: kubelet
   key:
     algo: rsa
     size: 4096
