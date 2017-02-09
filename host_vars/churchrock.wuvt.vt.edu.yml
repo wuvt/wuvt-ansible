@@ -3,10 +3,3 @@ vcpu: 8
 memory: 8192
 hostname: churchrock
 public_ipv4: 192.168.0.249
-
-ignition_extra_files:
-- filesystem: root
-  path: /etc/kubernetes/manifests/jira.yaml
-  mode: 420
-  contents:
-    source: "data:,{{ lookup('file', 'kubernetes/manifests/jira.yaml') | replace('\n', '\\n') }}"
