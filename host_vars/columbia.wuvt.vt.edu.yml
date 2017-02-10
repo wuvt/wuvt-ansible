@@ -8,20 +8,10 @@ locksmith_window_length: 1h
 
 ignition_extra_files:
 - filesystem: root
-  path: /etc/kubernetes/manifests/musicbrainz-redis-store.yaml
-  mode: 420
-  contents:
-    source: "data:,{{ lookup('file', 'kubernetes/manifests/musicbrainz-redis-store.yaml') | replace('\n', '\\n') }}"
-- filesystem: root
   path: /etc/kubernetes/manifests/postgres.yaml
   mode: 420
   contents:
     source: "data:,{{ lookup('file', 'kubernetes/manifests/postgres.yaml') | replace('\n', '\\n') }}"
-- filesystem: root
-  path: /etc/kubernetes/manifests/wuvt-site-redis-am.yaml
-  mode: 420
-  contents:
-    source: "data:,{{ lookup('file', 'kubernetes/manifests/wuvt-site-redis-am.yaml') | replace('\n', '\\n') }}"
 - filesystem: root
   path: /etc/kubernetes/manifests/wuvt-site-redis-prod.yaml
   mode: 420
