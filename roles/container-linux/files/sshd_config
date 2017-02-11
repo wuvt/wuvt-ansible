@@ -13,4 +13,4 @@ ChallengeResponseAuthentication no
 GSSAPIAuthentication no
 KerberosAuthentication no
 PasswordAuthentication no
-AllowGroups engineering it-staff sudoers wheel
+AllowGroups sudoers wheel
