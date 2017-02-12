@@ -4,3 +4,6 @@
 
 - include: debian.yml
   when: ansible_os_family == "Debian"
+
+- include: systemd.yml
+  when: ansible_service_mgr == 'systemd'

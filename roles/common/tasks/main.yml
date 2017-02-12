@@ -2,3 +2,5 @@
 - include: ntp.yml
 #- include: ansible.yml
 - include: sysctl.yml
+- include: systemd.yml
+  when: ansible_service_mgr == 'systemd'
