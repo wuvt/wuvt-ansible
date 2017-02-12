@@ -1,0 +1,1 @@
+automation_alsa_output: 'plughw:CARD=Live,DEV=0'
