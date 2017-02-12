@@ -57,6 +57,14 @@
                 "contents": {
                     "source": "data:,{{ lookup('file', 'sssd/ca.pem') | replace('\n', '\\n') }}"
                 }
+            },
+            {
+                "filesystem": "root",
+                "path": "/etc/systemd/journald.conf.d/10-retention.conf",
+                "mode": 420,
+                "contents": {
+                    "source": "data:,{{ lookup('file', 'systemd/journald.conf.d/10-retention.conf') | replace('\n', '\\n') }}"
+                }
             }{% if ignition_extra_files | length > 0 %},
             {{ ignition_extra_files | map('to_json') | join(',') }}{% endif %}
 

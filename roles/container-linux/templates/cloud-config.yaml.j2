@@ -42,6 +42,11 @@ write_files:
   owner: root
   content: |
     {{ lookup('file', 'sssd/ca.pem') | indent(4, false) }}
+- path: /etc/systemd/journald.conf.d/10-retention.conf
+  permissions: 644
+  owner: root
+  content: |
+    {{ lookup('file', 'systemd/journald.conf.d/10-retention.conf') | indent(4, false) }}
 {% for f in ignition_extra_files -%}
 - path: {{ f.path }}
   permissions: {{ "%o" | format(f.mode | default(420)) }}
