@@ -1,6 +1,6 @@
-name: Root logins from outside the WUVT network
+name: 5xx responses in nginx log
 type: frequency
-index: syslog-*
+index: nginx-*
 
 num_events: 1
 timeframe:
@@ -9,15 +9,16 @@ timeframe:
 filter:
 - query:
     query_string:
-      query: "tags:login AND NOT tags:pam AND user.raw:root AND NOT clientip:192.168.0.*"
+      query: "response:5*"
 
 alert:
 - "email"
+- "slack"
 - "command"
 email:
 - "wuvt.it@gmail.com"
 - "root@wuvt.vt.edu"
-- "wuvt@mutantmonkey.in"
+slack_webhook_url: "{{ slack_webhook_url }}"
 command:
 - "/usr/local/bin/ircalert"
 - "-nick"
@@ -28,4 +29,4 @@ command:
 - "-channel"
 - "#wuvt"
 - "-message"
-- "Root logins from outside the WUVT network"
+- "5xx responses in nginx log"

@@ -13,11 +13,13 @@ filter:
 
 alert:
 - "email"
+- "slack"
 - "command"
 email:
 - "wuvt.it@gmail.com"
 - "root@wuvt.vt.edu"
 - "wuvt@mutantmonkey.in"
+slack_webhook_url: "{{ slack_webhook_url }}"
 command:
 - "/usr/local/bin/ircalert"
 - "-nick"

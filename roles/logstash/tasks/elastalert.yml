@@ -37,14 +37,22 @@
 
 # elastalert-create-index
 
-- name: Install elastalert config and rules
-  copy: src=elastalert/{{ item }} dest=/etc/elastalert/{{ item }}
+- name: Install elastalert config
+  copy:
+    src: elastalert/config.yaml
+    dest: /etc/elastalert/config.yaml
+  tags:
+  - elastalert
+
+- name: Install elastalert rules
+  template:
+    src: elastalert/rules/{{ item }}.j2
+    dest: /etc/elastalert/rules/{{ item }}
   with_items:
-  - config.yaml
-  - rules/website_exception.yaml
-  - rules/sshd_root_login.yaml
-  - rules/sshd_backup_login.yaml
-  - rules/nginx_5xx.yaml
+  - nginx_5xx.yaml
+  - sshd_backup_login.yaml
+  - sshd_root_login.yaml
+  - website_exception.yaml
   tags:
   - elastalert
 
