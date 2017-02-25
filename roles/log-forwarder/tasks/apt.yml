@@ -23,7 +23,7 @@
 - meta: flush_handlers
 
 - name: Install filebeat
-  apt: pkg=filebeat state=present
+  apt: update_cache=yes pkg=filebeat state=present
   tags:
   - packages
   - log-forwarder
