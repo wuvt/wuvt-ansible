@@ -1,0 +1,12 @@
+stream_host: "marshall.wuvt.vt.edu"
+stream_port: 8000
+stream_password: "{{ lookup('ini', 'stream_password section=icecast file=secrets.ini') }}"
+
+meta_name: "WUVT-FM 90.7 Blacksburg, VA [Live Stream]"
+meta_description: "The greatest radio station in the world"
+meta_genre: "College radio"
+meta_url: "https://www.wuvt.vt.edu"
+mount_prefix: "digital"
+
+# FIXME: this needs to be the digital input
+stream_alsa_device: "hw:0,0"

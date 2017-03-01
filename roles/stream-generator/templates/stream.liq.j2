@@ -1,0 +1,49 @@
+stream_host = "{{ stream_host }}"
+stream_port = {{ stream_port }}
+stream_password = "{{ stream_password }}"
+meta_name = "{{ meta_name }}"
+meta_description = "{{ meta_description }}"
+meta_genre = "{{ meta_genre }}"
+meta_url = "{{ meta_url }}"
+mount_prefix = "{{ mount_prefix }}"
+
+live = input.alsa(device="{{ stream_alsa_device }}")
+
+output.icecast(
+    %vorbis.cbr(samplerate=44100, channels=2, bitrate=128),
+    host=stream_host, port=stream_port, password=stream_password,
+    name=meta_name, description=meta_description, genre=meta_genre,
+    url=meta_url, mount=mount_prefix ^ ".ogg", live)
+output.icecast(
+    %vorbis.cbr(samplerate=44100, channels=2, bitrate=64),
+    host=stream_host, port=stream_port, password=stream_password,
+    name=meta_name, description=meta_description, genre=meta_genre,
+    url=meta_url, mount=mount_prefix ^ "-lb.ogg", live)
+output.icecast(
+    %vorbis.cbr(samplerate=44100, channels=2, bitrate=320),
+    host=stream_host, port=stream_port, password=stream_password,
+    name=meta_name, description=meta_description, genre=meta_genre,
+    url=meta_url, mount=mount_prefix ^ "-hq.ogg", live)
+
+output.icecast(
+    %aac(channels=2, samplerate=44100, bitrate=128, adts=true),
+    host=stream_host, port=stream_port, password=stream_password,
+    name=meta_name, description=meta_description, genre=meta_genre,
+    url=meta_url, mount=mount_prefix ^ ".aac", live)
+output.icecast(
+    %aac(channels=2, samplerate=44100, bitrate=64, adts=true),
+#    %aacplus(channels=2, samplerate=44100, bitrate=64),
+    host=stream_host, port=stream_port, password=stream_password,
+    name=meta_name, description=meta_description, genre=meta_genre,
+    url=meta_url, mount=mount_prefix ^ "-lb.aac", live)
+output.icecast(
+    %aac(channels=2, samplerate=44100, bitrate=320, adts=true),
+    host=stream_host, port=stream_port, password=stream_password,
+    name=meta_name, description=meta_description, genre=meta_genre,
+    url=meta_url, mount=mount_prefix ^ "-hq.aac", live)
+
+#output.icecast(
+#    %flac(samplerate=44100, channels=2, compression=7, bits_per_sample=16),
+#    host=stream_host, port=stream_port, password=stream_password,
+#    name=meta_name, description=meta_description, genre=meta_genre,
+#    url=meta_url, mount=mount_prefix ^ ".flac", live)

@@ -1,0 +1,4 @@
+- name: Restart stream-generator.service
+  service:
+    name: stream-generator.service
+    state: restarted

@@ -1,0 +1,11 @@
+[Unit]
+Description=Stream generator
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/liquidsoap /opt/stream-generator/stream.liq
+User=liquidsoap
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
