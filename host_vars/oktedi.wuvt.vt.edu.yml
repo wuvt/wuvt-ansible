@@ -1,0 +1,18 @@
+hypervisor: aam.wuvt.vt.edu
+vcpu: 8
+memory: 8192
+hostname: oktedi
+public_ipv4: 192.168.0.163
+
+qemu_machine_type: ubuntu
+qemu_emulator: /usr/bin/qemu-system-x86_64
+qemu_user: libvirt-qemu
+qemu_group: kvm
+use_apt: true
+
+ignition_extra_files:
+- filesystem: root
+  path: /etc/krb5.keytab
+  mode: 384
+  contents:
+    source: "{{ lookup('ini', 'oktedi section=keytab file=secrets.ini') }}"
