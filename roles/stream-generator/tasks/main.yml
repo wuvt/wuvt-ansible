@@ -1,0 +1,21 @@
+- name: Create /opt/stream-generator
+  file:
+    dest: /opt/stream-generator
+    state: directory
+
+- name: Install stream.liq
+  template:
+    src: stream.liq.j2
+    dest: /opt/stream-generator/stream.liq
+  notify: Restart stream-generator.service
+
+- name: Install stream-generator.service
+  copy:
+    src: stream-generator.service
+    dest: /etc/systemd/system/stream-generator.service
+
+- name: Enable and start stream-generator.service
+  service:
+    name: stream-generator.service
+    enabled: true
+    state: started
