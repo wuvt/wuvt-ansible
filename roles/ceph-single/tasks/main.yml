@@ -36,7 +36,7 @@
   command: chdir=/etc/ceph-deploy ceph-deploy mon create-initial 
 
 - name: Check if the osd was setup
-  shell: ceph-deploy osd list lambianceplaza.wuvt.vt.edu 2>&1 | grep /var/ceph-storage
+  shell: ceph-deploy osd list {{ ansible_fqdn }} 2>&1 | grep /var/ceph-storage
   args:
     chdir: /etc/ceph-deploy 
   register: ceph_osd
@@ -47,13 +47,16 @@
   when: ceph_osd.rc != 0
 
 - name: Prepare file osd
-  command: chdir=/etc/ceph-deploy ceph-deploy osd prepare lambianceplaza.wuvt.vt.edu:/var/ceph-storage/
+  command: chdir=/etc/ceph-deploy ceph-deploy osd prepare {{ ansible_fqdn }}:/var/ceph-storage/
   when: ceph_osd.rc != 0
 
 - name: Activate file osd
-  command: chdir=/etc/ceph-deploy ceph-deploy osd activate lambianceplaza.wuvt.vt.edu:/var/ceph-storage/
+  command: chdir=/etc/ceph-deploy ceph-deploy osd activate {{ ansible_fqdn }}:/var/ceph-storage/
   when: ceph_osd.rc != 0
 
 - name: Activate file osd
-  command: chdir=/etc/ceph-deploy ceph-deploy osd activate lambianceplaza.wuvt.vt.edu:/var/ceph-storage/
+  command: chdir=/etc/ceph-deploy ceph-deploy osd activate {{ ansible_fqdn }}:/var/ceph-storage/
   when: ceph_osd.rc != 0
+
+- name: Enable cephfs
+  command: chdir=/etc/ceph-deploy ceph-deploy mds create {{ ansible_fqdn }}
