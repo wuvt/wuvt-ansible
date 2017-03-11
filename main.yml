@@ -109,6 +109,8 @@
   - tor-client
 
 - hosts: lambianceplaza.wuvt.vt.edu
+  roles:
+    - ceph-single
   become: yes
   tasks:
   - name: Create /srv/coreos-storage
