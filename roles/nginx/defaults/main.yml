@@ -6,5 +6,5 @@ nginx_sites:
 - jira.wuvt.vt.edu
 #- lists.wuvt.vt.edu
 - musicbrainz.apps.wuvt.vt.edu
-- registry.wuvt.vt.edu
+- linx.apps.wuvt.vt.edu
 - www.wuvt.vt.edu
