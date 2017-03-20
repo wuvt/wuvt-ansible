@@ -47,7 +47,7 @@ unattended_mail_only_on_error: false
 #Unattended-Upgrade::Remove-Unused-Dependencies
 # Do automatic removal of new unused dependencies after the upgrade
 # (equivalent to apt-get autoremove)
-unattended_remove_unused_dependencies: false
+unattended_remove_unused_dependencies: true
 
 #Unattended-Upgrade::Automatic-Reboot
 # Automatically reboot *WITHOUT CONFIRMATION* if a
