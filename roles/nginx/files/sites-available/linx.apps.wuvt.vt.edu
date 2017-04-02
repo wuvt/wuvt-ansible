@@ -38,6 +38,6 @@ server {
         proxy_set_header X-Real-IP         $remote_addr;
 
         proxy_pass http://linx;
-        client_max_body_size 10M;
+        client_max_body_size 4096M;
     }
 }
