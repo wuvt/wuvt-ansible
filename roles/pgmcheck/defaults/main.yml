@@ -1,1 +1,2 @@
 pgmcheck_studio: fm
+pgmcheck_alsa_input: 'plughw:CARD=USB,DEV=0'

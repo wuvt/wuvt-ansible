@@ -4,8 +4,8 @@
     state: directory
 
 - name: Install pgmcheck.liq
-  copy:
-    src: pgmcheck.liq
+  template:
+    src: pgmcheck.liq.j2
     dest: /opt/pgmcheck/pgmcheck.liq
 
 - name: Install pgmcheck_move.sh
@@ -24,3 +24,11 @@
     name: pgmcheck.service
     state: started
     enabled: true
+
+- name: Install pgmcheck archive cronjob
+  cron:
+    name: pgmcheck archive
+    user: liquidsoap
+    minute: 5
+    job: /opt/pgmcheck/pgmcheck_move.sh
+    state: present
