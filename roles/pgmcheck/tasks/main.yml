@@ -1,0 +1,26 @@
+- name: Create /opt/pgmcheck
+  file:
+    dest: /opt/pgmcheck
+    state: directory
+
+- name: Install pgmcheck.liq
+  copy:
+    src: pgmcheck.liq
+    dest: /opt/pgmcheck/pgmcheck.liq
+
+- name: Install pgmcheck_move.sh
+  template:
+    src: pgmcheck_move.sh.j2
+    dest: /opt/pgmcheck/pgmcheck_move.sh
+    mode: 0755
+
+- name: Install pgmcheck service
+  copy:
+    src: pgmcheck.service
+    dest: /etc/systemd/system/pgmcheck.service
+
+- name: Start and enable pgmcheck service
+  service:
+    name: pgmcheck.service
+    state: started
+    enabled: true

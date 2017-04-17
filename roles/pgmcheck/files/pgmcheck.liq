@@ -1,0 +1,8 @@
+setenv("TZ", ":/usr/share/zoneinfo/UTC");
+output.file(
+    %flac(samplerate=44100, channels=2, compression=7, bits_per_sample=16),
+    "/var/pgmcheck/current/%Y-%m-%d-%H_%M_%S+0000.flac",
+    on_close=fun(s)->system("mv -n #{s} /var/pgmcheck/staging"),
+    reopen_when={0m0s},
+    input.alsa(device="plughw:CARD=USB,DEV=0",bufferize=false)
+)

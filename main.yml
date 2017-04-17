@@ -78,6 +78,11 @@
 #  roles:
 #  - aircheck
 
+- hosts: pgmcheck
+  become: yes
+  roles:
+  - pgmcheck
+
 - hosts: nginx
   become: yes
   roles:
