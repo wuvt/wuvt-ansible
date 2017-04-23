@@ -1,5 +1,0 @@
----
-etcd_initial_cluster_token: etcd-cluster-1
-etcd_discovery_srv: wuvt.vt.edu
-traefik_etcd_endpoint: "localhost:2379"
-traefik_etcd_prefix: /traefik
