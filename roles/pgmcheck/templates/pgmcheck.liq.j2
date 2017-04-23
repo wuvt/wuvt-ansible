@@ -4,5 +4,5 @@ output.file(
     "/var/pgmcheck/current/%Y-%m-%d-%H_%M_%S+0000.flac",
     on_close=fun(s)->system("mv -n #{s} /var/pgmcheck/staging"),
     reopen_when={0m0s},
-    input.alsa(device="{{ pgmcheck_alsa_input }}",bufferize=false)
+    input.alsa(device="{{ pgmcheck_alsa_input }}", bufferize=false)
 )
