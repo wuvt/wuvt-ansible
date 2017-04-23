@@ -6,6 +6,16 @@
     dest: /opt/pgmcheck
     state: directory
 
+- name: Create pgmcheck data directories
+  file:
+    dest: "/var/pgmcheck/{{ item }}"
+    owner: liquidsoap
+    group: liquidsoap
+    state: directory
+  with_items:
+  - current
+  - staging
+
 - name: Install pgmcheck.liq
   template:
     src: pgmcheck.liq.j2

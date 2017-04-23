@@ -3,6 +3,16 @@
     dest: /opt/aircheck
     state: directory
 
+- name: Create aircheck data directories
+  file:
+    dest: "/var/aircheck/{{ item }}"
+    owner: liquidsoap
+    group: liquidsoap
+    state: directory
+  with_items:
+  - current
+  - staging
+
 - name: Install aircheck.liq
   template:
     src: aircheck.liq.j2
