@@ -1,0 +1,15 @@
+#!/bin/bash
+export KRB5CCNAME=/tmp/krb5_100_aircheck
+kinit johnny-six@WUVT.VT.EDU -k -t /etc/johnny-six.keytab
+
+archive_location="/tank/archive/aircheck/{{ aircheck_studio }}"
+
+for file in $(ls /var/aircheck/staging/); do
+    year=$(cut -f1 -d-  <<< ${file})
+    month=$(cut -f2 -d- <<< ${file})
+    day=$(cut -f3 -d-   <<< ${file})
+    hour=$(cut -f4 -d-  <<< ${file} | cut -f1 -d _)
+
+    ssh johnny-six@alexandria.wuvt.vt.edu mkdir -p ${archive_location}/${year}/${month}/${day}
+    scp /var/aircheck/staging/${file} johnny-six@alexandria.wuvt.vt.edu:${archive_location}/${year}/${month}/${day} && rm /var/aircheck/staging/${file}
+done

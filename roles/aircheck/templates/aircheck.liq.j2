@@ -1,0 +1,8 @@
+setenv("TZ", ":/usr/share/zoneinfo/UTC");
+output.file(
+    %vorbis(samplerate=44100, channels=2, quality=0.2),
+    "/var/aircheck/current/%Y-%m-%d-%H_%M_%S+0000.ogg",
+    on_close=fun(s)->system("mv -n #{s} /var/aircheck/staging"),
+    reopen_when={0m0s},
+    input.alsa(device="{{ aircheck_alsa_input }}", bufferize=false)
+)

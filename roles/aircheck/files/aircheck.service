@@ -1,0 +1,11 @@
+[Unit]
+Description=Aircheck
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/liquidsoap /opt/aircheck/aircheck.liq
+User=liquidsoap
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target

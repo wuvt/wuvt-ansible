@@ -1,0 +1,3 @@
+aircheck_datadir: /var/aircheck
+aircheck_studio: fm
+aircheck_alsa_input: 'plughw:CARD=Intel,DEV=0'

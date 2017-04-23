@@ -1,0 +1,34 @@
+- name: Create /opt/aircheck
+  file:
+    dest: /opt/aircheck
+    state: directory
+
+- name: Install aircheck.liq
+  template:
+    src: aircheck.liq.j2
+    dest: /opt/aircheck/aircheck.liq
+
+- name: Install aircheck_move.sh
+  template:
+    src: aircheck_move.sh.j2
+    dest: /opt/aircheck/aircheck_move.sh
+    mode: 0755
+
+- name: Install aircheck service
+  copy:
+    src: aircheck.service
+    dest: /etc/systemd/system/aircheck.service
+
+- name: Start and enable aircheck service
+  service:
+    name: aircheck.service
+    state: started
+    enabled: true
+
+- name: Install aircheck archive cronjob
+  cron:
+    name: aircheck archive
+    user: liquidsoap
+    minute: 5
+    job: /opt/aircheck/aircheck_move.sh
+    state: present
