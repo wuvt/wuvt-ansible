@@ -3,8 +3,10 @@ nginx_ocsp_stapling: true
 nginx_sites:
 - am.wuvt.vt.edu
 - default
-- jira.wuvt.vt.edu
 #- lists.wuvt.vt.edu
-- musicbrainz.apps.wuvt.vt.edu
+- id.apps.wuvt.vt.edu
+- jira.wuvt.vt.edu
 - linx.apps.wuvt.vt.edu
+- musicbrainz.apps.wuvt.vt.edu
+- retrofling.apps.wuvt.vt.edu
 - www.wuvt.vt.edu
