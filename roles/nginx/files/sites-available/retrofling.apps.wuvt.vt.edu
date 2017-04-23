@@ -38,6 +38,5 @@ server {
         proxy_set_header X-Real-IP         $remote_addr;
 
         proxy_pass http://retrofling;
-        client_max_body_size 4096M;
     }
 }
