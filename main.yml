@@ -73,10 +73,10 @@
   roles:
   - automation
 
-#- hosts: aircheck
-#  become: yes
-#  roles:
-#  - aircheck
+- hosts: aircheck
+  become: yes
+  roles:
+  - aircheck
 
 - hosts: pgmcheck
   become: yes
