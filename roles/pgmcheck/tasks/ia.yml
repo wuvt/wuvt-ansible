@@ -1,0 +1,7 @@
+- name: Install python-pip
+  apt: name=python-pip state=present
+  tags: packages
+
+- name: Install internetarchive with pip
+  pip: name=internetarchive state=present
+  tags: packages

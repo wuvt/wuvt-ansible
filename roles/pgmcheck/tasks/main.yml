@@ -1,3 +1,6 @@
+- include: ia.yml
+  when: pgmcheck_upload_to_ia
+
 - name: Create /opt/pgmcheck
   file:
     dest: /opt/pgmcheck

@@ -4,11 +4,29 @@ kinit johnny-six@WUVT.VT.EDU -k -t /etc/johnny-six.keytab
 
 archive_location="/tank/archive/pgmcheck/{{ pgmcheck_studio }}"
 
-for file in $(ls /var/pgmcheck/staging/);
-do
-	year=$(cut -f1 -d-  <<< ${file})
-	month=$(cut -f2 -d- <<< ${file})
-	day=$(cut -f3 -d-   <<< ${file})
-	ssh johnny-six@alexandria.wuvt.vt.edu mkdir -p ${archive_location}/${year}/${month}/${day}
-	scp /var/pgmcheck/staging/${file} johnny-six@alexandria.wuvt.vt.edu:${archive_location}/${year}/${month}/${day} && rm /var/pgmcheck/staging/${file}
+for file in $(ls /var/pgmcheck/staging/); do
+    year=$(cut -f1 -d-  <<< ${file})
+    month=$(cut -f2 -d- <<< ${file})
+    day=$(cut -f3 -d-   <<< ${file})
+    hour=$(cut -f4 -d-  <<< ${file} | cut -f1 -d _)
+
+    ssh johnny-six@alexandria.wuvt.vt.edu mkdir -p ${archive_location}/${year}/${month}/${day}
+    scp /var/pgmcheck/staging/${file} johnny-six@alexandria.wuvt.vt.edu:${archive_location}/${year}/${month}/${day}
+    scp_result=$?
+
+{% if pgmcheck_upload_to_ia %}
+    /usr/local/bin/ia upload \
+        "WUVTFM_${year}${month}${day}_${hour}00Z" \
+        /var/pgmcheck/staging/${file} \
+        --remote-name="wuvtfm_${file}" \
+        --metadata="collection:wuvtfm" \
+        --metadata="creator:WUVT-FM" \
+        --metadata="date:${year}-${month}-${day} ${hour}:00:00" \
+        --metadata="mediatype:audio" \
+        --metadata="subject:wuvt-fm;wuvt;airchecks;virginia tech" \
+        --metadata="title:WUVT-FM ${year}-${month}-${day} ${hour}:00 +00:00" \
+        2>>$HOME/pgmcheck_ia.log || true
+
+{% endif %}
+    [[ $scp_result -eq 0 ]] && rm /var/pgmcheck/staging/${file}
 done
