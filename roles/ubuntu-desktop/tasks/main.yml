@@ -15,6 +15,9 @@
   - redshift
   - gtk-redshift
   - clementine
+  - pcscd
+  - pcsc-tools
+  - scdaemon
   tags:
   - packages
 

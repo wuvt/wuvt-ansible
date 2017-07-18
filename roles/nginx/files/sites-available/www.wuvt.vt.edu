@@ -121,9 +121,9 @@ server {
     rewrite ^/EEO.pdf$ /static/media/legal/equalopportunity.pdf permanent;
     rewrite ^/favicon.ico$ /static/img/favicon.ico permanent;
     rewrite ^/images(/.*)?$ /static/media/oldimages$1 permanent;
-    rewrite ^/liveplayer/wuvtstream_hi.m3u http://engine.wuvt.vt.edu:8000/wuvt-hq.m3u permanent;
-    rewrite ^/liveplayer/wuvtstream_low.m3u http://engine.wuvt.vt.edu:8000/wuvt-lb.m3u permanent;
-    rewrite ^/liveplayer/wuvtstream_med.m3u http://engine.wuvt.vt.edu:8000/wuvt.m3u permanent;
+    rewrite ^/liveplayer/wuvtstream_hi.m3u https://stream.wuvt.vt.edu/wuvt-hq.m3u permanent;
+    rewrite ^/liveplayer/wuvtstream_low.m3u https://stream.wuvt.vt.edu/wuvt-lb.m3u permanent;
+    rewrite ^/liveplayer/wuvtstream_med.m3u https://stream.wuvt.vt.edu/wuvt.m3u permanent;
     rewrite ^/psa_form.pdf$ /static/media/legal/psa-form.pdf permanent;
 
     rewrite ^/atom.xml$ /feed.atom;
