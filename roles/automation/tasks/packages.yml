@@ -15,6 +15,7 @@
   - python3
   - python3-requests
   - socat
+  - python3-yaml
   tags:
   - packages
 
