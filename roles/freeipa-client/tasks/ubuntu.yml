@@ -41,6 +41,13 @@
   lineinfile: dest=/etc/krb5.conf regexp=".*default_ccache_name.*" state=absent
   tags: [auth]
 
+- name: Install autofs.service
+  copy:
+    src: systemd/system/autofs.service
+    dest: /etc/systemd/system/autofs.service
+  tags:
+  - auth
+
 - name: Restart rpc-gssd
   service: name=rpc-gssd state=restarted
   tags: [auth]
