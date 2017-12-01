@@ -1,3 +1,5 @@
 automation_alsa_output: 'plughw:CARD=Live,DEV=0'
+automation_trackman_url: https://am.wuvt.vt.edu/trackman/api/automation/log
+automation_trackman_password: "{{ lookup('ini', 'password section=trackman_am file=secrets.ini') }}"
 aircheck_studio: am
 aircheck_alsa_input: 'plughw:CARD=Live,DEV=0'

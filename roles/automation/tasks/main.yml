@@ -1,6 +1,7 @@
----
 - name: Create /mnt/automation
-  file: dest=/mnt/automation state=directory
+  file:
+    dest: /mnt/automation
+    state: directory
 
 - name: Set up /mnt/automation mount
   mount:
@@ -10,9 +11,12 @@
     opts: sec=krb5p
     state: mounted
 
-- include: packages.yml
+- import_tasks: packages.yml
+- import_tasks: docker.yml
 
 - name: Add liquidsoap user to audio group
-  user: name=liquidsoap groups=liquidsoap,audio
+  user:
+    name: liquidsoap
+    groups: liquidsoap,audio
 
-- include: johnnysix.yml
+- import_tasks: johnnysix.yml

@@ -1,0 +1,50 @@
+# TODO: configure docker.io repo for debian
+
+- name: Install Docker PGP key
+  apt_key:
+    url: https://download.docker.com/linux/debian/gpg
+    state: present
+  when: ansible_distribution_release == "stretch"
+  tags:
+  - apt
+
+- name: Add Docker repository
+  copy:
+    content: |
+      deb [arch=amd64] https://download.docker.com/linux/debian stretch stable
+    dest: /etc/apt/sources.list.d/docker.list
+  tags:
+  - apt
+  - packages
+
+- name: Update APT cache
+  apt:
+    update_cache: yes
+  when: ansible_distribution_release == "stretch"
+  tags:
+  - apt
+  - packages
+
+- name: Install docker-ce
+  apt:
+    name: docker-ce
+    state: latest
+  when: ansible_distribution_release == "stretch"
+  tags:
+  - packages
+
+- name: Install docker.io
+  apt:
+    name: docker.io
+    state: latest
+  when: ansible_distribution_release != "stretch"
+  tags:
+  - packages
+
+- name: Start and enable docker
+  service:
+    name: docker
+    state: started
+    enabled: yes
+  tags:
+  - services

@@ -5,9 +5,8 @@ After=network-online.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/liquidsoap /opt/johnny-six/wuvt.liq
-User=liquidsoap
-Restart=on-abort
+ExecStart=/usr/bin/docker run --rm --device=/dev/snd:/dev/snd --env-file=/etc/default/johnny-six quay.io/wuvt/johnny-six:latest
+Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target
