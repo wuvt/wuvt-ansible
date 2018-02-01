@@ -1,18 +1,26 @@
 - name: Configure icecast.xml
-  template: src=icecast.xml.j2 dest=/etc/icecast.xml mode=0660
+  template:
+    src: icecast.xml.j2
+    dest: /etc/icecast2/icecast.xml
+    mode: 0660
+    owner: icecast2
+    group: icecast
   tags:
   - configure
   - stream
+
 - name: Stop icecast service
   service: name=icecast state=stopped
   tags:
   - configure
   - stream
+
 - name: Enable icecast service
   service: name=icecast enabled=yes
   tags:
   - configure
   - stream
+
 - name: Start icecast service
   service: name=icecast state=started
   tags:

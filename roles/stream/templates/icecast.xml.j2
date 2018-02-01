@@ -1,8 +1,8 @@
 <icecast>
     <limits>
-        <clients>100</clients>
+        <clients>800</clients>
         <sources>16</sources>
-        <threadpool>5</threadpool>
+        <threadpool>10</threadpool>
         <queue-size>524288</queue-size>
         <client-timeout>30</client-timeout>
         <header-timeout>15</header-timeout>
@@ -51,13 +51,27 @@
     <hostname>stream.wuvt.vt.edu</hostname>
 
     <!-- You may have multiple <listener> elements -->
-    <listen-socket>
+    <!--listen-socket>
         <port>8000</port>
         <bind-address>0.0.0.0</bind-address>
+    </listen-socket-->
+    <listen-socket>
+        <port>80</port>
+        <bind-address>::</bind-address>
+    </listen-socket>
+    <listen-socket>
+        <port>443</port>
+        <bind-address>::</bind-address>
+        <ssl>1</ssl>
     </listen-socket>
     <listen-socket>
         <port>8000</port>
         <bind-address>::</bind-address>
+    </listen-socket>
+    <listen-socket>
+        <port>8443</port>
+        <bind-address>::</bind-address>
+        <ssl>1</ssl>
     </listen-socket>
     <!--
     <listen-socket>
@@ -128,14 +142,16 @@
 
     <paths>
         <!-- basedir is only used if chroot is enabled -->
-        <basedir>/usr/share/icecast</basedir>
+        <basedir>/usr/share/icecast2</basedir>
 
         <!-- Note that if <chroot> is turned on below, these paths must both
              be relative to the new root, not the original root -->
-        <logdir>/var/log/icecast</logdir>
-        <webroot>/usr/share/icecast/web</webroot>
-        <adminroot>/usr/share/icecast/admin</adminroot>
-        <pidfile>/var/run/icecast/icecast.pid</pidfile>
+        <logdir>/var/log/icecast2</logdir>
+        <webroot>/usr/share/icecast2/web</webroot>
+        <adminroot>/usr/share/icecast2/admin</adminroot>
+        <pidfile>/var/run/icecast2/icecast.pid</pidfile>
+
+        <ssl-certificate>/etc/icecast2/icecast_tls.pem</ssl-certificate>
 
         <!-- Aliases: treat requests for 'source' path as being for 'dest' path
              May be made specific to a port or bound address using the "port"
@@ -173,7 +189,7 @@
     <security>
         <chroot>0</chroot>
         <changeowner>
-            <user>icecast</user>
+            <user>icecast2</user>
             <group>icecast</group>
         </changeowner>
     </security>
