@@ -5,7 +5,17 @@
 # -- mutantmonkey
 #- include: configure.yml
 
-# TODO add /usr/local/{bin,sbin} to paths
-
 - name: Install /etc/logrotate.d/icecast
-  copy: src=logrotate.d/icecast dest=/etc/logrotate.d/icecast
+  copy:
+    src: logrotate.d/icecast
+    dest: /etc/logrotate.d/icecast
+
+- name: Install letsencrypt
+  apt:
+    name: letsencrypt
+    state: present
+
+- name: Install letsencrypt.cron
+  copy:
+    src: cron.daily/letsencrypt.cron
+    dest: /etc/cron.daily/letsencrypt.cron
