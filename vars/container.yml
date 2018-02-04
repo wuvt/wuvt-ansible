@@ -8,7 +8,7 @@ cfssl_request:
     size: 4096
   hosts: "{{ cfssl_hosts }}"
 
-etcd_endpoints: https://192.168.0.157:2379,https://192.168.0.159:2379,https://192.168.0.237:2379,https://192.168.0.238:2379,https://192.168.0.243:2379
+etcd_endpoints: https://0.etcd.wuvt.vt.edu:2379,https://1.etcd.wuvt.vt.edu:2379,https://2.etcd.wuvt.vt.edu:2379,https://3.etcd.wuvt.vt.edu:2379,https://4.etcd.wuvt.vt.edu:2379
 
 kube_container_runtime: docker
 kube_controller_endpoint: https://192.168.0.246:443
