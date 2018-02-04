@@ -6,3 +6,4 @@ credentials
 /vars/tacomanarrows_users.yml
 /secrets.ini
 /files/pki
+/files/upstream_pki
