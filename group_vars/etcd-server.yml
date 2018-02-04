@@ -1,3 +1,5 @@
 cfssl_hosts:
 - "{{ hostname }}.wuvt.vt.edu"
 - "{{ public_ipv4 }}"
+- etcd.wuvt.vt.edu
+- "*.etcd.wuvt.vt.edu"
