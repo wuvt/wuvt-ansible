@@ -3,7 +3,7 @@ kubernetes_worker_files:
   path: /etc/kubernetes/worker-kubeconfig.yaml
   mode: 420
   contents:
-    source: "data:,{{ lookup('file', 'worker-kubeconfig.yaml') | replace('\n', '\\n') }}"
+    source: "data:,{{ lookup('template', 'worker-kubeconfig.yaml.j2') | replace('\n', '\\n') }}"
 - filesystem: root
   path: /etc/kubernetes/manifests/kube-proxy.yaml
   mode: 420
