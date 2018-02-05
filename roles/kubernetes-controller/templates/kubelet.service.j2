@@ -1,6 +1,6 @@
 [Service]
-Environment=KUBELET_VERSION={{ k8s_ver }}
-Environment=KUBELET_ACI={{ hyperkube_image_repo }}
+Environment=KUBELET_IMAGE_URL={{ hyperkube_image_repo }}
+Environment=KUBELET_IMAGE_TAG={{ k8s_ver }}
 Environment="RKT_OPTS=--uuid-file-save={{ kubelet_uuid_file }} \
   --volume dns,kind=host,source=/etc/resolv.conf \
   --mount volume=dns,target=/etc/resolv.conf \
@@ -17,7 +17,8 @@ ExecStartPre=/usr/bin/mkdir -p /opt/cni/bin
 ExecStartPre=/usr/bin/mkdir -p /var/log/containers
 ExecStartPre=-/usr/bin/rkt rm --uuid-file={{ kubelet_uuid_file }}
 ExecStart=/usr/lib/coreos/kubelet-wrapper \
-  --api-servers=http://127.0.0.1:8080 \
+  --kubeconfig=/etc/kubernetes/controller-kubeconfig.yaml \
+  --require-kubeconfig \
   --register-schedulable=false \
   --cni-conf-dir=/etc/kubernetes/cni/net.d \
   --network-plugin=cni \

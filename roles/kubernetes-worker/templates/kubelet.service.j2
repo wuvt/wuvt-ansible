@@ -1,6 +1,6 @@
 [Service]
-Environment=KUBELET_VERSION={{ k8s_ver }}
-Environment=KUBELET_ACI={{ hyperkube_image_repo }}
+Environment=KUBELET_IMAGE_URL={{ hyperkube_image_repo }}
+Environment=KUBELET_IMAGE_TAG={{ k8s_ver }}
 Environment="RKT_OPTS=--uuid-file-save={{ kubelet_uuid_file }} \
   --volume dns,kind=host,source=/etc/resolv.conf \
   --mount volume=dns,target=/etc/resolv.conf \
