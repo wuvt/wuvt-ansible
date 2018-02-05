@@ -31,7 +31,7 @@ spec:
     - --oidc-client-id=kubernetes
     - --oidc-username-claim=sub
     - --oidc-groups-claim=groups
-    - --authorization-mode=ABAC
+    - --authorization-mode=RBAC,ABAC
     - --authorization-policy-file=/etc/kubernetes/abac/policy.jsonl
     livenessProbe:
       httpGet:
