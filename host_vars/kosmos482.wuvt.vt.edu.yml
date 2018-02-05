@@ -5,8 +5,7 @@ hostname: kosmos482
 
 use_ignition: false
 
-qemu_machine_type: ubuntu
-qemu_emulator: /usr/bin/qemu-system-x86_64
+qemu_machine_type: pc-q35-2.5
 qemu_user: libvirt-qemu
 qemu_group: kvm
 use_apt: true
