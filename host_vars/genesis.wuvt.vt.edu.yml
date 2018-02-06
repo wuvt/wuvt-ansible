@@ -1,5 +1,0 @@
-hypervisor: webster.wuvt.vt.edu
-vcpu: 2
-memory: 1024
-hostname: genesis
-public_ipv4: 192.168.0.243
