@@ -6,7 +6,9 @@
   when: use_apt
 
 - name: Install mkisofs (yum)
-  yum: name=mkisofs state=present
+  yum:
+    name: mkisofs
+    state: present
   delegate_to: "{{ hypervisor }}"
   when: not use_apt
 
@@ -34,6 +36,14 @@
   command: /usr/bin/mkisofs -R -V config-2 -o "/var/lib/libvirt/images/coreos/{{ hostname }}_configdrive.iso" /var/lib/libvirt/images/coreos/{{ hostname }}
   delegate_to: "{{ hypervisor }}"
   when: not use_apt
+
+- name: Set permissions on config drive ISO
+  file:
+    dest: "/var/lib/libvirt/images/coreos/{{ hostname }}_configdrive.iso"
+    mode: 0600
+    owner: "{{ qemu_user | default('qemu') }}"
+    group: "{{ qemu_group | default('qemu') }}"
+  delegate_to: "{{ hypervisor }}"
 
 - name: Define libvirt guest (xenial)
   virt:
