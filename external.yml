@@ -1,4 +1,4 @@
-- hosts: chernobyl.wuvt.vt.edu:fukushima.wuvt.vt.edu:marshall.wuvt.vt.edu
+- hosts: chernobyl.wuvt.vt.edu:fukushima.wuvt.vt.edu:stirling.wuvt.vt.edu
   become: yes
   roles:
   - external-ssh

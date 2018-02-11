@@ -104,15 +104,6 @@
   roles:
   - cfssl-server
 
-- hosts: marshall.wuvt.vt.edu
-  become: yes
-  vars:
-    tor_hidden_services:
-      - dir: /var/lib/tor/marshall_ssh/
-        port: 22 127.0.0.1:22
-  roles:
-  - tor-client
-
 - hosts: lambianceplaza.wuvt.vt.edu
   roles:
     - ceph-single
