@@ -1,0 +1,1 @@
+slack_webhook_url: "{{ lookup('ini', 'slack_webhook_url section=sampoong file=secrets.ini') }}"
