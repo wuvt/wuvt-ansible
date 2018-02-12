@@ -1,9 +1,15 @@
 ---
-- include_tasks: centos.yml
-  when: ansible_os_family == "RedHat"
+- name: Restart ntp (Debian family)
+  service:
+    name: ntp
+    state: restarted
 
-- include_tasks: debian.yml
-  when: ansible_os_family == "Debian"
+- name: Restart ntpd (RedHat family)
+  service:
+    name: ntpd
+    state: restarted
 
-- include_tasks: systemd.yml
-  when: ansible_service_mgr == 'systemd'
+- name: Restart systemd-journald
+  service:
+    name: systemd-journald
+    state: restarted

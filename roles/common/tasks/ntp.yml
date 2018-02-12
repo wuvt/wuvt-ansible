@@ -1,9 +1,11 @@
 ---
-# FIXME: it's ntp, not ntpd, on debian
-
-- name: Install ntp.conf
-  template: src=templates/ntp.conf.j2 dest=/etc/ntp.conf mode=0644
-  notify: Restart ntpd
+- name: Install ntp.conf (Debian family)
+  template:
+    src: templates/ntp.conf.j2
+    dest: /etc/ntp.conf
+    mode: 0644
+  notify: Restart ntp (Debian family)
+  when: ansible_os_family == "Debian"
   tags:
   - common
 
@@ -12,6 +14,16 @@
   when: ansible_os_family == "Debian"
   tags:
   - services
+  - common
+
+- name: Install ntp.conf (RedHat family)
+  template:
+    src: templates/ntp.conf.j2
+    dest: /etc/ntp.conf
+    mode: 0644
+  notify: Restart ntpd (RedHat family)
+  when: ansible_os_family == "RedHat"
+  tags:
   - common
 
 - name: Enable and start ntpd service
