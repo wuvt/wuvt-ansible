@@ -5,7 +5,7 @@
   - liquidsoap-plugin-alsa
   - liquidsoap-plugin-flac
 
-- include: ia.yml
+- include_tasks: ia.yml
   when: pgmcheck_upload_to_ia
 
 - name: Create /opt/pgmcheck

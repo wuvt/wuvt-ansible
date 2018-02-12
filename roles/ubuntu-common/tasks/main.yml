@@ -2,7 +2,7 @@
 - name: bootstrap python, just in case.
   raw: apt-get install -y python
 
-- include: nfs.yml
+- import_tasks: nfs.yml
 
 - name: Configure system hostname
   hostname:
@@ -11,5 +11,5 @@
   tags:
   - common
 
-- include: packages.yml
+- include_tasks: packages.yml
   when: ansible_distribution_version == "16.04"

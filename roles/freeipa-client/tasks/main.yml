@@ -5,11 +5,11 @@
   when: ansible_os_family == "RedHat"
   tags: [auth]
 
-- include: centos.yml
+- include_tasks: centos.yml
   when: ansible_os_family == "RedHat"
   tags: [auth]
 
-- include: ubuntu.yml
+- include_tasks: ubuntu.yml
   when: ansible_distribution == "Ubuntu"
   tags: [auth]
 
@@ -17,5 +17,4 @@
   copy: src=sudoers.d/01_sudoers dest=/etc/sudoers.d/01_sudoers
   tags: [auth]
 
-- name: Update OpenSSH configuration
-  include: sshd.yml
+- import_tasks: sshd.yml
