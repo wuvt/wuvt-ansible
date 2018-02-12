@@ -1,12 +1,12 @@
-- include: ubuntu.yml
+- include_tasks: ubuntu.yml
   when: ansible_distribution == "Ubuntu"
   tags:
-          - kvm
+  - kvm
 
-- include: centos.yml
+- include_tasks: centos.yml
   when: ansible_os_family == "RedHat"
   tags:
-          - kvm
+  - kvm
  
 - name: Start libvirtd service
   service: name=libvirtd state=started

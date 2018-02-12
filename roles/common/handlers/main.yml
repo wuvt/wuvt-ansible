@@ -1,9 +1,9 @@
 ---
-- include: centos.yml
+- include_tasks: centos.yml
   when: ansible_os_family == "RedHat"
 
-- include: debian.yml
+- include_tasks: debian.yml
   when: ansible_os_family == "Debian"
 
-- include: systemd.yml
+- include_tasks: systemd.yml
   when: ansible_service_mgr == 'systemd'

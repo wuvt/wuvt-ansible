@@ -1,4 +1,4 @@
-- include: smart.yml
-- include: nfs-server.yml
-- include: samba-server.yml
-- include: backup-user.yml
+- import_tasks: smart.yml
+- import_tasks: nfs-server.yml
+- import_tasks: samba-server.yml
+- import_tasks: backup-user.yml

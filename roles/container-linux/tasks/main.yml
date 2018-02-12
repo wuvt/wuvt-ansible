@@ -38,10 +38,10 @@
   become_user: "{{ qemu_user }}"
   delegate_to: "{{ hypervisor }}"
 
-- include: ignition.yml
+- include_tasks: ignition.yml
   when: use_ignition
 
-- include: cloudconfig.yml
+- include_tasks: cloudconfig.yml
   when: not use_ignition
 
 # FIXME: doesn't work if domain is already running

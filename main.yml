@@ -1,7 +1,7 @@
 - hosts: centos
   become: yes
   handlers:
-  - include: handlers/mail.yml
+  - import_tasks: handlers/mail.yml
   roles:
   - centos-common
   - common
@@ -12,7 +12,7 @@
 - hosts: debian
   become: yes
   handlers:
-  - include: handlers/mail.yml
+  - import_tasks: handlers/mail.yml
   roles:
   - debian-common
   - common

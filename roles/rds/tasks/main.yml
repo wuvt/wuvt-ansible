@@ -1,2 +1,2 @@
 ---
-- include: rds-src.yml
+- import_tasks: rds-src.yml

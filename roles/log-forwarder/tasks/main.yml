@@ -1,11 +1,11 @@
 ---
-- include: arch.yml
+- include_tasks: arch.yml
   when: ansible_os_family == "Archlinux"
 
-- include: centos.yml
+- include_tasks: centos.yml
   when: ansible_os_family == "RedHat"
 
-- include: apt.yml
+- include_tasks: apt.yml
   when: ansible_pkg_mgr == "apt"
 
 - name: Install logstash TLS certificate

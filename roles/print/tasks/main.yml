@@ -1,1 +1,1 @@
-- include: cups.yml
+- import_tasks: cups.yml

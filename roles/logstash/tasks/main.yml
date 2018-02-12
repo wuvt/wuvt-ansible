@@ -9,8 +9,8 @@
   tags:
   - packages
 
-- include: elasticsearch.yml
-- include: kibana.yml
-- include: logstash.yml
-- include: elastalert.yml
-- include: prune.yml
+- import_tasks: elasticsearch.yml
+- import_tasks: kibana.yml
+- import_tasks: logstash.yml
+- import_tasks: elastalert.yml
+- import_tasks: prune.yml

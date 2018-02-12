@@ -10,7 +10,7 @@ Install and setup [unattended-upgrades](https://launchpad.net/unattended-upgrade
 
 ## Requirements
 
-The role uses [apt module](http://docs.ansible.com/apt_repository_module.html) which has additional dependencies. You can use [bootstrap-debian](https://github.com/cederberg/ansible-bootstrap-debian) role to setup common Ansible requirements on Debian-based systems.
+The role uses [apt module](http://docs.ansible.com/apt_repository_module.html) which has additional dependencies.
 
 If you set `unattended_mail` to an e-mail address, make sure `mailx` command is available and your system is able to send e-mails.
 
@@ -18,14 +18,18 @@ The role requires unattended-upgrades version 0.70 and newer, which is available
 
 ### Automatic Reboot
 
-If you enable automatic reboot feature (`unattended_automatic_reboot`), the role will install `update-notifier-common` package, which is required for detecting and executing reboot after the upgrade.
+If you enable automatic reboot feature (`unattended_automatic_reboot`), the role will attempt to install `update-notifier-common` package, which is required on some systems for detecting and executing reboot after the upgrade. You may optionally define a specific time for rebooting (`unattended_automatic_reboot_time`).
 
-**NOTE:** This feature is not currently supported on Debian Jessie, due to a missing replacement for the said package. Attempt to enable this feature on unsupported system will cause a failure. See [the discussion in #6](https://github.com/jnv/ansible-role-unattended-upgrades/issues/6) for more details.
+This feature was broken in Debian Jessie, but eventually was rolled into the unattended-upgrades package; see [the discussion in #6](https://github.com/jnv/ansible-role-unattended-upgrades/issues/6) for more details.
+
+## Disabled Cron Jobs
+
+On some hosts you may find that the unattended-upgrade's cronfile `/etc/cron.daily/apt` file has been renamed to `apt.disabled`. This is possibly provider's decision, to save some CPU cycles. Use [enable-standard-cronjobs](https://github.com/Yannik/ansible-role-enable-standard-cronjobs) role to reenable unattended-upgrades. See also discussion in [#9](https://github.com/jnv/ansible-role-unattended-upgrades/issues/9).
 
 ## Role Variables
 
 * `unattended_origins_patterns`: array of origins patterns to determine whether the package can be automatically installed, for more details see [Origins Patterns](#origins-patterns) below.
-    * Default for Debian: `['origin=Debian,archive=${distro_codename},label=Debian-Security']`
+    * Default for Debian: `['origin=Debian,codename=${distro_codename},label=Debian-Security']`
     * Default for Ubuntu: `['origin=Ubuntu,archive=${distro_codename}-security,label=Ubuntu']`
 * `unattended_package_blacklist`: packages which won't be automatically upgraded
     * Default: `[]`
@@ -43,7 +47,29 @@ If you enable automatic reboot feature (`unattended_automatic_reboot`), the role
     * Default: `false`
 * `unattended_automatic_reboot`: Automatically reboot system if any upgraded package requires it, immediately after the upgrade.
     * Default: `false`
-
+* `unattended_automatic_reboot_time`: Automatically reboot system if any upgraded package requires it, at the specific time (_HH:MM_) instead of immediately after the upgrade.
+    * Default: `false`
+* `unattended_ignore_apps_require_restart`: unattended-upgrades won't automatically upgrade some critical packages requiring restart after an upgrade (i.e. there is `XB-Upgrade-Requires: app-restart` directive in their debian/control file). With this option set to `true`, unattended-upgrades will upgrade these packages regardless of the directive.
+    * Default: `false`
+* `unattended_verbose`: Define verbosity level of APT for periodic runs. The output will be sent to root.
+    * Possible options:
+      * `0`: no report
+      * `1`: progress report
+      * `2`: + command outputs
+      * `3`: + trace on
+    * Default: `0` (no report)
+* `unattended_update_package_list`: Do "apt-get update" automatically every n-days (0=disable)
+    * Default: `1`
+* `unattended_download_upgradeable`: Do "apt-get upgrade --download-only" every n-days (0=disable)
+    * Default: `0`
+* `unattended_autoclean_interval`: Do "apt-get autoclean" every n-days (0=disable)
+    * Default: `7`
+* `unattended_clean_interval`: Do "apt-get clean" every n-days (0=disable)
+    * Default: `0`
+* `unattended_random_sleep`: Define maximum for a random interval in seconds after which the apt job starts (only for systems without systemd)
+    * Default: `1800` (30 minutes)
+* `unattended_dpkg_options`: Array of dpkg command-line options used during unattended-upgrades runs, e.g. `["--force-confdef"]`, `["--force-confold"]`
+    * Default: `[]`
 
 ## Origins Patterns
 
@@ -55,15 +81,17 @@ Pattern is composed from specific keywords:
 * `c`,`component`   – e.g. `main`, `crontrib`, `non-free` (`component=main`)
 * `l`,`label` – e.g. `Debian`, `Debian-Security`, `Ubuntu`
 * `o`,`origin` – e.g. `Debian`, `Unofficial Multimedia Packages`, `Ubuntu`
-* `n`,`codename` – e.g. `jessie`, `jessie-updates`, `trusty`
+* `n`,`codename` – e.g. `jessie`, `jessie-updates`, `trusty` (this is only supported with `unattended-upgrades` >= 0.80)
 * `site` – e.g. `http.debian.net`
 
 You can review the available repositories using `apt-cache policy` and debug your choice using `unattended-upgrades -d` command on a target system.
 
-Additionaly unattended-upgrades support two macros (variables), derived from `/etc/debian_version`:
+Additionally unattended-upgrades support two macros (variables), derived from `/etc/debian_version`:
 
 * `${distro_id}` – Installed distribution name, e.g. `Debian` or `Ubuntu`.
 * `${distro_codename}` – Installed codename, e.g. `jessie` or `trusty`.
+
+Using `${distro_codename}` should be preferred over using `stable` or `oldstable` as a selected, as once `stable` moves to `oldstable`, no security updates will be installed at all, or worse, package from a newer distro release will be installed by accident. The same goes for upgrading your installation from `oldstable` to `stable`, if you forget to change this in your origin patterns, you may not receive the security updates for your newer distro release. With `${distro_codename}`, both cases can never happen. 
 
 ## Role Usage Example
 
@@ -86,13 +114,24 @@ By default, only security updates are allowed for both Ubuntu and Debian. You ca
 #### For Debian
 
 ```yaml
-# Archive based matching
 unattended_origins_patterns:
-  - 'origin=Debian,archive=${distro_codename},label=Debian-Security' # resolves to archive=jessie
-  - 'o=Debian,a=stable'
-  - 'o=Debian,a=stable-updates'
+  - 'origin=Debian,codename=${distro_codename},label=Debian-Security' # security updates
+  - 'o=Debian,codename=${distro_codename},label=Debian' # updates including non-security updates
+  - 'o=Debian,codename=${distro_codename},a=proposed-updates'
+```
+
+On debian wheezy, due to `unattended-upgrades` being `0.79.5`, you cannot use the `codename` directive.
+
+You will have to do archive based matching instead:
+
+```yaml
+unattended_origins_patterns:
+  - 'origin=Debian,a=stable,label=Debian-Security' # security updates
+  - 'o=Debian,a=stable,l=Debian' # updates including non-security updates
   - 'o=Debian,a=proposed-updates'
 ```
+
+Please be sure to read about the issues regarding this in the origin pattern documentation above.
 
 #### For Ubuntu
 
@@ -105,6 +144,26 @@ unattended_origins_patterns:
   - 'o=Ubuntu,a=${distro_codename}-updates'
   - 'o=Ubuntu,a=${distro_codename}-proposed-updates'
 ```
+
+
+#### For Raspbian
+
+In Raspbian, it is only possible to update all packages from the default repository, including non-security updates, or updating none.
+
+Updating all, including non-security:
+
+```yaml
+unattended_origins_patterns:
+  - 'origin=Raspbian,codename=${distro_codename},label=Raspbian'
+```
+
+You can not use the `codename` directive on raspbian wheezy, the same as with debian wheezy above.
+
+To not install any updates on a raspbian host, just set `unattended_origins_patterns` to an empty list:
+```
+unattended_origins_patterns: []
+```
+
 
 ## License
 

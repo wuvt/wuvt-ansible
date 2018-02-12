@@ -1,9 +1,9 @@
-#- include: packages.yml
+#- import_tasks: packages.yml
 
 # XXX: Disabled these on 2016-12-18 because I'm not sure if this is fully
 # up-to-date and I don't want to clobber things. Someone should review.
 # -- mutantmonkey
-#- include: configure.yml
+#- import_tasks: configure.yml
 
 - name: Install /etc/logrotate.d/icecast
   copy:

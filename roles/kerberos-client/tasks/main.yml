@@ -1,5 +1,5 @@
 ---
-- include: apt.yml
+- include_tasks: apt.yml
   when: ansible_pkg_mgr == "apt"
 
 - name: Install krb5.conf
