@@ -39,6 +39,8 @@
   with_items:
   - src: printers.conf
     dest: printers.conf
+  - src: savitr.ppd
+    dest: ppd/savitr.ppd
   - src: shiva.ppd
     dest: ppd/shiva.ppd
   - src: vishnu.ppd
