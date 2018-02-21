@@ -1,7 +1,0 @@
-{"apiVersion":"abac.authorization.kubernetes.io/v1beta1","kind":"Policy","spec":{"user":"system:serviceaccount:kube-system:default","namespace":"*","resource":"*","apiGroup":"*","nonResourcePath":"*"}}
-{"apiVersion":"abac.authorization.kubernetes.io/v1beta1","kind":"Policy","spec":{"user":"system:serviceaccount:kube-system:kube-dns","namespace":"*","resource":"*","apiGroup":"*","nonResourcePath":"*"}}
-{"apiVersion":"abac.authorization.kubernetes.io/v1beta1","kind":"Policy","spec":{"user":"naro2.wuvt.vt.edu","namespace":"*","resource":"*","apiGroup":"*","nonResourcePath":"*"}}
-{"apiVersion":"abac.authorization.kubernetes.io/v1beta1","kind":"Policy","spec":{"user":"columbia.wuvt.vt.edu","namespace":"*","resource":"*","apiGroup":"*","nonResourcePath":"*"}}
-{"apiVersion":"abac.authorization.kubernetes.io/v1beta1","kind":"Policy","spec":{"user":"churchrock.wuvt.vt.edu","namespace":"*","resource":"*","apiGroup":"*","nonResourcePath":"*"}}
-{"apiVersion":"abac.authorization.kubernetes.io/v1beta1","kind":"Policy","spec":{"user":"harborcay.wuvt.vt.edu","namespace":"*","resource":"*","apiGroup":"*","nonResourcePath":"*"}}
-{"apiVersion":"abac.authorization.kubernetes.io/v1beta1","kind":"Policy","spec":{"user":"kubelet","namespace":"*","resource":"*","apiGroup":"*","nonResourcePath":"*"}}

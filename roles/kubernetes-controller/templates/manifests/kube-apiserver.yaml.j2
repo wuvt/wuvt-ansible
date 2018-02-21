@@ -31,8 +31,7 @@ spec:
     - --oidc-client-id=kubernetes
     - --oidc-username-claim=sub
     - --oidc-groups-claim=groups
-    - --authorization-mode=RBAC,ABAC
-    - --authorization-policy-file=/etc/kubernetes/abac/policy.jsonl
+    - --authorization-mode=RBAC
     livenessProbe:
       httpGet:
         host: 127.0.0.1
@@ -48,9 +47,6 @@ spec:
       hostPort: 8080
       name: local
     volumeMounts:
-    - mountPath: /etc/kubernetes/abac
-      name: kubernetes-abac
-      readOnly: true
     - mountPath: /etc/kubernetes/ssl
       name: ssl-certs-kubernetes
       readOnly: true
@@ -61,9 +57,6 @@ spec:
       name: ssl-certs-etcd
       readOnly: true
   volumes:
-  - hostPath:
-      path: /etc/kubernetes/abac
-    name: kubernetes-abac
   - hostPath:
       path: /etc/kubernetes/ssl
     name: ssl-certs-kubernetes
