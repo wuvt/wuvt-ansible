@@ -1,0 +1,17 @@
+- hosts: localhost
+  vars_files:
+  - vars/container.yml
+  gather_facts: false
+  tasks:
+  - name: Sign certificate
+    cfssl_sign:
+      endpoint: "{{ cfssl_endpoint }}"
+      endpoint_ca: "{{ cfssl_endpoint_ca }}"
+      csr: "files/upstream_pki/{{ item }}.csr"
+      dest: "files/upstream_pki/{{ item }}.pem"
+      auth_key: "{{ lookup('ini', 'auth_key_root section=cfssl file=secrets.ini') }}"
+      label: root
+    with_items:
+    - wuvt-site-am
+    - wuvt-site-prod
+    - dex
