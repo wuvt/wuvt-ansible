@@ -18,12 +18,6 @@ server {
         # Liquidsoap doesn't support HTTPS
         # https://github.com/savonet/liquidsoap/issues/336
 
-        allow 192.168.0.0/16;
-        allow 128.173.235.21;
-        allow 128.173.235.22;
-        allow 128.173.235.23;
-        deny all;
-
         proxy_set_header Host              $host;
         proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $http_x_forwarded_proto;
@@ -54,12 +48,6 @@ server {
     ssl_certificate_key /etc/letsencrypt/live/am.wuvt.vt.edu/privkey.pem;
     include tls.conf;
     gzip off;
-
-    allow 192.168.0.0/16;
-    allow 128.173.235.21;
-    allow 128.173.235.22;
-    allow 128.173.235.23;
-    deny all;
 
 #    location /static/media {
 #        add_header X-Frame-Options SAMEORIGIN;
