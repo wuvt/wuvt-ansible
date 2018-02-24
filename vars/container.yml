@@ -10,6 +10,5 @@ cfssl_request:
 
 etcd_endpoints: https://0.etcd.wuvt.vt.edu:2379,https://1.etcd.wuvt.vt.edu:2379,https://2.etcd.wuvt.vt.edu:2379,https://3.etcd.wuvt.vt.edu:2379,https://4.etcd.wuvt.vt.edu:2379
 
-kube_container_runtime: docker
 kube_controller_endpoint: https://192.168.0.246:443
 kube_pod_network: 10.1.0.0/16

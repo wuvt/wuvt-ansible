@@ -6,8 +6,6 @@ Environment="RKT_OPTS=--uuid-file-save={{ kubelet_uuid_file }} \
   --mount volume=dns,target=/etc/resolv.conf \
   --volume rkt,kind=host,source=/opt/bin/host-rkt \
   --mount volume=rkt,target=/usr/bin/rkt \
-  --volume var-lib-rkt,kind=host,source=/var/lib/rkt \
-  --mount volume=var-lib-rkt,target=/var/lib/rkt \
   --volume stage,kind=host,source=/tmp \
   --mount volume=stage,target=/tmp \
   --volume var-log,kind=host,source=/var/log \
@@ -18,11 +16,10 @@ ExecStartPre=/usr/bin/mkdir -p /var/log/containers
 ExecStartPre=-/usr/bin/rkt rm --uuid-file={{ kubelet_uuid_file }}
 ExecStart=/usr/lib/coreos/kubelet-wrapper \
   --kubeconfig=/etc/kubernetes/controller-kubeconfig.yaml \
-  --require-kubeconfig \
   --register-schedulable=false \
   --cni-conf-dir=/etc/kubernetes/cni/net.d \
   --network-plugin=cni \
-  --container-runtime={{ kube_container_runtime }} \
+  --container-runtime=docker \
   --rkt-path=/usr/bin/rkt \
   --rkt-stage1-image=coreos.com/rkt/stage1-coreos \
   --allow-privileged=true \

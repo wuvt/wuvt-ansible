@@ -16,10 +16,9 @@ ExecStartPre=-/usr/bin/rkt rm --uuid-file={{ kubelet_uuid_file }}
 ExecStartPre=/usr/bin/mkdir -p /opt/cni/bin
 ExecStart=/usr/lib/coreos/kubelet-wrapper \
   --kubeconfig=/etc/kubernetes/worker-kubeconfig.yaml \
-  --require-kubeconfig \
   --cni-conf-dir=/etc/kubernetes/cni/net.d \
   --network-plugin=cni \
-  --container-runtime={{ kube_container_runtime }} \
+  --container-runtime=docker \
   --rkt-path=/usr/bin/rkt \
   --rkt-stage1-image=coreos.com/rkt/stage1-coreos \
   --register-node=true \
