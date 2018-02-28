@@ -5,16 +5,16 @@ deb-src http://us.archive.ubuntu.com/ubuntu/ xenial main restricted
 
 ## Major bug fix updates produced after the final release of the
 ## distribution.
-deb http://us.archive.ubuntu.com/ubuntu/ xenial-updates main restricted
-deb-src http://us.archive.ubuntu.com/ubuntu/ xenial-updates main restricted
+#deb http://us.archive.ubuntu.com/ubuntu/ xenial-updates main restricted
+#deb-src http://us.archive.ubuntu.com/ubuntu/ xenial-updates main restricted
 
 ## N.B. software from this repository is ENTIRELY UNSUPPORTED by the Ubuntu
 ## team. Also, please note that software in universe WILL NOT receive any
 ## review or updates from the Ubuntu security team.
 deb http://us.archive.ubuntu.com/ubuntu/ xenial universe
 deb-src http://us.archive.ubuntu.com/ubuntu/ xenial universe
-deb http://us.archive.ubuntu.com/ubuntu/ xenial-updates universe
-deb-src http://us.archive.ubuntu.com/ubuntu/ xenial-updates universe
+#deb http://us.archive.ubuntu.com/ubuntu/ xenial-updates universe
+#deb-src http://us.archive.ubuntu.com/ubuntu/ xenial-updates universe
 
 ## N.B. software from this repository is ENTIRELY UNSUPPORTED by the Ubuntu 
 ## team, and may not be under a free licence. Please satisfy yourself as to 
@@ -23,8 +23,8 @@ deb-src http://us.archive.ubuntu.com/ubuntu/ xenial-updates universe
 ## security team.
 deb http://us.archive.ubuntu.com/ubuntu/ xenial multiverse
 deb-src http://us.archive.ubuntu.com/ubuntu/ xenial multiverse
-deb http://us.archive.ubuntu.com/ubuntu/ xenial-updates multiverse
-deb-src http://us.archive.ubuntu.com/ubuntu/ xenial-updates multiverse
+#deb http://us.archive.ubuntu.com/ubuntu/ xenial-updates multiverse
+#deb-src http://us.archive.ubuntu.com/ubuntu/ xenial-updates multiverse
 
 ## N.B. software from this repository may not have been tested as
 ## extensively as that contained in the main release, although it includes
