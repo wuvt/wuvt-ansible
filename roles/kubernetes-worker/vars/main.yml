@@ -5,10 +5,15 @@ kubernetes_worker_files:
   contents:
     source: "data:,{{ lookup('template', 'worker-kubeconfig.yaml.j2') | replace('\n', '\\n') }}"
 - filesystem: root
+  path: /etc/kubernetes/kube-proxy-config.yaml
+  mode: 420
+  contents:
+    source: "data:,{{ lookup('template', 'kube-proxy-config.yaml.j2') | replace('\n', '\\n') }}"
+- filesystem: root
   path: /etc/kubernetes/manifests/kube-proxy.yaml
   mode: 420
   contents:
-    source: "data:,{{ lookup('template', 'kube-proxy.yaml.j2') | replace('\n', '\\n') }}"
+    source: "data:,{{ lookup('template', 'manifests/kube-proxy.yaml.j2') | replace('\n', '\\n') }}"
 - filesystem: root
   path: /etc/kubernetes/ssl/worker.pem
   mode: 384
