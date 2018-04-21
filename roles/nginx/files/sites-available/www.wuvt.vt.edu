@@ -30,7 +30,7 @@ server {
         chunked_transfer_encoding off;
 
         proxy_ssl_trusted_certificate /etc/ssl/certs/upstream-ca.pem;
-        proxy_ssl_verify on;
+        proxy_ssl_verify off;
 
         proxy_pass https://wuvt-site-prod;
         client_max_body_size 10M;
@@ -88,7 +88,7 @@ server {
     #add_header Strict-Transport-Security max-age=15552000;
 
     # redirect paths from old site
-    rewrite ^/Alumni/$ /alumni permanent;
+    rewrite ^/Alumni/?$ /alumni permanent;
     rewrite ^/Communtity/$ /community permanent;
     rewrite ^/Get-Involved/?$ /community permanent;
     rewrite ^/LZ-Schedule/?$ /local-zone permanent;
@@ -164,7 +164,7 @@ server {
         chunked_transfer_encoding off;
 
         proxy_ssl_trusted_certificate /etc/ssl/certs/upstream-ca.pem;
-        proxy_ssl_verify on;
+        proxy_ssl_verify off;
 
         proxy_pass https://wuvt-site-prod;
         client_max_body_size 10M;

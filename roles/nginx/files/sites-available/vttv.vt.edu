@@ -1,0 +1,14 @@
+server {
+    listen        80;
+    listen        [::]:80;
+    server_name   vttv.vt.edu www.vttv.vt.edu;
+
+    location /.well-known/acme-challenge {
+        root /var/lib/letsencrypt/public_html;
+        default_type text/plain;
+    }
+
+    location / {
+        return 301 http://virginiatechtv.weebly.com/;
+    }
+}

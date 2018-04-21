@@ -10,3 +10,5 @@ nginx_sites:
 - musicbrainz.apps.wuvt.vt.edu
 - retrofling.apps.wuvt.vt.edu
 - www.wuvt.vt.edu
+- vttv.vt.edu
+- database.collegemedia.vt.edu
