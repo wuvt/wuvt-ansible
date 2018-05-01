@@ -3,6 +3,7 @@ vcpu: 8
 memory: 6144
 hostname: columbia
 public_ipv4: 192.168.0.248
+update_reboot_strategy: off
 locksmith_window_start: 'Sun 19:00'
 locksmith_window_length: 1h
 
