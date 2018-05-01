@@ -16,7 +16,8 @@ ExecStartPre=/usr/bin/mkdir -p /var/log/containers
 ExecStartPre=-/usr/bin/rkt rm --uuid-file={{ kubelet_uuid_file }}
 ExecStart=/usr/lib/coreos/kubelet-wrapper \
   --kubeconfig=/etc/kubernetes/controller-kubeconfig.yaml \
-  --register-schedulable=false \
+  --node-labels="node-role.kubernetes.io/master=" \
+  --register-with-taints=node-role.kubernetes.io/master=true:NoSchedule \
   --cni-conf-dir=/etc/kubernetes/cni/net.d \
   --network-plugin=cni \
   --container-runtime=docker \
