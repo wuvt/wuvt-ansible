@@ -12,3 +12,5 @@ nginx_sites:
 - www.wuvt.vt.edu
 - vttv.vt.edu
 - database.collegemedia.vt.edu
+- trackman-am.apps.wuvt.vt.edu
+- trackman-fm.apps.wuvt.vt.edu
