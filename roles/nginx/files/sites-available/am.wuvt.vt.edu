@@ -30,7 +30,7 @@ server {
     include tls.conf;
     gzip off;
 
-    rewrite ^/trackman(/.*) https://trackman-am.apps.wuvt.vt.edu$1;
+    rewrite ^/trackman(/.*)?$ https://trackman-am.apps.wuvt.vt.edu$1;
 
     location / {
         proxy_set_header Host              $host;

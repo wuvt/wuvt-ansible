@@ -14,6 +14,28 @@ server {
         default_type text/plain;
     }
 
+    location /api/automation/log {
+        # Liquidsoap doesn't support HTTPS
+        # https://github.com/savonet/liquidsoap/issues/336
+
+        proxy_set_header Host              $host;
+        proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $http_x_forwarded_proto;
+        proxy_set_header X-Real-IP         $remote_addr;
+
+        proxy_buffering off;
+        proxy_cache off;
+        proxy_http_version 1.1;
+        proxy_set_header Connection "";
+        chunked_transfer_encoding off;
+
+        proxy_ssl_trusted_certificate /etc/ssl/certs/upstream-ca.pem;
+        proxy_ssl_verify off;
+
+        proxy_pass https://trackman-am;
+        client_max_body_size 10M;
+    }
+
     location / {
         return 301 https://trackman-am.apps.wuvt.vt.edu$request_uri;
     }
