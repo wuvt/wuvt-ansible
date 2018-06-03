@@ -25,7 +25,7 @@ filebeat:
       document_type: yum
 output:
   logstash:
-    hosts: ["192.168.0.223:5043"]
+    hosts: ["polyus.wuvt.vt.edu:5043"]
     tls:
       certificate_authorities: ["/etc/filebeat/logstash.pem"]
     index: filebeat

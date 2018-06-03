@@ -1,9 +1,9 @@
 [Unit]
-Description=Ship journal to sampoong
+Description=Ship journal to ELK
                                                                                                                                    
 [Service]
 TimeoutStartSec=0
-ExecStart=/bin/sh -c "journalctl -o json -f | ncat --ssl --ssl-trustfile /etc/filebeat/logstash.pem sampoong.wuvt.vt.edu 5044"
+ExecStart=/bin/sh -c "journalctl -o json -f | ncat --ssl --ssl-trustfile /etc/filebeat/logstash.pem nedelin.wuvt.vt.edu 5044"
 Restart=always
 RestartSec=5
 

@@ -79,7 +79,7 @@
             {
                 "name": "ship-journal.service",
                 "enable": true,
-                "contents": "[Unit]\nDescription=Ship journal to sampoong\n\n[Service]\nTimeoutStartSec=0\nExecStart=/bin/sh -c \"journalctl -o json -f | ncat --ssl --ssl-trustfile /etc/ssl/logstash/logstash.pem sampoong.wuvt.vt.edu 5044\"\nRestart=always\nRestartSec=5\n\n[Install]\nWantedBy=multi-user.target"
+                "contents": "[Unit]\nDescription=Ship journal to polyus\n\n[Service]\nTimeoutStartSec=0\nExecStart=/bin/sh -c \"journalctl -o json -f | ncat --ssl --ssl-trustfile /etc/ssl/logstash/logstash.pem polyus.wuvt.vt.edu 5044\"\nRestart=always\nRestartSec=5\n\n[Install]\nWantedBy=multi-user.target"
             },
             {
                 "name": "sssd.service",
