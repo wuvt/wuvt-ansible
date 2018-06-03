@@ -1,4 +1,0 @@
-cfssl_services:
-- name: cfssl.service
-  enable: true
-  contents: "{{ lookup('file', 'cfssl.service') | replace('\n', '\\n') }}"

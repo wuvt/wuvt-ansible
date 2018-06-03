@@ -1,12 +1,3 @@
-- hosts: cfssl-server
-  become: yes
-  vars_files:
-  - vars/container.yml
-  - vars/container_private.yml
-  gather_facts: false
-  roles:
-  - cfssl-server
-
 - hosts: etcd-server:kubernetes-controller:kubernetes-worker
   vars_files:
   - vars/container.yml
