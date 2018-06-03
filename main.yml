@@ -61,13 +61,6 @@
   roles:
   - mail
 
-- hosts: logstash
-  become: yes
-  vars:
-    nginx_ocsp_stapling: false
-  roles:
-  - logstash
-
 - hosts: automation
   become: yes
   roles:

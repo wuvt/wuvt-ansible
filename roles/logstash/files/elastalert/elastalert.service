@@ -1,9 +1,0 @@
-[Unit]
-Description=Elastalert
-
-[Service]
-User=elastalert
-ExecStart=/usr/bin/elastalert --config /etc/elastalert/config.yaml
-
-[Install]
-WantedBy=multi-user.target
