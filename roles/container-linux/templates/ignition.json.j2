@@ -36,14 +36,6 @@
             },
             {
                 "filesystem": "root",
-                "path": "/etc/ssl/logstash/logstash.pem",
-                "mode": 420,
-                "contents": {
-                    "source": "data:,{{ lookup('file', 'logstash.pem') | replace('\n', '\\n') }}"
-                }
-            },
-            {
-                "filesystem": "root",
                 "path": "/etc/sssd/sssd.conf",
                 "mode": 384,
                 "contents": {
@@ -57,14 +49,6 @@
                 "contents": {
                     "source": "data:,{{ lookup('file', 'sssd/ca.pem') | replace('\n', '\\n') }}"
                 }
-            },
-            {
-                "filesystem": "root",
-                "path": "/etc/systemd/journald.conf.d/10-retention.conf",
-                "mode": 420,
-                "contents": {
-                    "source": "data:,{{ lookup('file', 'systemd/journald.conf.d/10-retention.conf') | replace('\n', '\\n') }}"
-                }
             }{% if ignition_extra_files | length > 0 %},
             {{ ignition_extra_files | map('to_json') | join(',') }}{% endif %}
 
@@ -75,11 +59,6 @@
             {
                 "name": "rpc-statd.service",
                 "enable": true
-            },
-            {
-                "name": "ship-journal.service",
-                "enable": true,
-                "contents": "[Unit]\nDescription=Ship journal to polyus\n\n[Service]\nTimeoutStartSec=0\nExecStart=/bin/sh -c \"journalctl -o json -f | ncat --ssl --ssl-trustfile /etc/ssl/logstash/logstash.pem polyus.wuvt.vt.edu 5044\"\nRestart=always\nRestartSec=5\n\n[Install]\nWantedBy=multi-user.target"
             },
             {
                 "name": "sssd.service",
