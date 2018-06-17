@@ -12,4 +12,3 @@
   - common
 
 - include_tasks: packages.yml
-  when: ansible_distribution_version == "16.04"

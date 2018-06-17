@@ -1,6 +1,7 @@
 ---
 - name: Install sources.list
   copy: src=sources16.list dest=/etc/apt/sources.list mode=0664 owner=root group=root
+  when: ansible_distribution_version == "16.04"
   tags:
   - apt
     #  - dropbox
@@ -13,11 +14,11 @@
   - vim
   - man
   - nmap
-  - ncdu
   - rsync
   - screen
   - tmux
   - wget
+  - ncdu
   - zsh
   - ntp
   - ranger

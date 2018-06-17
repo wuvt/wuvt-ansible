@@ -10,7 +10,6 @@
   - cheese
   - k3b
   - k3b-data
-  - libk3b6-extracodecs
   - thunderbird
   - redshift
   - gtk-redshift
@@ -20,6 +19,8 @@
   - scdaemon
   tags:
   - packages
+
+    #- libk3b6-extracodecs removed from 18.04
 
 - name: Disable dnsmasq in network mangler's config
   lineinfile:
