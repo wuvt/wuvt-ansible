@@ -1,0 +1,2 @@
+#!/bin/sh
+letsencrypt renew --quiet --renew-hook /opt/gen_icecast_cert.sh

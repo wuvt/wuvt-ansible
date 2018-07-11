@@ -15,7 +15,8 @@
     name: letsencrypt
     state: present
 
-- name: Install letsencrypt.cron
+- name: Install letsencrypt cron.daily entry
   copy:
-    src: cron.daily/letsencrypt.cron
-    dest: /etc/cron.daily/letsencrypt.cron
+    src: cron.daily/letsencrypt
+    dest: /etc/cron.daily/letsencrypt
+    mode: 0755
