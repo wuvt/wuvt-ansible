@@ -1,5 +1,5 @@
 ---
 mysql_root_password: ChangeMeSoon
 resolvers:
-    - 192.168.0.1
-    - 8.8.8.8
+    - 192.168.0.239
+    - 192.168.0.202
