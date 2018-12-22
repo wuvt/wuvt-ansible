@@ -7,6 +7,8 @@ nginx_sites:
 - id.apps.wuvt.vt.edu
 - jira.wuvt.vt.edu
 - linx.apps.wuvt.vt.edu
+- sensu.apps.wuvt.vt.edu
+- sensu-api.apps.wuvt.vt.edu
 - musicbrainz.apps.wuvt.vt.edu
 - retrofling.apps.wuvt.vt.edu
 - www.wuvt.vt.edu
