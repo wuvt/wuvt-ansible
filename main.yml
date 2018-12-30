@@ -2,6 +2,8 @@
   become: yes
   handlers:
   - import_tasks: handlers/mail.yml
+  vars_files:
+  - vars/mail.yml
   roles:
   - centos-common
   - common
@@ -13,6 +15,8 @@
   become: yes
   handlers:
   - import_tasks: handlers/mail.yml
+  vars_files:
+  - vars/mail.yml
   roles:
   - debian-common
   - common
@@ -22,6 +26,10 @@
 
 - hosts: ubuntu-serv
   become: yes
+  handlers:
+  - import_tasks: handlers/mail.yml
+  vars_files:
+  - vars/mail.yml
   roles:
   - ubuntu-common
   - common

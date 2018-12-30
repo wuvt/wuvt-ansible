@@ -1,5 +1,9 @@
 ---
 - hosts: workstations
+  handlers:
+  - import_tasks: handlers/mail.yml
+  vars_files:
+  - vars/mail.yml
   roles:
   - ubuntu-common
   - common
