@@ -2,6 +2,7 @@ upstream trackman-am {
     server naro1.wuvt.vt.edu:7444;
     server naro2.wuvt.vt.edu:7444;
     server columbia.wuvt.vt.edu:7444;
+    keepalive 100;
 }
 
 server {
@@ -23,6 +24,7 @@ server {
         proxy_set_header X-Forwarded-Proto $http_x_forwarded_proto;
         proxy_set_header X-Real-IP         $remote_addr;
 
+        proxy_read_timeout 75s;
         proxy_buffering off;
         proxy_cache off;
         proxy_http_version 1.1;
@@ -58,6 +60,7 @@ server {
         proxy_set_header X-Forwarded-Proto $http_x_forwarded_proto;
         proxy_set_header X-Real-IP         $remote_addr;
 
+        proxy_read_timeout 75s;
         proxy_buffering off;
         proxy_cache off;
         proxy_http_version 1.1;
