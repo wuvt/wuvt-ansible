@@ -8,7 +8,7 @@ import hmac
 import json
 import os.path
 import requests
-import urlparse
+import urllib.parse
 
 from ansible.module_utils.basic import AnsibleModule
 from cryptography import x509
@@ -132,20 +132,21 @@ def main():
                 verify = True
 
             if auth_key is not None:
-                h = hmac.new(binascii.unhexlify(auth_key), json.dumps(request),
+                h = hmac.new(binascii.unhexlify(auth_key),
+                             json.dumps(request).encode('utf-8'),
                              hashlib.sha256)
 
                 r = requests.post(
-                    urlparse.urljoin(endpoint, 'api/v1/cfssl/authsign'),
+                    urllib.parse.urljoin(endpoint, 'api/v1/cfssl/authsign'),
                     data=json.dumps({
-                        'token': base64.b64encode(h.digest()),
-                        'request': base64.b64encode(json.dumps(request)),
+                        'token': base64.b64encode(h.digest()).decode('ascii'),
+                        'request': base64.b64encode(json.dumps(request).encode('utf-8')).decode('ascii'),
                     }),
                     verify=verify,
                 )
             else:
                 r = requests.post(
-                    urlparse.urljoin(endpoint, 'api/v1/cfssl/sign'),
+                    urllib.parse.urljoin(endpoint, 'api/v1/cfssl/sign'),
                     data=json.dumps(request),
                     verify=verify,
                 )
