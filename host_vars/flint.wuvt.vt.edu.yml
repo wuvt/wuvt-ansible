@@ -1,3 +1,5 @@
 automation_alsa_output: 'plughw:CARD=USB,DEV=0'
 automation_trackman_url: https://www.wuvt.vt.edu/trackman/api/automation/log
-automation_trackman_password: "{{ lookup('ini', 'password section=trackman_prod file=secrets.ini') }}"
+automation_trackman_password: "{{ lookup('ini', 'password section=trackman_fm file=secrets.ini') }}"
+aircheck_healthcheck_webhook: "{{ lookup('ini', 'healthcheck_webhook section=aircheck_fm file=secrets.ini') }}"
+pgmcheck_healthcheck_webhook: "{{ lookup('ini', 'healthcheck_webhook section=pgmcheck_fm file=secrets.ini') }}"

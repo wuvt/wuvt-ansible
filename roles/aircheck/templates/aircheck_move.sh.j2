@@ -13,3 +13,7 @@ for file in $(ls /var/aircheck/staging/); do
     ssh johnny-six@alexandria.wuvt.vt.edu mkdir -p ${archive_location}/${year}/${month}/${day}
     scp /var/aircheck/staging/${file} johnny-six@alexandria.wuvt.vt.edu:${archive_location}/${year}/${month}/${day} && rm /var/aircheck/staging/${file}
 done
+
+{% if aircheck_healthcheck_webhook is defined %}
+curl -fsS --retry 3 {{ aircheck_healthcheck_webhook }} > /dev/null
+{% endif %}

@@ -30,3 +30,7 @@ for file in $(ls /var/pgmcheck/staging/); do
 {% endif %}
     [[ $scp_result -eq 0 ]] && rm /var/pgmcheck/staging/${file}
 done
+
+{% if pgmcheck_healthcheck_webhook is defined %}
+curl -fsS --retry 3 {{ pgmcheck_healthcheck_webhook }} > /dev/null
+{% endif %}
