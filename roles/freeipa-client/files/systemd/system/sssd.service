@@ -1,0 +1,16 @@
+[Unit]
+Description=System Security Services Daemon
+# SSSD must be running before we permit user sessions
+Before=systemd-user-sessions.service nss-user-lookup.target autofs.service
+# Wait until we're online before starting
+Wants=network-online.target nss-user-lookup.target
+After=network-online.target
+
+[Service]
+ExecStart=/usr/sbin/sssd -i -f
+Type=notify
+NotifyAccess=main
+PIDFile=/var/run/sssd.pid
+
+[Install]
+WantedBy=multi-user.target

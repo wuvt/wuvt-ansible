@@ -48,6 +48,13 @@
   tags:
   - auth
 
+- name: Install sssd.service
+  copy:
+    src: systemd/system/sssd.service
+    dest: /etc/systemd/system/autofs.service
+  tags:
+    auth
+
 - name: Restart rpc-gssd
   service: name=rpc-gssd state=restarted
   tags: [auth]

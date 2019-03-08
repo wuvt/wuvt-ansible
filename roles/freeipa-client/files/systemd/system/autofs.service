@@ -7,7 +7,6 @@ Wants=network-online.target
 Type=forking
 PIDFile=/run/autofs.pid
 EnvironmentFile=-/etc/default/autofs
-ExecStartPre=/bin/sleep 10
 ExecStart=/usr/sbin/automount $OPTIONS --pid-file /run/autofs.pid
 ExecReload=/bin/kill -HUP $MAINPID
 TimeoutSec=180
