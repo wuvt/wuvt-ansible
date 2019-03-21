@@ -1,9 +1,10 @@
 - name: Install Samba packages
-  yum: name={{ item }} state=latest
-  with_items:
+  yum:
+    name:
     - samba 
     - samba-client
     - samba-common
+    state: latest
   tags:
   - packages
 

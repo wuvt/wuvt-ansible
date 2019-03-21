@@ -1,16 +1,20 @@
 - name: Install NFS packages
-  yum: name={{ item }} state=latest
-  with_items:
-  - nfs-utils
-  - nfs-utils-lib
-  - nfs-utils-lib-devel
-  - nfs4-acl-tools
+  yum:
+    name:
+    - nfs-utils
+    - nfs-utils-lib
+    - nfs-utils-lib-devel
+    - nfs4-acl-tools
+    state: latest
   when: ansible_distribution_version.split(".")[0] == "6"
   tags:
   - packages
 
 - name: Enable and start nfs-client.target
-  service: name=nfs-client.target state=started enabled=yes
+  service:
+    name: nfs-client.target
+    state: started
+    enabled: yes
   when: ansible_distribution_version.split(".")[0] == "7"
   tags:
   - nfs

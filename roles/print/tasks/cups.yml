@@ -1,12 +1,13 @@
 - name: Install Cups packages
-  yum: name={{ item }} state=latest
-  with_items:
+  yum:
+    name:
     - cups
     - hplip
     - hplip-common
     - hplip-libs
     - ghostscript
     - ghostscript-fonts
+    state: latest
   tags:
   - packages
 

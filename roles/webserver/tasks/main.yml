@@ -1,9 +1,10 @@
 ---
 - name: Install web packages
-  yum: name={{ item }} state=latest
-  with_items:
-  - nginx
-  - git
+  yum:
+    name:
+    - nginx
+    - git
+    state: latest
   tags:
   - packages
   - web

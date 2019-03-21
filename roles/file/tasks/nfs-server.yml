@@ -1,11 +1,12 @@
 - name: Install NFS packages
-  yum: name={{ item }} state=latest
-  with_items:
-  - nfs-utils
-  - nfs-utils-lib
-  - nfs-utils-lib-devel
-  - nfs4-acl-tools
-  - dropbox
+  yum:
+    name:
+    - nfs-utils
+    - nfs-utils-lib
+    - nfs-utils-lib-devel
+    - nfs4-acl-tools
+    - dropbox
+    state: latest
   tags:
   - packages
 

@@ -1,12 +1,12 @@
 - name: install mail-server packages
-  yum: name={{ item }} state=present
-  with_items:
-          - dovecot
-          - postfix
-          - opendkim
-          - s-nail
-          - spamassassin
+  yum:
+    name:
+    - dovecot
+    - postfix
+    - opendkim
+    - s-nail
+    - spamassassin
+    state: present
   tags:
-          - packages
-          - mail
-
+  - packages
+  - mail

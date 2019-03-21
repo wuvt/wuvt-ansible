@@ -3,9 +3,9 @@
   tags: 
   - tor
 - name: Install tor
-  yum: name={{ item }} state=latest
-  with_items:
-  - tor
+  yum:
+    name: tor
+    state: latest
   tags:
   - packages
   - tor

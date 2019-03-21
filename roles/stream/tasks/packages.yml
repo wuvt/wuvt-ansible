@@ -1,25 +1,25 @@
 - name: Install audio streaming packages and libraries
-  yum: name={{ item }} state=latest
-  with_items:
-  - icecast
-  - alsa-utils
-  - alsa-lib
-  - alsa-lib-devel
-  - alsa-utils
-  - libvorbis
-  - libvorbis-devel
-  - libvorbis-devel-docs
-  - vorbis-tools
-  - libogg
-  - libogg-devel
-  - libogg-devel-docs
-  - liboggz
-  - liboggz-devel
-  - liboggz-doc
-  - opus-devel
-  - opus
-  - libmp3lame0
+  yum:
+    name:
+    - icecast
+    - alsa-utils
+    - alsa-lib
+    - alsa-lib-devel
+    - alsa-utils
+    - libvorbis
+    - libvorbis-devel
+    - libvorbis-devel-docs
+    - vorbis-tools
+    - libogg
+    - libogg-devel
+    - libogg-devel-docs
+    - liboggz
+    - liboggz-devel
+    - liboggz-doc
+    - opus-devel
+    - opus
+    - libmp3lame0
+    state: latest
   tags:
   - packages
   - stream
-
