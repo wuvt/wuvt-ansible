@@ -1,22 +1,23 @@
 ---
 - name: Install desktop software
-  apt: name={{ item }} state=latest
-  with_items:
-  - libreoffice
-  - mpv
-  - vlc
-  - texmaker
-  - tex4ht
-  - cheese
-  - k3b
-  - k3b-data
-  - thunderbird
-  - redshift
-  - gtk-redshift
-  - clementine
-  - pcscd
-  - pcsc-tools
-  - scdaemon
+  apt:
+    name:
+    - libreoffice
+    - mpv
+    - vlc
+    - texmaker
+    - tex4ht
+    - cheese
+    - k3b
+    - k3b-data
+    - thunderbird
+    - redshift
+    - gtk-redshift
+    - clementine
+    - pcscd
+    - pcsc-tools
+    - scdaemon
+    state: latest
   tags:
   - packages
 
@@ -24,19 +25,26 @@
 
 - name: Disable dnsmasq in network mangler's config
   lineinfile:
-          dest: /etc/NetworkManager/NetworkManager.conf
-          regexp: dnsmasq
-          state: absent
+    dest: /etc/NetworkManager/NetworkManager.conf
+    regexp: dnsmasq
+    state: absent
   notify:
   - Restart network mangler
 
 - name: LightDM config file to disable guest login
-  copy: src=50-no-guest.conf dest=/usr/share/lightdm/lightdm.conf.d/50-no-guest.conf
+  copy:
+    src: 50-no-guest.conf
+    dest: /usr/share/lightdm/lightdm.conf.d/50-no-guest.conf
   notify:
   - Restart lightDM
 
 - name: Configure Cups
-  copy: src={{ item.src }} dest=/etc/cups/{{ item.dest }} owner=root group=lp mode=0640
+  copy:
+    src: "{{ item.src }}"
+    dest: "/etc/cups/{{ item.dest }}"
+    owner: root
+    group: lp
+    mode: '0640'
   with_items:
   - src: printers.conf
     dest: printers.conf
@@ -51,9 +59,9 @@
 
 - name: remove line from auto.master
   lineinfile:
-          dest: /etc/auto.master
-          state: absent
-          line: "/- /etc/auto.wuvt"
+    dest: /etc/auto.master
+    state: absent
+    line: "/- /etc/auto.wuvt"
   tags:
   - automount
   notify:

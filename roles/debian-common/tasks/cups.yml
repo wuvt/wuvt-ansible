@@ -1,4 +1,5 @@
 - name: Copy cups client config file
-  copy: src=client.conf dest=/etc/cups/client.conf
+  copy:
+    src: client.conf
+    dest: /etc/cups/client.conf
   tags: cups
-

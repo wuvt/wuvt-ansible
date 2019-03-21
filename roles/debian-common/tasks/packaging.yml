@@ -1,22 +1,23 @@
 ---
 - name: Install packages for development
-  apt: name={{ item }} state=latest
-  with_items:
-  - gcc
-  - ruby
-  - ansible
-  - sshpass
+  apt:
+    name:
+    - gcc
+    - ruby
+    - ansible
+    - sshpass
+    state: latest
   tags:
   - packages
 
 - name: Install debian packaging tools
-  apt: name={{ item }} state=latest
-  with_items:
-  - build-essential
-  - make
-  - debhelper
-  - dh-make
-  - fakeroot
+  apt:
+    name:
+    - build-essential
+    - make
+    - debhelper
+    - dh-make
+    - fakeroot
+    state: latest
   tags:
   - packages
-

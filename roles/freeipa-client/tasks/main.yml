@@ -1,6 +1,9 @@
 ---
 - name: Stop and disable nscd
-  service: name=nscd state=stopped enabled=no
+  service:
+    name: nscd
+    state: stopped
+    enabled: no
   ignore_errors: yes
   when: ansible_os_family == "RedHat"
   tags: [auth]
@@ -14,7 +17,9 @@
   tags: [auth]
 
 - name: Add the sudoers group to allowed sudoers
-  copy: src=sudoers.d/01_sudoers dest=/etc/sudoers.d/01_sudoers
+  copy:
+    src: sudoers.d/01_sudoers
+    dest: /etc/sudoers.d/01_sudoers
   tags: [auth]
 
 - import_tasks: sshd.yml

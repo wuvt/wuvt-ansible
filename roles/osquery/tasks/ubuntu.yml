@@ -13,4 +13,6 @@
   - packages
 
 - name: Install osquery
-  apt: name=osquery state=present
+  apt:
+    name: osquery
+    state: present

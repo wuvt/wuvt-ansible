@@ -1,9 +1,10 @@
 - name: Install Liquidsoap
-  apt: name={{ item }} state=present
-  with_items:
-  - liquidsoap
-  - liquidsoap-plugin-alsa
-  - liquidsoap-plugin-vorbis
+  apt:
+    name:
+    - liquidsoap
+    - liquidsoap-plugin-alsa
+    - liquidsoap-plugin-vorbis
+    state: present
 
 - name: Create /opt/aircheck
   file:
