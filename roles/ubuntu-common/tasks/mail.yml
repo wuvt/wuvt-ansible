@@ -1,0 +1,21 @@
+- name: Set postfix_relayhost
+  lineinfile:
+    dest: /etc/postfix/main.cf
+    regexp: ^relayhost
+    line: "relayhost = {{ postfix_relayhost }}"
+    state: present
+  notify: Restart postfix
+  when: (hostname is defined and hostname != 'stfrancis.wuvt.vt.edu') or ansible_hostname != 'stfrancis.wuvt.vt.edu'
+  tags:
+  - common
+
+- name: Set mail alias for root
+  lineinfile:
+    dest: /etc/aliases
+    regexp: '^root:'
+    line: 'root: {{ root_email }}'
+    state: present
+  notify: Update aliases
+  when: (hostname is defined and hostname != 'stfrancis.wuvt.vt.edu') or ansible_hostname != 'stfrancis.wuvt.vt.edu'
+  tags:
+  - common
