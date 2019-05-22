@@ -1,0 +1,21 @@
+---
+
+- name: setup netplan
+  block:
+
+    - name: install netplan
+      package:
+        name: netplan
+        state: present
+
+    - name: populate netplan config
+      copy:
+        src: netplan
+        dest: "/etc/netplan/config.yml"
+        owner: root
+        group: root
+        mode: 755
+        state: present
+      notify: reload netplan
+
+

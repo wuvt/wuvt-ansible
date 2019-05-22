@@ -1,0 +1,8 @@
+---
+- name: restart netplan
+  systemd:
+    name: systemd-networkd
+    state: restarted
+  tags:
+    - never
+    - reload

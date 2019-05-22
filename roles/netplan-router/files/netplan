@@ -1,3 +1,4 @@
+---
 network:
   version: 2
   ethernets:
@@ -10,7 +11,7 @@ network:
       dhcp4: true
       nameservers:
         addresses: ["::1"]
-      set-name: mainint 
+      set-name: mainint
     eno3:
       addresses: []
       dhcp4: true
@@ -26,33 +27,40 @@ network:
       link: mainint
       addresses:
         - 10.22.0.1/24
+        - 2607:b400:000a:0280::/64
     servers:
       id: 2208
       link: mainint
       addresses:
         - 10.22.8.1/24
+        - 2607:b400:000a:0281::/64
     engineering:
       id: 2216
       link: mainint
       addresses:
         - 10.22.16.1/24
+        - 2607:b400:000a:0282::/64
     colos:
       id: 2224
       link: mainint
       addresses:
         - 10.22.24.1/24
+        - 2607:b400:000a:0283::/64
     aoip:
       id: 2232
       link: mainint
       addresses:
         - 10.22.32.1/24
+        - 2607:b400:000a:0284::/64
     management:
       id: 2240
       link: mainint
       addresses:
         - 10.22.40.1/24
+        - 2607:b400:000a:0285::/64
     public:
       id: 2248
       link: mainint
       addresses:
         - 10.22.60.1/20
+        - 2607:b400:000a:0286::/64
