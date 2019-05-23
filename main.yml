@@ -34,12 +34,21 @@
   - ubuntu-common
   - common
   - osquery
-  - freeipa-client
   - log-forwarder
   - role: jnv.unattended-upgrades
     unattended_origins_patterns:
     - 'origin=Ubuntu,archive=${distro_codename}-security'
     unattended_mail: 'root@wuvt.vt.edu'
+
+- hosts: ubuntu-serv
+  become: yes
+  handlers:
+  - import_tasks: handlers/mail.yml
+  vars_files:
+  - vars/mail.yml
+  roles:
+  - freeipa-client
+  when: "{{ central_auth_managed | default(true) }}"
 
 - hosts: stream
   become: yes
