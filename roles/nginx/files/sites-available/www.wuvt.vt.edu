@@ -76,7 +76,7 @@ server {
     rewrite ^/News/?$ /category/nrv-news permanent;
     rewrite ^/Program-Schedule/?$ /shows permanent;
     rewrite ^/ProgramGuide/?$ /shows permanent;
-    rewrite ^/Staff/?$ /contact permanent;
+    rewrite ^/Staff/?$ /staff permanent;
     rewrite ^/WOOVE/?$ /category/woove permanent;
     rewrite ^/donate.html$ /donate permanent;
     rewrite ^/donatemonthly/?$ /donate permanent;
@@ -93,7 +93,7 @@ server {
     rewrite ^/playlists/playlist_archive_by_host.php$ /playlists/dj permanent;
     rewrite ^/playlists_date/?$ /playlists/date permanent;
     rewrite ^/playlists_dj/?$ /playlists/dj permanent;
-    rewrite ^/staff/?$ /contact permanent;
+    rewrite ^/contact-info/?$ /contact permanent;
     rewrite ^/woove/?$ /category/woove permanent;
 
     rewrite ^/2014/img-20141110-201217.jpg$ /static/media/2014/img-20141110-201217.jpg permanent;
