@@ -1,0 +1,43 @@
+upstream files-sso-proxy {
+    server naro1.wuvt.vt.edu:4181;
+    server naro2.wuvt.vt.edu:4181;
+    server columbia.wuvt.vt.edu:4181;
+}
+
+server {
+    listen        80;
+    listen        [::]:80;
+    server_name   files.apps.wuvt.vt.edu;
+
+    location ~ /.well-known/acme-challenge/(.*) {
+        root /var/lib/letsencrypt/public_html;
+        default_type text/plain;
+    }
+
+    location / {
+        return 301 https://files.apps.wuvt.vt.edu$request_uri;
+    }
+}
+
+server {
+    listen        443      ssl http2;
+    listen        [::]:443 ssl http2;
+    server_name   files.apps.wuvt.vt.edu;
+
+    ssl_certificate     /etc/letsencrypt/live/files.apps.wuvt.vt.edu/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/files.apps.wuvt.vt.edu/privkey.pem;
+    include tls.conf;
+    gzip off;
+
+    #add_header Strict-Transport-Security max-age=15552000;
+
+    location / {
+        proxy_set_header Host              $host;
+        proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+        #proxy_set_header X-Forwarded-Proto $http_x_forwarded_proto;
+        proxy_set_header X-Forwarded-Proto https;
+        proxy_set_header X-Real-IP         $remote_addr;
+
+        proxy_pass http://files-sso-proxy;
+    }
+}
