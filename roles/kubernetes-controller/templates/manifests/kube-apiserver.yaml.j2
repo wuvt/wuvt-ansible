@@ -27,10 +27,9 @@ spec:
     - --service-account-key-file=/etc/kubernetes/ssl/apiserver-key.pem
     - --runtime-config=extensions/v1beta1/networkpolicies=true
     - --anonymous-auth=false
-    - --oidc-issuer-url=https://id.apps.wuvt.vt.edu
-    - --oidc-client-id=kubernetes
-    - --oidc-username-claim=sub
-    - --oidc-groups-claim=groups
+    - --oidc-issuer-url=https://accounts.google.com
+    - --oidc-client-id=453676020155-kafv7cbgc7qr3kqst6jjhhsmksecloh7.apps.googleusercontent.com
+    - --oidc-username-claim=email
     - --authorization-mode=RBAC
     livenessProbe:
       httpGet:
