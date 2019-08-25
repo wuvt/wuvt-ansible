@@ -1,4 +1,4 @@
-upstream files-sso-proxy {
+upstream eas-sso-proxy {
     server naro1.wuvt.vt.edu:4181;
     server naro2.wuvt.vt.edu:4181;
     server columbia.wuvt.vt.edu:4181;
@@ -7,7 +7,7 @@ upstream files-sso-proxy {
 server {
     listen        80;
     listen        [::]:80;
-    server_name   files.apps.wuvt.vt.edu;
+    server_name   eas.apps.wuvt.vt.edu;
 
     location ~ /.well-known/acme-challenge/(.*) {
         root /var/lib/letsencrypt/public_html;
@@ -15,21 +15,23 @@ server {
     }
 
     location / {
-        return 301 https://files.apps.wuvt.vt.edu$request_uri;
+        return 301 https://eas.apps.wuvt.vt.edu$request_uri;
     }
 }
 
 server {
     listen        443      ssl http2;
     listen        [::]:443 ssl http2;
-    server_name   files.apps.wuvt.vt.edu;
+    server_name   eas.apps.wuvt.vt.edu;
 
-    ssl_certificate     /etc/letsencrypt/live/files.apps.wuvt.vt.edu/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/files.apps.wuvt.vt.edu/privkey.pem;
+    ssl_certificate     /etc/ssl/wuvt/certs/apps.wuvt.vt.edu.pem;
+    ssl_certificate_key /etc/ssl/wuvt/private/apps.wuvt.vt.edu.key.pem;
     include tls.conf;
     gzip off;
 
     location / {
+        sub_filter 'http://dasdec.wuvt.vt.edu/' 'https://eas.apps.wuvt.vt.edu/';
+
         proxy_set_header Host              $host;
         proxy_set_header X-Forwarded-Host  $host;
         proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
@@ -37,6 +39,6 @@ server {
         proxy_set_header X-Forwarded-Proto https;
         proxy_set_header X-Real-IP         $remote_addr;
 
-        proxy_pass http://files-sso-proxy;
+        proxy_pass http://eas-sso-proxy;
     }
 }
