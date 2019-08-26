@@ -1,7 +1,7 @@
 upstream kibana-sso-proxy {
-    server naro1.wuvt.vt.edu:4181;
-    server naro2.wuvt.vt.edu:4181;
-    server columbia.wuvt.vt.edu:4181;
+    server naro1.wuvt.vt.edu:30018;
+    server naro2.wuvt.vt.edu:30018;
+    server columbia.wuvt.vt.edu:30018;
 }
 
 server {
@@ -30,13 +30,8 @@ server {
     gzip off;
 
     location / {
-        proxy_set_header Host              $host;
-        proxy_set_header X-Forwarded-Host  $host;
-        proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
-        #proxy_set_header X-Forwarded-Proto $http_x_forwarded_proto;
-        proxy_set_header X-Forwarded-Proto https;
-        proxy_set_header X-Real-IP         $remote_addr;
-
-        proxy_pass http://kibana-sso-proxy;
+        proxy_pass https://kibana-sso-proxy;
+        proxy_ssl_name kibana.apps.wuvt.vt.edu;
+        include proxy_params;
     }
 }

@@ -1,7 +1,7 @@
 upstream sso-auth {
-    server naro1.wuvt.vt.edu:4180;
-    server naro2.wuvt.vt.edu:4180;
-    server columbia.wuvt.vt.edu:4180;
+    server naro1.wuvt.vt.edu:30018;
+    server naro2.wuvt.vt.edu:30018;
+    server columbia.wuvt.vt.edu:30018;
 }
 
 server {
@@ -29,14 +29,9 @@ server {
     include tls.conf;
     gzip off;
 
-    #add_header Strict-Transport-Security max-age=15552000;
-
     location / {
-        proxy_set_header Host              $host;
-        proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $http_x_forwarded_proto;
-        proxy_set_header X-Real-IP         $remote_addr;
-
-        proxy_pass http://sso-auth;
+        proxy_pass https://sso-auth;
+        proxy_ssl_name sso-auth.apps.wuvt.vt.edu;
+        include proxy_params;
     }
 }
