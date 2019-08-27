@@ -1,6 +1,6 @@
 upstream dex {
     server naro1.wuvt.vt.edu:5556;
-    server naro2.wuvt.vt.edu:556;
+    server naro2.wuvt.vt.edu:5556;
     server columbia.wuvt.vt.edu:5556;
 }
 

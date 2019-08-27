@@ -1,4 +1,4 @@
-upstream linx {
+upstream smuggler {
     server naro1.wuvt.vt.edu:30018;
     server naro2.wuvt.vt.edu:30018;
     server columbia.wuvt.vt.edu:30018;
@@ -7,36 +7,38 @@ upstream linx {
 server {
     listen        80;
     listen        [::]:80;
-    server_name   linx.apps.wuvt.vt.edu;
+    server_name   smuggler.apps.wuvt.vt.edu;
 
-    location ~ /.well-known/acme-challenge/(.*) {
+    location /.well-known/acme-challenge {
         root /var/lib/letsencrypt/public_html;
         default_type text/plain;
     }
 
     location / {
-        return 301 https://linx.apps.wuvt.vt.edu$request_uri;
+        return 301 https://smuggler.apps.wuvt.vt.edu$request_uri;
     }
 }
+
 
 server {
     listen        443      ssl http2;
     listen        [::]:443 ssl http2;
-    server_name   linx.apps.wuvt.vt.edu;
+    server_name   smuggler.apps.wuvt.vt.edu;
 
-    ssl_certificate     /etc/letsencrypt/live/linx.apps.wuvt.vt.edu/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/linx.apps.wuvt.vt.edu/privkey.pem;
+    ssl_certificate     /etc/letsencrypt/live/smuggler.apps.wuvt.vt.edu/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/smuggler.apps.wuvt.vt.edu/privkey.pem;
     include tls.conf;
     gzip off;
 
-    #add_header Strict-Transport-Security max-age=15552000;
-
     location / {
+        proxy_buffering off;
+        proxy_cache off;
         proxy_http_version 1.1;
         proxy_set_header Connection "";
+        chunked_transfer_encoding off;
 
-        proxy_pass https://linx;
-        proxy_ssl_name linx.apps.wuvt.vt.edu;
+        proxy_pass https://smuggler;
+        proxy_ssl_name smuggler.apps.wuvt.vt.edu;
         include proxy_params;
 
         client_max_body_size 25g;

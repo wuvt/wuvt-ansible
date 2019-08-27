@@ -1,7 +1,7 @@
 upstream retrofling {
-    server naro1.wuvt.vt.edu:8004;
-    server naro2.wuvt.vt.edu:8004;
-    server columbia.wuvt.vt.edu:8004;
+    server naro1.wuvt.vt.edu:30018;
+    server naro2.wuvt.vt.edu:30018;
+    server columbia.wuvt.vt.edu:30018;
 }
 
 server {
@@ -32,11 +32,8 @@ server {
     #add_header Strict-Transport-Security max-age=15552000;
 
     location / {
-        proxy_set_header Host              $host;
-        proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $http_x_forwarded_proto;
-        proxy_set_header X-Real-IP         $remote_addr;
-
-        proxy_pass http://retrofling;
+        proxy_pass https://retrofling;
+        proxy_ssl_name retrofling.apps.wuvt.vt.edu;
+        include proxy_params;
     }
 }
