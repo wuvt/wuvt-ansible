@@ -1,7 +1,8 @@
 upstream sensu {
-    server naro1.wuvt.vt.edu:13000;
-    server naro2.wuvt.vt.edu:13000;
-    server columbia.wuvt.vt.edu:13000;
+    server naro1.wuvt.vt.edu:30018;
+    server naro2.wuvt.vt.edu:30018;
+    server columbia.wuvt.vt.edu:30018;
+    keepalive 4;
 }
 
 server {
@@ -32,12 +33,10 @@ server {
     #add_header Strict-Transport-Security max-age=15552000;
 
     location / {
-        proxy_set_header Host              $host;
-        proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $http_x_forwarded_proto;
-        proxy_set_header X-Real-IP         $remote_addr;
+        proxy_pass https://sensu;
+        proxy_ssl_name sensu-api.apps.wuvt.vt.edu;
+        include proxy_params;
 
-        proxy_pass http://sensu;
-        client_max_body_size 4096M;
+        client_max_body_size 4g;
     }
 }

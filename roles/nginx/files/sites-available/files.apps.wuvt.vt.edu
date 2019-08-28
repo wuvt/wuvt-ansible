@@ -2,6 +2,7 @@ upstream files-sso-proxy {
     server naro1.wuvt.vt.edu:30018;
     server naro2.wuvt.vt.edu:30018;
     server columbia.wuvt.vt.edu:30018;
+    keepalive 4;
 }
 
 server {
