@@ -31,7 +31,8 @@ server {
     gzip off;
 
     location / {
-        sub_filter 'http://dasdec.wuvt.vt.edu/' 'https://eas.apps.wuvt.vt.edu/';
+        sub_filter 'http://eas.apps.wuvt.vt.edu/' 'https://eas.apps.wuvt.vt.edu/';
+        proxy_set_header Accept-Encoding "";
 
         proxy_pass https://eas-sso-proxy;
         proxy_ssl_name eas.apps.wuvt.vt.edu;
