@@ -1,7 +1,7 @@
 upstream trackman-am {
-    server naro1.wuvt.vt.edu:7444;
-    server naro2.wuvt.vt.edu:7444;
-    server columbia.wuvt.vt.edu:7444;
+    server naro1.wuvt.vt.edu:30018;
+    server naro2.wuvt.vt.edu:30018;
+    server columbia.wuvt.vt.edu:30018;
     keepalive 100;
 }
 
@@ -31,11 +31,10 @@ server {
         proxy_set_header Connection "";
         chunked_transfer_encoding off;
 
-        proxy_ssl_trusted_certificate /etc/ssl/certs/upstream-ca.pem;
-        proxy_ssl_verify off;
-
         proxy_pass https://trackman-am;
-        client_max_body_size 10M;
+        proxy_ssl_name trackman-am.apps.wuvt.vt.edu;
+
+        client_max_body_size 10m;
     }
 
     location / {
@@ -55,22 +54,15 @@ server {
     gzip off;
 
     location / {
-        proxy_set_header Host              $host;
-        proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $http_x_forwarded_proto;
-        proxy_set_header X-Real-IP         $remote_addr;
-
         proxy_read_timeout 75s;
         proxy_buffering off;
         proxy_cache off;
-        proxy_http_version 1.1;
-        proxy_set_header Connection "";
         chunked_transfer_encoding off;
 
-        proxy_ssl_trusted_certificate /etc/ssl/certs/upstream-ca.pem;
-        proxy_ssl_verify on;
-
         proxy_pass https://trackman-am;
-        client_max_body_size 10M;
+        proxy_ssl_name trackman-am.apps.wuvt.vt.edu;
+        include proxy_params;
+
+        client_max_body_size 10m;
     }
 }
