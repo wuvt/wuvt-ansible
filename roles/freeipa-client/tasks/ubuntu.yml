@@ -29,7 +29,7 @@
 
 - name: Configure autofs mounts
   tags: [auth]
-  when: automount_nss.rc != 0
+  when: not automount_nss.skipped and automount_nss.rc != 0
   command: ipa-client-automount -U
   register: command_result
   failed_when:
