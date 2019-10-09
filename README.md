@@ -1,7 +1,8 @@
-## wuvt-ansible
-This is a repository of ansible playbooks for hosts on WUVT's network. Currently everything assumes that networking is manually setup (internal interface on eth0, external on eth1 if applicable, and a bridged interface for the VM servers).
+# wuvt-ansible
 
-Add files containing passwords to .gitignore before staging so they are not stored in the repo.
+This is a repository of Ansible playbooks for hosts on WUVT's network. Currently everything assumes that networking is manually setup (internal interface on eth0, external on eth1 if applicable, and a bridged interface for the VM servers).
+
+For files that contain secrets, you should encrypt them using Ansible Vault and also add them to .gitignore to ensure they are not stored in the repo (which is intentionally public).
 
 To execute a playbook on all machines, run 
 ```sh
@@ -10,7 +11,7 @@ ansible-playbook main.yml -i inventory --limit=workstations -K
 
 (replacing "workstations" with the hosts group you would like to deploy on)
 
-For more info, man ansible-playbook or see http://ansible.cc
+For more info, `man ansible-playbook` or see https://ansible.com/
 
 Note that RHEL systems prior to RHEL6 require bootstrapping, as they come with 
 python <= 2.4, which lacks python-simplejson. The bootstrap.sh script will run 
@@ -31,9 +32,7 @@ This is usually found in /etc/ansible/ansible.cfg.
 
 ### Troubleshooting
 
-You may need to set the environment variable ANSIBLE_SCP_IF_SSH=y if you are
+You may need to set the environment variable `ANSIBLE_SCP_IF_SSH=y` if you are
 using an SSH proxy.
 
 See ansible issue #13401 as to why.
-
-
