@@ -1,17 +1,17 @@
-- include: centos.yml
-- include: debian.yml
-- include: macpros.yml
-- include: ubuntu_serv.yml
-- include: workstations.yml
+- import_playbook: centos.yml
+- import_playbook: debian.yml
+- import_playbook: macpros.yml
+- import_playbook: ubuntu_serv.yml
+- import_playbook: workstations.yml
 
-- include: aircheck.yml
-- include: automation.yml
-- include: fileserver.yml
-- include: kvm.yml
-- include: nginx.yml
-- include: mail.yml
-- include: pgmcheck.yml
-- include: ubuntu_serv.yml
-- include: stream.yml
+- import_playbook: aircheck.yml
+- import_playbook: automation.yml
+- import_playbook: fileserver.yml
+- import_playbook: kvm.yml
+- import_playbook: nginx.yml
+- import_playbook: mail.yml
+- import_playbook: pgmcheck.yml
+- import_playbook: ubuntu_serv.yml
+- import_playbook: stream.yml
 
-- include: lambianceplaza.yml
+- import_playbook: lambianceplaza.yml
