@@ -1,0 +1,28 @@
+- hosts: lambianceplaza.wuvt.vt.edu
+  roles:
+    - ceph-single
+  become: yes
+  tasks:
+  - name: Create /srv/coreos-storage
+    file:
+      dest: /srv/coreos-storage
+      state: directory
+
+  - name: Add coreos-storage export
+    lineinfile:
+      dest: /etc/exports
+      regexp: "^/srv/coreos-storage "
+      line: "/srv/coreos-storage 192.168.0.0/16(rw,no_subtree_check)"
+      state: present
+
+  - name: Start and enable nfs-server
+    service: name=nfs-server state=started enabled=yes
+
+  - name: Open NFS ports in firewalld
+    firewalld: service={{ item }} immediate=true permanent=true state=enabled
+    with_items:
+    - mountd
+    - rpc-bind
+    - nfs
+    tags:
+    - firewalld

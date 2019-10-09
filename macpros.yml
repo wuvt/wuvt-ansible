@@ -1,0 +1,4 @@
+- hosts: macpros
+  become: yes
+  roles:
+  - macpros

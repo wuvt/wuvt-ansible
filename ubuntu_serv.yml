@@ -1,30 +1,17 @@
----
-- hosts: workstations
+- hosts: ubuntu_serv
+  become: yes
   handlers:
   - import_tasks: handlers/mail.yml
   vars_files:
   - vars/mail.yml
-#  vars_prompt:
-#  - name: joindomain_password
-#    prompt: Domain join password
-#    private: yes
   roles:
   - ubuntu-common
   - common
   - osquery
   - freeipa-client
   - log-forwarder
-  - ubuntu-desktop
-    #- kerberos-client
   - role: jnv.unattended-upgrades
     unattended_origins_patterns:
     - 'origin=Ubuntu,archive=${distro_codename}-security'
-    - 'o=Ubuntu,a=${distro_codename}-updates'
-    #unattended_package_blacklist: [cowsay, vim]
     unattended_mail: 'root@wuvt.vt.edu'
-  become: yes
 
-- hosts: macpros
-  become: yes
-  roles:
-  - macpros

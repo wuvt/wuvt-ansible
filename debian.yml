@@ -1,0 +1,12 @@
+- hosts: debian
+  become: yes
+  handlers:
+  - import_tasks: handlers/mail.yml
+  vars_files:
+  - vars/mail.yml
+  roles:
+  - debian-common
+  - common
+  #- osquery
+  - freeipa-client
+  - log-forwarder

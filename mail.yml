@@ -1,0 +1,5 @@
+# TODO: Write the mail role
+- hosts: mail
+  become: yes
+  roles:
+  - mail

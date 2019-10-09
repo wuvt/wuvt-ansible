@@ -1,0 +1,16 @@
+- hosts: centos
+  become: yes
+  handlers:
+  - import_tasks: handlers/mail.yml
+  vars_files:
+  - vars/mail.yml
+#  vars_prompt:
+#  - name: joindomain_password
+#    prompt: Domain join password (CentOS)
+#    private: yes
+  roles:
+  - centos-common
+  - common
+  - osquery
+  - freeipa-client
+  - log-forwarder

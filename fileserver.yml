@@ -1,0 +1,6 @@
+- hosts: fileserver
+  become: yes
+  roles:
+  - osquery
+  - freeipa-client
+  - log-forwarder

@@ -1,130 +1,17 @@
-- hosts: centos
-  become: yes
-  handlers:
-  - import_tasks: handlers/mail.yml
-  vars_files:
-  - vars/mail.yml
-  roles:
-  - centos-common
-  - common
-  - osquery
-  - freeipa-client
-  - log-forwarder
+- include: centos.yml
+- include: debian.yml
+- include: macpros.yml
+- include: ubuntu_serv.yml
+- include: workstations.yml
 
-- hosts: debian
-  become: yes
-  handlers:
-  - import_tasks: handlers/mail.yml
-  vars_files:
-  - vars/mail.yml
-  roles:
-  - debian-common
-  - common
-  #- osquery
-  - freeipa-client
-  - log-forwarder
+- include: aircheck.yml
+- include: automation.yml
+- include: fileserver.yml
+- include: kvm.yml
+- include: nginx.yml
+- include: mail.yml
+- include: pgmcheck.yml
+- include: ubuntu_serv.yml
+- include: stream.yml
 
-- hosts: ubuntu_serv
-  become: yes
-  handlers:
-  - import_tasks: handlers/mail.yml
-  vars_files:
-  - vars/mail.yml
-  roles:
-  - ubuntu-common
-  - common
-  - osquery
-  - freeipa-client
-  - log-forwarder
-  - role: jnv.unattended-upgrades
-    unattended_origins_patterns:
-    - 'origin=Ubuntu,archive=${distro_codename}-security'
-    unattended_mail: 'root@wuvt.vt.edu'
-
-- hosts: stream
-  become: yes
-  roles:
-  - stream
-
-- hosts: kvm
-  become: yes
-  roles:
-  - kvm
-
-- hosts: file
-  become: yes
-  roles:
-  - file
-
-- hosts: fileserver
-  become: yes
-  roles:
-  - osquery
-  - freeipa-client
-  - log-forwarder
-
-# TODO: Write the mail role
-- hosts: mail
-  become: yes
-  roles:
-  - mail
-
-- hosts: automation
-  become: yes
-  roles:
-  - automation
-
-- hosts: aircheck
-  become: yes
-  roles:
-  - aircheck
-
-- hosts: pgmcheck
-  become: yes
-  roles:
-  - pgmcheck
-
-- hosts: nginx
-  become: yes
-  roles:
-  - nginx
-  - certbot
-
-- hosts: macpros
-  become: yes
-  roles:
-  - macpros
-
-- hosts: rds
-  become: yes
-  roles:
-  - rds
-
-- hosts: lambianceplaza.wuvt.vt.edu
-  roles:
-    - ceph-single
-  become: yes
-  tasks:
-  - name: Create /srv/coreos-storage
-    file:
-      dest: /srv/coreos-storage
-      state: directory
-
-  - name: Add coreos-storage export
-    lineinfile:
-      dest: /etc/exports
-      regexp: "^/srv/coreos-storage "
-      line: "/srv/coreos-storage 192.168.0.0/16(rw,no_subtree_check)"
-      state: present
-
-  - name: Start and enable nfs-server
-    service: name=nfs-server state=started enabled=yes
-
-  - name: Open NFS ports in firewalld
-    firewalld: service={{ item }} immediate=true permanent=true state=enabled
-    with_items:
-    - mountd
-    - rpc-bind
-    - nfs
-    tags:
-    - firewalld
+- include: lambianceplaza.yml
