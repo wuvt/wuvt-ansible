@@ -20,3 +20,5 @@
     - logstash
     - wuvt-site-stg
     - trackman-stg
+    - sso-auth
+    - sso-proxg
