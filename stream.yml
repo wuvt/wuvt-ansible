@@ -1,0 +1,4 @@
+- hosts: flint.wuvt.vt.edu
+  become: true
+  roles:
+  - stream-generator

@@ -1,0 +1,4 @@
+- hosts: aircheck
+  become: yes
+  roles:
+  - aircheck

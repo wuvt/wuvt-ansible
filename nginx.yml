@@ -1,0 +1,6 @@
+---
+- hosts: nginx
+  become: yes
+  roles:
+  - nginx
+  - certbot

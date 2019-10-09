@@ -1,0 +1,4 @@
+- hosts: pgmcheck
+  become: yes
+  roles:
+  - pgmcheck

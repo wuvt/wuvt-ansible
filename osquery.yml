@@ -1,0 +1,4 @@
+- hosts: alexandria.wuvt.vt.edu:centos:ubuntu_serv:workstations
+  become: yes
+  roles:
+  - osquery

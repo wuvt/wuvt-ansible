@@ -1,0 +1,4 @@
+- hosts: automation
+  become: yes
+  roles:
+  - automation
