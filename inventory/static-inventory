@@ -121,7 +121,7 @@ flint.wuvt.vt.edu
 [macpros]
 lambianceplaza.wuvt.vt.edu
 valdistava.wuvt.vt.edu
-opuha.wuvt.vt.edu
+#opuha.wuvt.vt.edu
 flint.wuvt.vt.edu
 bhopal.wuvt.vt.edu
 
@@ -133,12 +133,12 @@ flint.wuvt.vt.edu hostname=flint.wuvt.vt.edu
 sultana.wuvt.vt.edu hostname=sultana.wuvt.vt.edu
 aam.wuvt.vt.edu hostname=aam.wuvt.vt.edu
 dreyfus.wuvt.vt.edu hostname=dreyfus.wuvt.vt.edu
-opuha.wuvt.vt.edu hostname=opuha.wuvt.vt.edu
+#opuha.wuvt.vt.edu hostname=opuha.wuvt.vt.edu
 wuvt2017004.wuvt.vt.edu hostname=wuvt2017004.wuvt.vt.edu
 wuvt2017007.wuvt.vt.edu hostname=wuvt2017007.wuvt.vt.edu
 #wuvt2017009.wuvt.vt.edu hostname=wuvt2017009.wuvt.vt.edu
 stirling.wuvt.vt.edu hostname=stirling.wuvt.vt.edu
-webster.wuvt.vt.edu hostname=webster.wuvt.vt.edu
+#webster.wuvt.vt.edu hostname=webster.wuvt.vt.edu
 
 [arch]
 tacomanarrows.wuvt.vt.edu
