@@ -1,5 +1,6 @@
 - hosts: localhost
   vars_files:
+  - vars/cfssl.yml
   - vars/container.yml
   gather_facts: false
   tasks:
@@ -9,7 +10,7 @@
       endpoint_ca: "{{ cfssl_endpoint_ca }}"
       csr: "files/upstream_pki/{{ item }}.csr"
       dest: "files/upstream_pki/{{ item }}.pem"
-      auth_key: "{{ lookup('ini', 'auth_key_root section=cfssl file=secrets.ini') }}"
+      auth_key: "{{ cfssl_auth_key_root }}"
       label: root
     with_items:
     - wuvt-site-am
@@ -21,4 +22,4 @@
     - wuvt-site-stg
     - trackman-stg
     - sso-auth
-    - sso-proxg
+    - sso-proxy

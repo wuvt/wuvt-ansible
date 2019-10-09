@@ -1,5 +1,4 @@
 pki_dir: files/pki/
-cfssl_endpoint: https://polyus.wuvt.vt.edu:8888
 cfssl_endpoint_ca: files/cfssl_ca.pem
 cfssl_request:
   CN: kubelet

@@ -1,5 +1,6 @@
 - hosts: etcd_server:kubernetes_controller:kubernetes_worker
   vars_files:
+  - vars/cfssl.yml
   - vars/container.yml
   gather_facts: false
   tasks:
@@ -16,7 +17,7 @@
       endpoint_ca: "{{ cfssl_endpoint_ca }}"
       csr: "{{ pki_dir }}{{ hostname }}.csr"
       dest: "{{ pki_dir }}{{ hostname }}.pem"
-      auth_key: "{{ lookup('ini', 'auth_key_cluster section=cfssl file=secrets.ini') }}"
+      auth_key: "{{ cfssl_auth_key_cluster }}"
       label: cluster
     delegate_to: localhost
 
