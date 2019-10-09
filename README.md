@@ -2,7 +2,7 @@
 
 This is a repository of Ansible playbooks for hosts on WUVT's network. Currently everything assumes that networking is manually setup (internal interface on eth0, external on eth1 if applicable, and a bridged interface for the VM servers).
 
-For files that contain secrets, you should encrypt them using Ansible Vault and also add them to .gitignore to ensure they are not stored in the repo (which is intentionally public).
+For files that contain secrets, you should encrypt them using Ansible Vault and also add them to .gitignore to ensure they are not stored in the repo (which is intentionally public). For a list of files that are missing from this repository that you may need, refer to .gitignore.
 
 To execute a playbook on all machines, run 
 ```sh
@@ -13,11 +13,7 @@ ansible-playbook main.yml -i inventory --limit=workstations -K
 
 For more info, `man ansible-playbook` or see https://ansible.com/
 
-Note that RHEL systems prior to RHEL6 require bootstrapping, as they come with 
-python <= 2.4, which lacks python-simplejson. The bootstrap.sh script will run 
-this on all machines in the "rhel5" category.
-
-Several things have not yet been added to ansible, including the mail server
+Several things have not yet been added to Ansible, including the mail server.
 
 ### Client-side config required
 
