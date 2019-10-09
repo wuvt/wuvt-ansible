@@ -1,9 +1,7 @@
-roles/stream/vars/main.yml
-roles/ldap/templates/backup_nopass
-vars/private.yml
 credentials
 /vars/container_private.yml
 /vars/cfssl.yml
+/vars/freeipa_private.yml
 /vars/tacomanarrows_users.yml
 /secrets.ini
 /files/pki

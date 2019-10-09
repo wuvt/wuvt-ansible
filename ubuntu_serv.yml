@@ -4,6 +4,7 @@
   - import_tasks: handlers/mail.yml
   vars_files:
   - vars/mail.yml
+  - vars/freeipa_private.yml
   roles:
   - ubuntu-common
   - common

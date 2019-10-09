@@ -4,10 +4,7 @@
   - import_tasks: handlers/mail.yml
   vars_files:
   - vars/mail.yml
-#  vars_prompt:
-#  - name: joindomain_password
-#    prompt: Domain join password (CentOS)
-#    private: yes
+  - vars/freeipa_private.yml
   roles:
   - centos-common
   - common

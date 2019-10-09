@@ -12,7 +12,8 @@
     ipa-client-install --enable-dns-updates --domain=wuvt.vt.edu
     --server=zolitude.wuvt.vt.edu -p joinaccount@WUVT.VT.EDU
     -w {{ joindomain_password }} -U
-    creates=/etc/krb5.keytab
+  args:
+    creates: /etc/krb5.keytab
   when: joindomain_password is defined
 
 # Note this only works if the old auth has been removed from sssd.conf
