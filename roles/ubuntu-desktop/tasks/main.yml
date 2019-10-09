@@ -1,22 +1,23 @@
 ---
 - name: Install desktop software
-  apt: name={{ item }} state=latest
-  with_items:
-  - libreoffice
-  - mpv
-  - vlc
-  - texmaker
-  - tex4ht
-  - cheese
-  - k3b
-  - k3b-data
-  - thunderbird
-  - redshift
-  - gtk-redshift
-  - clementine
-  - pcscd
-  - pcsc-tools
-  - scdaemon
+  apt:
+    name:
+    - libreoffice
+    - mpv
+    - vlc
+    - texmaker
+    - tex4ht
+    - cheese
+    - k3b
+    - k3b-data
+    - thunderbird
+    - redshift
+    - gtk-redshift
+    - clementine
+    - pcscd
+    - pcsc-tools
+    - scdaemon
+    state: latest
   tags:
   - packages
 

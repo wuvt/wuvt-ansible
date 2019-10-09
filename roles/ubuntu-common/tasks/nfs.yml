@@ -1,9 +1,11 @@
 - name: Install NFS client utilities
-  apt: name={{ item }} state=latest
-  with_items:
-  - nfs-common
+  apt:
+    name: nfs-common
+    state: latest
   tags:
   - packages
 
 - name: Install /etc/idmapd.conf
-  copy: src=idmapd.conf dest=/etc/idmapd.conf
+  copy:
+    src: idmapd.conf
+    dest: /etc/idmapd.conf

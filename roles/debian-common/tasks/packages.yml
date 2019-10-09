@@ -1,31 +1,36 @@
 ---
 - name: Install sources.list
-  copy: src=sources.list dest=/etc/apt/sources.list mode=0664 owner=root group=root
+  copy:
+    src: sources.list
+    dest: /etc/apt/sources.list
+    mode: 0664
+    owner: root
+    group: root
   tags:
   - apt
   - dropbox
 
-
 - name: Install common packages
-  apt: name={{ item }} state=latest
-  with_items:
-  - git
-  - htop
-  - vim
-  - man
-  - nmap
-  - ncdu
-  - rsync
-  - screen
-  - tmux
-  - wget
-  - zsh
-  - cowsay
-  - ntp
-  - ranger
-  - aptitude
-  - pwgen
-  - mutt
+  apt:
+    name:
+    - git
+    - htop
+    - vim
+    - man
+    - nmap
+    - ncdu
+    - rsync
+    - screen
+    - tmux
+    - wget
+    - zsh
+    - cowsay
+    - ntp
+    - ranger
+    - aptitude
+    - pwgen
+    - mutt
+    state: latest
   tags:
   - packages
 

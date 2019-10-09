@@ -4,12 +4,13 @@
         dest=/opt/PiFmRds
 
 - name: Install PiFmRds deps
-  apt: name={{ item }} state=latest
-  with_items:
-  - build-essential
-  - libsndfile-dev
-  - ffmpeg
-  - alsa-utils
+  apt:
+    name:
+    - build-essential
+    - libsndfile-dev
+    - ffmpeg
+    - alsa-utils
+    state: latest
   tags:
   - packages
 
