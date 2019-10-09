@@ -24,7 +24,7 @@
   - freeipa-client
   - log-forwarder
 
-- hosts: ubuntu-serv
+- hosts: ubuntu_serv
   become: yes
   handlers:
   - import_tasks: handlers/mail.yml
@@ -99,11 +99,6 @@
   become: yes
   roles:
   - rds
-
-- hosts: cfssl-server
-  become: yes
-  roles:
-  - cfssl-server
 
 - hosts: lambianceplaza.wuvt.vt.edu
   roles:

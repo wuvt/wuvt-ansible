@@ -1,4 +1,4 @@
-- hosts: etcd-server:kubernetes-controller:kubernetes-worker
+- hosts: etcd_server:kubernetes_controller:kubernetes_worker
   vars_files:
   - vars/container.yml
   gather_facts: false
@@ -20,7 +20,7 @@
       label: cluster
     delegate_to: localhost
 
-- hosts: etcd-server
+- hosts: etcd_server
   become: yes
   vars_files:
   - vars/container.yml
