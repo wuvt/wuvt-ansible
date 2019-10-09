@@ -5,7 +5,7 @@ Add files containing passwords to .gitignore before staging so they are not stor
 
 To execute a playbook on all machines, run 
 ```sh
-ansible-playbook main.yml -i hosts.cfg --limit=workstations -K
+ansible-playbook main.yml -i inventory --limit=workstations -K
 ```
 
 (replacing "workstations" with the hosts group you would like to deploy on)
