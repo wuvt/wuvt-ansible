@@ -1,7 +1,4 @@
 ---
-- name: bootstrap python, just in case.
-  raw: apt-get install -y python
-
 - import_tasks: nfs.yml
 
 - name: Configure system hostname
