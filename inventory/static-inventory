@@ -49,7 +49,7 @@ zolitude.wuvt.vt.edu
 mayakovsky.wuvt.vt.edu hostname=mayakovsky.wuvt.vt.edu
 
 [kvm]
-webster.wuvt.vt.edu
+#webster.wuvt.vt.edu
 lambianceplaza.wuvt.vt.edu
 valdistava.wuvt.vt.edu
 bhopal.wuvt.vt.edu
@@ -57,7 +57,7 @@ aam.wuvt.vt.edu
 dreyfus.wuvt.vt.edu
 wuvt2017004.wuvt.vt.edu
 wuvt2017007.wuvt.vt.edu 
-wuvt2017009.wuvt.vt.edu
+#wuvt2017009.wuvt.vt.edu
 
 [mail]
 stfrancis.wuvt.vt.edu hostname=stfrancis.wuvt.vt.edu
