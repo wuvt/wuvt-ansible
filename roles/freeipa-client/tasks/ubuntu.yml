@@ -52,7 +52,7 @@
 - name: Install sssd.service
   copy:
     src: systemd/system/sssd.service
-    dest: /etc/systemd/system/autofs.service
+    dest: /etc/systemd/system/sssd.service
   tags:
     auth
 

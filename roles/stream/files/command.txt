@@ -1,0 +1,3 @@
+letsencrypt -d stream.wuvt.vt.edu -d stirling.wuvt.vt.edu --email it@wuvt.vt.edu --rsa-key-size 4096 --webroot --webroot-path /etc/icecast2/web
+# TODO: still need to have the script to handle installing the cert
+# XXX: the current cert on stirling is only 2048
