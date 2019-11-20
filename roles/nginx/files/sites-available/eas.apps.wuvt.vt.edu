@@ -32,6 +32,7 @@ server {
 
     location / {
         sub_filter 'http://eas.apps.wuvt.vt.edu/' 'https://eas.apps.wuvt.vt.edu/';
+        sub_filter_once off;
         proxy_set_header Accept-Encoding "";
 
         proxy_pass https://eas-sso-proxy;
