@@ -1,0 +1,11 @@
+- name: Install ferm
+  apt:
+    pkg: ferm
+    state: present
+  become: yes
+
+- name: Install ferm.conf
+  copy:
+    src: ferm/ferm.conf
+    dest: /etc/ferm/ferm.conf
+  become: yes
