@@ -40,7 +40,7 @@
     name:
     - gcc
     - ruby
-    - ansible
+    #- ansible
     - sshpass
     - golang-go
     state: latest
