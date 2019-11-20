@@ -10,7 +10,7 @@
   tags: [auth]
 
 - include_tasks: ubuntu.yml
-  when: ansible_distribution == "Ubuntu"
+  when: ansible_distribution == "Ubuntu" and ansible_distribution_version == "16.04"
   tags: [auth]
 
 - name: Add the sudoers group to allowed sudoers
