@@ -1,3 +1,4 @@
 ---
 automation_alsa_output: 'plughw:CARD=USB,DEV=0'
 automation_base_path: 'http://192.168.0.25/automation'
+automation_playlist_api_url: ''
