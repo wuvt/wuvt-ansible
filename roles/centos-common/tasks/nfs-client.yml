@@ -1,10 +1,11 @@
 - name: Install NFS packages
-  yum: name={{ item }} state=latest
-  with_items:
-  - nfs-utils
-  - nfs-utils-lib
-  - nfs-utils-lib-devel
-  - nfs4-acl-tools
+  yum:
+    name:
+    - nfs-utils
+    - nfs-utils-lib
+    - nfs-utils-lib-devel
+    - nfs4-acl-tools
+    state: latest
   when: ansible_distribution_version.split(".")[0] == "6"
   tags:
   - packages

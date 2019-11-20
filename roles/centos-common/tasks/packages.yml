@@ -28,76 +28,78 @@
   - common
 
 - name: Install common packages
-  yum: name={{ item }} state=present
-  with_items:
-  # XXX: apparently yum-cron conflicts with yum? disabled until we figure this out
-  #- yum-cron
-  - smartmontools
-  - emacs-nox
-  - elinks
-  - git
-  - git-svn
-  - htop
-  - lsof
-  - lynx
-  - man
-  - mosh
-  - mtr
-  - nmap
-  - ncdu
-  - net-tools
-  - vim
-  - rsync
-  - screen
-  - subversion
-  - tmux
-  - wget
-  - zsh
-  - pciutils
-  - bind-utils
-  - bash-completion
-  - ntp
-  - ntpdate
-  - ntp-doc
-  - weechat
-  - weechat-devel
-  - nfs-utils
+  yum:
+    name:
+    # XXX: apparently yum-cron conflicts with yum? disabled until we figure this out
+    #- yum-cron
+    - smartmontools
+    - emacs-nox
+    - elinks
+    - git
+    - git-svn
+    - htop
+    - lsof
+    - lynx
+    - man
+    - mosh
+    - mtr
+    - nmap
+    - ncdu
+    - net-tools
+    - vim
+    - rsync
+    - screen
+    - subversion
+    - tmux
+    - wget
+    - zsh
+    - pciutils
+    - bind-utils
+    - bash-completion
+    - ntp
+    - ntpdate
+    - ntp-doc
+    - weechat
+    - weechat-devel
+    - nfs-utils
+    state: present
   tags:
   - packages
   - common
 
 - name: Install packages for development
-  yum: name={{ item }} state=present
-  with_items:
-  - gcc
-  - make
-  - openmpi
-  - openmpi-devel
-  - ruby
-  - autoconf
-  - automake
-  - bison
-  - byacc
-  - cscope
-  - ctags
-  - diffstat
-  - doxygen
-  - elfutils
-  - flex 
-  - gcc-c++
-  - indent
-  - intltool
-  - libtool
-  - patch
-  - patchutils
-  - rcs
-  - redhat-rpm-config
-  - rpm-build
-  - swig
-  - systemtap
-  - unzip
-  - zip
-  - libselinux-python
+  yum:
+    name:
+    - gcc
+    - make
+    - openmpi
+    - openmpi-devel
+    - ruby
+    - autoconf
+    - automake
+    - bison
+    - byacc
+    - cscope
+    - ctags
+    - diffstat
+    - doxygen
+    - elfutils
+    - flex
+    - gcc-c++
+    - indent
+    - intltool
+    - libtool
+    - patch
+    - patchutils
+    - rcs
+    - redhat-rpm-config
+    - rpm-build
+    - swig
+    - systemtap
+    - unzip
+    - zip
+    - libselinux-python
+    state: present
   tags:
   - packages
   - common
