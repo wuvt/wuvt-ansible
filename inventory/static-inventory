@@ -126,7 +126,7 @@ flint.wuvt.vt.edu
 bhopal.wuvt.vt.edu
 
 [debian]
-flint.wuvt.vt.edu hostname=flint.wuvt.vt.edu
+flint.wuvt.vt.edu hostname=flint.wuvt.vt.edu debian_version=stretch
 
 [ubuntu_serv]
 #pinto.wuvt.vt.edu hostname=pinto.wuvt.vt.edu
