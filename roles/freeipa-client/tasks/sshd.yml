@@ -1,47 +1,80 @@
 ---
 - name: Set OpenSSH AuthorizedKeysCommandUser for sssd
-  lineinfile: dest=/etc/ssh/sshd_config
-              line="AuthorizedKeysCommandUser nobody"
-              regexp='^AuthorizedKeysCommandUser'
-              validate='sshd -tf %s' state=present
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    line: "AuthorizedKeysCommandUser nobody"
+    regexp: '^AuthorizedKeysCommandUser'
+    validate: 'sshd -tf %s'
+    state: present
   notify: Reload sshd
 
 - name: Set OpenSSH AuthorizedKeysCommand for sssd
-  lineinfile: dest=/etc/ssh/sshd_config
-              line="AuthorizedKeysCommand /usr/bin/sss_ssh_authorizedkeys"
-              regexp='^AuthorizedKeysCommand '
-              validate='sshd -tf %s' state=present
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    line: "AuthorizedKeysCommand /usr/bin/sss_ssh_authorizedkeys"
+    regexp: '^AuthorizedKeysCommand '
+    validate: 'sshd -tf %s'
+    state: present
   notify: Reload sshd
 
 - name: Disable OpenSSH ChallengeResponseAuthentication
-  lineinfile: dest=/etc/ssh/sshd_config
-              line="ChallengeResponseAuthentication no"
-              regexp='^ChallengeResponseAuthentication'
-              validate='sshd -tf %s' state=present
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    line: "ChallengeResponseAuthentication no"
+    regexp: '^ChallengeResponseAuthentication'
+    validate: 'sshd -tf %s'
+    state: present
   notify: Reload sshd
 
 - name: Disable OpenSSH GSSAPIAuthentication
-  lineinfile: dest=/etc/ssh/sshd_config
-              line="GSSAPIAuthentication no" regexp='^GSSAPIAuthentication'
-              validate='sshd -tf %s' state=present
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    line: "GSSAPIAuthentication no"
+    regexp: '^GSSAPIAuthentication'
+    validate: 'sshd -tf %s'
+    state: present
   notify: Reload sshd
 
 - name: Disable OpenSSH KerberosAuthentication
   # this is off by default but we just want to be sure
-  lineinfile: dest=/etc/ssh/sshd_config
-              line="KerberosAuthentication no" regexp='^KerberosAuthentication'
-              validate='sshd -tf %s' state=present
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    line: "KerberosAuthentication no"
+    regexp: '^KerberosAuthentication'
+    validate: 'sshd -tf %s'
+    state: present
   notify: Reload sshd
 
 - name: Disable OpenSSH PasswordAuthentication
-  lineinfile: dest=/etc/ssh/sshd_config
-              line="PasswordAuthentication no" regexp='^PasswordAuthentication'
-              validate='sshd -tf %s' state=present
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    line: "PasswordAuthentication no"
+    regexp: '^PasswordAuthentication'
+    validate: 'sshd -tf %s'
+    state: present
   notify: Reload sshd
 
-- name: Set OpenSSH AllowGroups
-  lineinfile: dest=/etc/ssh/sshd_config
-              line="AllowGroups engineering it-staff sudoers sudo"
-              regexp='^AllowGroups'
-              validate='sshd -tf %s' state=present
+- name: Set OpenSSH AllowGroups for internal-only host
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    line: "AllowGroups engineering it-staff sudoers sudo"
+    regexp: '^AllowGroups'
+    validate: 'sshd -tf %s'
+    state: present
   notify: Reload sshd
+  when: ansible_fqdn not in ('fukushima.wuvt.vt.edu', 'stirling.wuvt.vt.edu')
+
+- name: Set OpenSSH internal IP match block for host with external SSH
+  blockinfile:
+    dest: /etc/ssh/sshd_config
+    block: |-
+      # Allow internal access for normal set of users
+      Match Address 192.168.0.0/16,2607:b400:000a:0280::/64,2607:b400:000a:0281::/64,2607:b400:000a:028f::/64
+          AllowGroups engineering it-staff sudoers sudo
+
+      # Allow external access for sudo (local group) and sudoers with ssh-allowdirect
+      AllowGroups sudoers,ssh-allowdirect sudo
+    validate: 'sshd -tf %s'
+    state: present
+  notify: Reload sshd
+  when: ansible_fqdn in ('fukushima.wuvt.vt.edu', 'stirling.wuvt.vt.edu')
