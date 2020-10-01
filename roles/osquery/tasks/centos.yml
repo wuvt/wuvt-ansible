@@ -1,14 +1,33 @@
-- name: Install osquery yum repository (CentOS 7)
-  yum: name=https://osquery-packages.s3.amazonaws.com/centos7/noarch/osquery-s3-centos7-repo-1-0.0.noarch.rpm
-       state=present
+- name: Remove osquery yum repository (CentOS 7)
+  yum:
+    name: osquery-s3-centos7
+    state: present
   when: ansible_distribution_major_version == "7"
 
-- name: Install osquery yum repository (CentOS 6)
-  yum: name=https://osquery-packages.s3.amazonaws.com/centos6/noarch/osquery-s3-centos6-repo-1-0.0.noarch.rpm
-       state=present
+- name: Remove osquery yum repository (CentOS 6)
+  yum:
+    name: osquery-s3-centos6
+    state: absent
   when: ansible_distribution_major_version == "6"
 
+- name: Install osquery RPM repository signing key
+  get_url:
+    url: https://pkg.osquery.io/rpm/GPG
+    dest: /etc/pki/rpm-gpg/RPM-GPG-KEY-osquery
+
+- name: Install osquery RPM repository
+  get_url:
+    url: https://pkg.osquery.io/rpm/osquery-s3-rpm.repo
+    dest: /etc/yum.repos.d/osquery-s3-rpm.repo
+
+- name: Enable osquery RPM repository
+  yum_repository:
+    name: osquery-s3-rpm
+    enabled: yes
+
 - name: Install osquery
-  yum: name=osquery state=present
+  yum:
+    name: osquery
+    state: present
   tags:
   - packages

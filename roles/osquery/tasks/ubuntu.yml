@@ -1,16 +1,27 @@
 - name: Install osquery apt key
-  apt_key: keyserver=keyserver.ubuntu.com
-           id=1484120AC4E9F8A1A577AEEE97A80C63C9D8B80B state=present
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: 1484120AC4E9F8A1A577AEEE97A80C63C9D8B80B
+    state: present
   notify: Update apt cache
 
-- name: Install osquery repository
+- name: Remove old osquery repository URL
   apt_repository:
     repo: 'deb [arch=amd64] https://osquery-packages.s3.amazonaws.com/xenial xenial main'
     filename: osquery
+    state: absent
+  tags:
+  - packages
+
+- name: Install osquery repository
+  apt_repository:
+    repo: 'deb [arch=amd64] https://pkg.osquery.io/deb deb main'
+    filename: osquery
     state: present
-  notify: Update apt cache
   tags:
   - packages
 
 - name: Install osquery
-  apt: name=osquery state=present
+  apt:
+    name: osquery
+    state: present
