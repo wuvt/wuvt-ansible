@@ -60,7 +60,7 @@ wuvt2017007.wuvt.vt.edu
 #wuvt2017009.wuvt.vt.edu
 
 [mail]
-stfrancis.wuvt.vt.edu hostname=stfrancis.wuvt.vt.edu
+#stfrancis.wuvt.vt.edu hostname=stfrancis.wuvt.vt.edu
 #gusau.wuvt.vt.edu hostname=gusau.wuvt.vt.edu
 
 [nginx]
