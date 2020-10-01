@@ -32,7 +32,7 @@ churchrock.wuvt.vt.edu
 harborcay.wuvt.vt.edu
 polyus.wuvt.vt.edu
 kosmos482.wuvt.vt.edu
-nedelin.wuvt.vt.edu
+#nedelin.wuvt.vt.edu
 
 #[ubuntu_serv:children]
 #cluster
@@ -95,7 +95,7 @@ wuvt2016018.wuvt.vt.edu hostname=wuvt2016018.wuvt.vt.edu
 wuvt2018001.wuvt.vt.edu hostname=wuvt2018001.wuvt.vt.edu
 
 [log_forwarder]
-chernobyl.wuvt.vt.edu ansible_ssh_user=ladmin
+#chernobyl.wuvt.vt.edu ansible_ssh_user=ladmin
 #hindenburg.wuvt.vt.edu
 
 [log_forwarder:children]
