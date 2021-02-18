@@ -1,13 +1,29 @@
 ---
 - name: Install ipa-client
-  apt: name=freeipa-client state=present
-  tags: [auth]
+  apt:
+    name: freeipa-client
+    state: present
+  tags:
+  - auth
+  - packages
+
+- name: Install gssproxy
+  apt:
+    name: gssproxy
+    state: present
+  tags:
+  - auth
+  - packages
 
 - name: Install autofs
-  apt: name=autofs state=present
+  apt:
+    name: autofs
+    state: present
+  tags:
+  - autofs
+  - packages
 
 - name: Join freeipa domain
-  tags: [auth]
   command: >
     ipa-client-install --enable-dns-updates --domain=wuvt.vt.edu
     --server=zolitude.wuvt.vt.edu -p joinaccount@WUVT.VT.EDU
@@ -15,39 +31,54 @@
   args:
     creates: /etc/krb5.keytab
   when: joindomain_password is defined
+  tags:
+  - auth
 
 # Note this only works if the old auth has been removed from sssd.conf
 - name: Check if automount is configured
   register: automount_nss
   failed_when: automount_nss.rc == 254
   shell: /bin/grep automount /etc/nsswitch.conf
-  tags: [auth]
+  tags:
+  - autofs
 
 - name: Add automount line to nsswitch
-  lineinfile: dest=/etc/nsswitch.conf line="automount:{{ ' ' }} sss" regexp='^automount:.*$' state=present
-  tags: [auth]
+  lineinfile:
+    dest: /etc/nsswitch.conf
+    line: "automount:{{ ' ' }} sss"
+    regexp: '^automount:.*$'
+    state: present
+  tags:
+  - autofs
 
 - name: Configure autofs mounts
-  tags: [auth]
   when: "'rc' in automount_nss and automount_nss.rc != 0"
   command: ipa-client-automount -U
   register: command_result
   failed_when:
   - "'already configured' not in command_result.stderr"
   - "command_result.rc != 0"
+  tags:
+  - autofs
 
-# Ubuntu does not package gssproxy, so we cannot use the kernel keyring for the
-# ccache.  We remove the line so it will default to using the FILE ccache.
+# Ubuntu 16.04 does not package gssproxy, so we cannot use the kernel keyring
+# for the ccache.  We remove the line so it will default to using the FILE
+# ccache.
 - name: Remove keyring line
-  lineinfile: dest=/etc/krb5.conf regexp=".*default_ccache_name.*" state=absent
-  tags: [auth]
+  lineinfile:
+    dest: /etc/krb5.conf
+    regexp: ".*default_ccache_name.*"
+    state: absent
+  when: ansible_distribution_version == "16.04"
+  tags:
+  - auth
 
 - name: Install autofs.service
   copy:
     src: systemd/system/autofs.service
     dest: /etc/systemd/system/autofs.service
   tags:
-  - auth
+  - autofs
 
 - name: Install sssd.service
   copy:
@@ -57,13 +88,23 @@
     auth
 
 - name: Restart rpc-gssd
-  service: name=rpc-gssd state=restarted
-  tags: [auth]
+  service:
+    name: rpc-gssd
+    state: restarted
+  tags:
+  - auth
+  - autofs
 
 - name: Restart autofs
-  service: name=autofs state=restarted
-  tags: [auth]
+  service:
+    name: autofs
+    state: restarted
+  tags:
+  - autofs
 
 - name: Restart sssd
-  service: name=sssd state=restarted
-  tags: [auth]
+  service:
+    name: sssd
+    state: restarted
+  tags:
+  - auth
