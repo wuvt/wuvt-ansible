@@ -1,12 +1,8 @@
 ---
 - import_tasks: nfs.yml
 
-- name: Configure system hostname
-  hostname:
-    name: "{{ hostname }}"
+- import_tasks: hostname.yml
   when: hostname is defined
-  tags:
-  - common
 
 - include_tasks: packages.yml
 - import_tasks: mail.yml
