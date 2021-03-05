@@ -25,7 +25,6 @@
     - wget
     - ncdu
     - zsh
-    - ntp
     - ranger
     - aptitude
     - python-apt
