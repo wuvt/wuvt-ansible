@@ -15,6 +15,14 @@
   - auth
   - packages
 
+- name: Set up chronyd.service alias because FreeIPA is buggy garbage
+  file:
+    src: /usr/lib/systemd/system/chrony.service
+    dest: /etc/systemd/system/chronyd.service
+    state: link
+  tags:
+  - auth
+
 - name: Install gssproxy
   apt:
     name: gssproxy
