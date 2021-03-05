@@ -12,6 +12,9 @@ nginx
 lambianceplaza.wuvt.vt.edu hostname=lambianceplaza.wuvt.vt.edu
 valdistava.wuvt.vt.edu hostname=valdistava.wuvt.vt.edu
 bhopal.wuvt.vt.edu hostname=bhopal.wuvt.vt.edu
+fukushima.wuvt.vt.edu
+mayakovsky.wuvt.vt.edu
+zolitude.wuvt.vt.edu
 
 [etcd_server]
 sasago.wuvt.vt.edu
@@ -139,6 +142,7 @@ wuvt2017007.wuvt.vt.edu hostname=wuvt2017007.wuvt.vt.edu
 #wuvt2017009.wuvt.vt.edu hostname=wuvt2017009.wuvt.vt.edu
 stirling.wuvt.vt.edu hostname=stirling.wuvt.vt.edu
 #webster.wuvt.vt.edu hostname=webster.wuvt.vt.edu
+nedelin.wuvt.vt.edu
 
 [arch]
 tacomanarrows.wuvt.vt.edu
