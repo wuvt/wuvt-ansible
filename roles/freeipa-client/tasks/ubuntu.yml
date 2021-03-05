@@ -7,6 +7,14 @@
   - auth
   - packages
 
+- name: Install chrony
+  apt:
+    name: chrony
+    state: present
+  tags:
+  - auth
+  - packages
+
 - name: Install gssproxy
   apt:
     name: gssproxy
