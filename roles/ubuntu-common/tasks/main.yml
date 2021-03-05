@@ -10,3 +10,4 @@
 
 - include_tasks: packages.yml
 - import_tasks: mail.yml
+  when: ansible_distribution_version == "16.04"
