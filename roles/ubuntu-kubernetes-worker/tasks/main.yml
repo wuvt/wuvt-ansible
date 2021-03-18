@@ -1,0 +1,2 @@
+- name: Run kubeadm join
+  command: /usr/bin/kubeadm join {{ kubernetes_apiserver }} --token {{ kubernetes_kubeadm_token }}

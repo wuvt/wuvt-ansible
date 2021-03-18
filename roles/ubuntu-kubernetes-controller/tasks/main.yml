@@ -1,0 +1,16 @@
+# TODO: consider --upload-certs and --certificate-key if using multiple
+# controllers
+
+- name: Run kubeadm init on primary controller
+  command: >
+    /usr/bin/kubeadm init
+      --token {{ kubernetes_kubeadm_token }}
+      --feature-gates IPv6DualStack=true
+      --cri-socket /run/containerd/containerd.sock
+      --pod-network-cidr {{ kubernetes_pod_network_cidr }}
+      --service-cidr {{ kubernetes_service_cidr }}
+  when: kubernetes_first_node == True
+
+- name: Run kubeadm join on any additional controllers
+  command: /usr/bin/kubeadm join {{ kubernetes_apiserver }} --token {{ kubernetes_kubeadm_token }} --dry-run
+  when: kubernetes_first_node == False

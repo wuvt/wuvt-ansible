@@ -1,0 +1,11 @@
+- name: Update apt cache
+  apt:
+    update_cache: yes
+
+- name: Reload sysctl
+  command: /usr/sbin/sysctl --system
+
+- name: Restart containerd
+  service:
+    name: containerd.service
+    state: restarted

@@ -1,0 +1,8 @@
+- name: Install Kubernetes snaps
+  snap:
+    name:
+    - kubeadm
+    - kubelet
+    - kubectl
+    classic: yes
+    state: present
