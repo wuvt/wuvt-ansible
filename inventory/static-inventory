@@ -143,6 +143,7 @@ wuvt2017007.wuvt.vt.edu hostname=wuvt2017007.wuvt.vt.edu
 stirling.wuvt.vt.edu hostname=stirling.wuvt.vt.edu
 #webster.wuvt.vt.edu hostname=webster.wuvt.vt.edu
 nedelin.wuvt.vt.edu hostname=nedelin.wuvt.vt.edu
+falcon9.wuvt.vt.edu
 
 [arch]
 tacomanarrows.wuvt.vt.edu
