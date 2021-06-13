@@ -28,10 +28,11 @@
     dest: /var/lib/letsencrypt/public_html
     state: directory
 
-- name: install systemd units
+- name: install systemd units (for non-apt hosts)
   copy:
     src: '{{ item }}'
     dest: /etc/systemd/system/{{ item }}
   with_items:
   - letsencrypt-renewer.service
   - letsencrypt-renewer.timer
+  when: ansible_pkg_mgr != "apt"
