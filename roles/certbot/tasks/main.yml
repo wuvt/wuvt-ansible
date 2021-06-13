@@ -30,7 +30,7 @@
 
 - name: install systemd units
   copy:
-    src: {{ item }}
+    src: '{{ item }}'
     dest: /etc/systemd/system/{{ item }}
   with_items:
   - letsencrypt-renewer.service
