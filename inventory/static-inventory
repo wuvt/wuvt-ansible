@@ -1,7 +1,10 @@
 #[spares]
 #charingcross.wuvt.vt.edu
-#dixonbridge.wuvt.vt.edu
 #cavecreek.wuvt.vt.edu
+#schoellkopf.wuvt.vt.edu
+#tetondam.wuvt.vt.edu
+#lawnlake.wuvt.vt.edu
+#taumsauk.wuvt.vt.edu
 
 [centos:children]
 mail
@@ -68,6 +71,7 @@ wuvt2017007.wuvt.vt.edu
 
 [nginx]
 fukushima.wuvt.vt.edu
+dixonbridge.wuvt.vt.edu
 
 #[rds]
 #deepwater.wuvt.vt.edu hostname=deepwater.wuvt.vt.edu
@@ -144,6 +148,7 @@ stirling.wuvt.vt.edu hostname=stirling.wuvt.vt.edu
 #webster.wuvt.vt.edu hostname=webster.wuvt.vt.edu
 nedelin.wuvt.vt.edu hostname=nedelin.wuvt.vt.edu
 falcon9.wuvt.vt.edu hostname=falcon9.wuvt.vt.edu
+dixonbridge.wuvt.vt.edu hostname=dixonbridge.wuvt.vt.edu
 
 [arch]
 tacomanarrows.wuvt.vt.edu
