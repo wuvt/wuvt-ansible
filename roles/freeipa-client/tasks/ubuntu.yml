@@ -35,26 +35,39 @@
   apt:
     name: autofs
     state: present
+  when: ipa_enable_automount
   tags:
   - autofs
   - packages
 
-- name: Join freeipa domain
+- name: Join freeipa domain (with mkhomedir)
   command: >
-    ipa-client-install --enable-dns-updates --domain=wuvt.vt.edu
-    --server=zolitude.wuvt.vt.edu -p joinaccount@WUVT.VT.EDU
+    ipa-client-install --enable-dns-updates --domain={{ ipa_server }}
+    --server={{ ipa_server }} -p {{ ipa_joinaccount }}
+    -w {{ joindomain_password }} -U --mkhomedir
+  args:
+    creates: /etc/krb5.keytab
+  when: joindomain_password is defined and ipa_enable_automount
+  tags:
+  - auth
+
+- name: Join freeipa domain (without mkhomedir)
+  command: >
+    ipa-client-install --enable-dns-updates --domain={{ ipa_server }}
+    --server={{ ipa_server }} -p {{ ipa_joinaccount }}
     -w {{ joindomain_password }} -U
   args:
     creates: /etc/krb5.keytab
-  when: joindomain_password is defined
+  when: joindomain_password is defined and not ipa_enable_automount
   tags:
   - auth
 
 # Note this only works if the old auth has been removed from sssd.conf
 - name: Check if automount is configured
+  shell: /bin/grep automount /etc/nsswitch.conf
   register: automount_nss
   failed_when: automount_nss.rc == 254
-  shell: /bin/grep automount /etc/nsswitch.conf
+  when: ipa_enable_automount
   tags:
   - autofs
 
@@ -64,9 +77,11 @@
     line: "automount:{{ ' ' }} sss"
     regexp: '^automount:.*$'
     state: present
+  when: ipa_enable_automount
   tags:
   - autofs
 
+# FIXME
 - name: Configure autofs mounts
   when: "'rc' in automount_nss and automount_nss.rc != 0"
   command: ipa-client-automount -U
@@ -74,6 +89,7 @@
   failed_when:
   - "'already configured' not in command_result.stderr"
   - "command_result.rc != 0"
+  when: ipa_enable_automount
   tags:
   - autofs
 
@@ -93,6 +109,7 @@
   copy:
     src: systemd/system/autofs.service
     dest: /etc/systemd/system/autofs.service
+  when: ipa_enable_automount
   tags:
   - autofs
 
@@ -101,7 +118,7 @@
     src: systemd/system/sssd.service
     dest: /etc/systemd/system/sssd.service
   tags:
-    auth
+  - auth
 
 - name: Restart rpc-gssd
   service:
@@ -109,12 +126,12 @@
     state: restarted
   tags:
   - auth
-  - autofs
 
 - name: Restart autofs
   service:
     name: autofs
     state: restarted
+  when: ipa_enable_automount
   tags:
   - autofs
 
