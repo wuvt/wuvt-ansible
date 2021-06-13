@@ -1,7 +1,7 @@
 upstream retrofling {
-    server naro1.wuvt.vt.edu:30018;
-    server naro2.wuvt.vt.edu:30018;
-    server columbia.wuvt.vt.edu:30018;
+    server naro1.wuvt.vt.edu:30018 max_fails=0;
+    server naro2.wuvt.vt.edu:30018 max_fails=0;
+    server columbia.wuvt.vt.edu:30018 max_fails=0;
     keepalive 4;
 }
 

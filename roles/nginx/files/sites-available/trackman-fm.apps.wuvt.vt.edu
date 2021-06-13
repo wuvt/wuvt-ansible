@@ -1,7 +1,7 @@
 upstream trackman-fm {
-    server naro1.wuvt.vt.edu:7443;
-    server naro2.wuvt.vt.edu:7443;
-    server columbia.wuvt.vt.edu:7443;
+    server naro1.wuvt.vt.edu:7443 max_fails=0;
+    server naro2.wuvt.vt.edu:7443 max_fails=0;
+    server columbia.wuvt.vt.edu:7443 max_fails=0;
     keepalive 100;
 }
 
