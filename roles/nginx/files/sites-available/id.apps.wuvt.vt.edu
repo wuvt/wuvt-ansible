@@ -42,7 +42,7 @@ server {
         proxy_set_header Connection "";
         chunked_transfer_encoding off;
 
-        proxy_ssl_trusted_certificate /etc/ssl/certs/upstream-ca.pem;
+        proxy_ssl_trusted_certificate /etc/nginx/certs/upstream-ca.pem;
         proxy_ssl_verify on;
 
         proxy_pass https://dex;

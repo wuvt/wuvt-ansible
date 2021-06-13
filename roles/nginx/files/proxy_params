@@ -8,5 +8,5 @@ proxy_set_header X-Forwarded-Proto $scheme;
 proxy_set_header X-Real-IP         $remote_addr;
 
 proxy_ssl_server_name on;
-proxy_ssl_trusted_certificate /etc/ssl/certs/upstream-ca.pem;
+proxy_ssl_trusted_certificate /etc/nginx/certs/upstream-ca.pem;
 proxy_ssl_verify on;
