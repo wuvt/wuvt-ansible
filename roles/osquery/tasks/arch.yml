@@ -1,0 +1,4 @@
+- name: Install osquery
+  pacman:
+    name: osquery
+    state: present

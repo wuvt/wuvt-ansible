@@ -1,0 +1,24 @@
+- name: Install osquery.flags
+  copy:
+    src: osquery.flags
+    dest: /etc/osquery/osquery.flags
+  notify: Restart osqueryd
+
+- name: Install fleet.pem
+  copy:
+    src: fleet.pem
+    dest: /etc/osquery/fleet.pem
+  notify: Restart osqueryd
+
+- name: Install secret.txt
+  copy:
+    content: '{{ osquery_secret }}'
+    dest: /etc/osquery/secret.txt
+    mode: '0400'
+  notify: Restart osqueryd
+
+- name: Enable and start osqueryd
+  service:
+    name: osqueryd
+    state: started
+    enabled: yes
