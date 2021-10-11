@@ -1,4 +1,6 @@
-- hosts: alexandria.wuvt.vt.edu:centos:ubuntu_serv:workstations
+- hosts: alexandria.wuvt.vt.edu:arch:centos:ubuntu_serv:workstations
   become: yes
+  vars_files:
+  - vars/osquery.yml
   roles:
   - osquery
