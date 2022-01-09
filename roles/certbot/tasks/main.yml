@@ -36,3 +36,20 @@
   - letsencrypt-renewer.service
   - letsencrypt-renewer.timer
   when: ansible_pkg_mgr != "apt"
+
+- name: Create letsencrypt renewal-hooks directories
+  file:
+    dest: '/etc/letsencrypt/renewal-hooks/{{ item }}'
+    mode: '0755'
+    state: directory
+  with_items:
+  - ''
+  - post
+  when: ansible_pkg_mgr == "apt"
+
+- name: Install post renewal-hook to reload nginx
+  copy:
+    src: letsencrypt/renewal-hooks/post/nginx-reload.sh
+    dest: /etc/letsencrypt/renewal-hooks/post/nginx-reload.sh
+    mode: '0755'
+  when: ansible_pkg_mgr == "apt"
