@@ -1,0 +1,11 @@
+[routers_aisb]
+wuvt2017001.wuvt.vt.edu
+
+[openbsd:children]
+routers_aisb
+
+[routers:children]
+routers_aisb
+
+[aisb:children]
+routers_aisb

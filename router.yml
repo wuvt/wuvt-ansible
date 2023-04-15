@@ -1,0 +1,6 @@
+- hosts: routers_aisb
+  name: "Set up the AISB router"
+  roles:
+  - router_openbsd
+  tags:
+  - router

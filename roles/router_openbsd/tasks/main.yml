@@ -1,0 +1,21 @@
+- name: Enable IPv4 forwarding
+  ansible.posix.sysctl:
+    name: net.inet.ip.forwarding
+    value: '1'
+    state: present
+  become: true
+
+- name: Enable IPv6 forwarding
+  ansible.posix.sysctl:
+    name: net.inet6.ip6.forwarding
+    value: '1'
+    state: present
+  become: true
+
+- name: Create pf.conf
+  ansible.builtin.template:
+    src: pf.conf.j2
+    dest: /etc/pf.conf
+    mode: '0600'
+  notify: Reload pf
+  become: true
