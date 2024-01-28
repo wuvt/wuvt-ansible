@@ -1,0 +1,96 @@
+# [spares]
+# charingcross.wuvt.vt.edu
+# cavecreek.wuvt.vt.edu
+# schoellkopf.wuvt.vt.edu
+# tetondam.wuvt.vt.edu
+# lawnlake.wuvt.vt.edu
+# taumsauk.wuvt.vt.edu
+
+[studio]
+stirling.wuvt.vt.edu hostname=stirling.wuvt.vt.edu
+dixonbridge.wuvt.vt.edu hostname=dixonbridge.wuvt.vt.edu
+# caughran.wuvt.vt.edu hostname=caughran.wuvt.vt.edu
+tacomanarrows.wuvt.vt.edu
+flint.wuvt.vt.edu hostname=flint.wuvt.vt.edu
+sultana.wuvt.vt.edu hostname=sultana.wuvt.vt.edu
+lambianceplaza.wuvt.vt.edu hostname=lambianceplaza.wuvt.vt.edu
+columbia.wuvt.vt.edu
+aam.wuvt.vt.edu hostname=aam.wuvt.vt.edu
+boeingmax.wuvt.vt.edu
+
+[workstations]
+# amworkstation.wuvt.vt.edu hostname=amworkstation.wuvt.vt.edu
+# wuvt2014007.wuvt.vt.edu hostname=wuvt2014007.wuvt.vt.edu
+# wuvt2014017.wuvt.vt.edu hostname=wuvt2014017.wuvt.vt.edu
+# wuvt2014018.wuvt.vt.edu hostname=wuvt2014018.wuvt.vt.edu ansible_ssh_user=ladmin
+# wuvt2014019.wuvt.vt.edu hostname=wuvt2014019.wuvt.vt.edu
+# wuvt2014020.wuvt.vt.edu hostname=wuvt2014020.wuvt.vt.edu
+# wuvt2014023.wuvt.vt.edu hostname=wuvt2014023.wuvt.vt.edu
+# wuvt2015001.wuvt.vt.edu hostname=wuvt2015001.wuvt.vt.edu
+# wuvt2015002.wuvt.vt.edu hostname=wuvt2015002.wuvt.vt.edu
+# wuvt2015004.wuvt.vt.edu hostname=wuvt2015004.wuvt.vt.edu
+# wuvt2015006.wuvt.vt.edu hostname=wuvt2015006.wuvt.vt.edu ansible_ssh_user=ladmin
+# wuvt2016003.wuvt.vt.edu hostname=wuvt2016003.wuvt.vt.edu
+# wuvt2016004.wuvt.vt.edu hostname=wuvt2016004.wuvt.vt.edu
+# wuvt2016005.wuvt.vt.edu hostname=wuvt2016005.wuvt.vt.edu
+# wuvt2016006.wuvt.vt.edu hostname=wuvt2016006.wuvt.vt.edu
+# wuvt2016008.wuvt.vt.edu hostname=wuvt2016008.wuvt.vt.edu
+# wuvt2015006.wuvt.vt.edu hostname=wuvt2015006.wuvt.vt.edu
+wuvt2016020.wuvt.vt.edu hostname=wuvt2016020.wuvt.vt.edu
+wuvt2016009.wuvt.vt.edu hostname=wuvt2016009.wuvt.vt.edu
+# wuvt2016019.wuvt.vt.edu hostname=wuvt2016019.wuvt.vt.edu
+wuvt2016017.wuvt.vt.edu hostname=wuvt2016017.wuvt.vt.edu
+wuvt2016018.wuvt.vt.edu hostname=wuvt2016018.wuvt.vt.edu
+wuvt2018001.wuvt.vt.edu hostname=wuvt2018001.wuvt.vt.edu
+
+[studio:children]
+workstations
+
+[macpros]
+lambianceplaza.wuvt.vt.edu
+flint.wuvt.vt.edu
+
+[centos]
+lambianceplaza.wuvt.vt.edu
+mayakovsky.wuvt.vt.edu
+zolitude.wuvt.vt.edu
+
+[debian]
+flint.wuvt.vt.edu debian_version=stretch
+
+[ubuntu]
+stirling.wuvt.vt.edu
+dixonbridge.wuvt.vt.edu
+sultana.wuvt.vt.edu
+aam.wuvt.vt.edu
+
+[arch]
+tacomanarrows.wuvt.vt.edu
+
+[kvm]
+lambianceplaza.wuvt.vt.edu
+aam.wuvt.vt.edu
+dreyfus.wuvt.vt.edu
+
+# [stream]
+# stirling.wuvt.vt.edu
+
+[nginx]
+dixonbridge.wuvt.vt.edu
+
+[automation]
+flint.wuvt.vt.edu
+sultana.wuvt.vt.edu
+
+[aircheck]
+flint.wuvt.vt.edu
+sultana.wuvt.vt.edu
+
+[pgmcheck]
+flint.wuvt.vt.edu
+
+[kubernetes_worker]
+columbia.wuvt.vt.edu
+
+# [cluster]
+# caughran.wuvt.vt.edu

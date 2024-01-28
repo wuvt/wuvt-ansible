@@ -1,0 +1,54 @@
+[aisb]
+aquadom.wuvt.vt.edu hostname=aquadom.wuvt.vt.edu
+dreyfus.wuvt.vt.edu hostname=dreyfus.wuvt.vt.edu
+alexandria.wuvt.vt.edu hostname=alexandria.wuvt.vt.edu
+wuvt2017004.wuvt.vt.edu hostname=wuvt2017004.wuvt.vt.edu
+wuvt2017007.wuvt.vt.edu hostname=wuvt2017007.wuvt.vt.edu
+falcon9.wuvt.vt.edu hostname=falcon9.wuvt.vt.edu
+nedelin.wuvt.vt.edu hostname=nedelin.wuvt.vt.edu
+titanic.wuvt.vt.edu hostname=titanic.wuvt.vt.edu
+sasago.wuvt.vt.edu
+naro1.wuvt.vt.edu
+naro2.wuvt.vt.edu
+polyus.wuvt.vt.edu
+zolitude.wuvt.vt.edu
+mayakovsky.wuvt.vt.edu hostname=mayakovsky.wuvt.vt.edu
+
+[openbsd]
+aquadom.wuvt.vt.edu
+
+[centos]
+zolitude.wuvt.vt.edu
+mayakovsky.wuvt.vt.edu
+
+[ubuntu]
+dreyfus.wuvt.vt.edu
+wuvt2017004.wuvt.vt.edu
+wuvt2017007.wuvt.vt.edu
+falcon9.wuvt.vt.edu
+nedelin.wuvt.vt.edu
+
+[routers_aisb]
+aquadom.wuvt.vt.edu
+
+[kvm]
+dreyfus.wuvt.vt.edu
+wuvt2017004.wuvt.vt.edu
+wuvt2017007.wuvt.vt.edu
+
+[fileserver]
+alexandria.wuvt.vt.edu
+
+[freeipa]
+zolitude.wuvt.vt.edu
+mayakovsky.wuvt.vt.edu
+
+[kubernetes_controller]
+naro1.wuvt.vt.edu
+
+[kubernetes_worker]
+naro2.wuvt.vt.edu
+polyus.wuvt.vt.edu
+
+[etcd_server]
+sasago.wuvt.vt.edu

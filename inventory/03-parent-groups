@@ -1,0 +1,11 @@
+[ubuntu_serv:children]
+ubuntu
+
+[routers:children]
+routers_aisb
+
+[log_forwarder:children]
+centos
+debian
+workstations
+ubuntu_serv
