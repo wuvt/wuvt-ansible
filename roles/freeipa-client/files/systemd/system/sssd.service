@@ -7,7 +7,7 @@ Wants=network-online.target nss-user-lookup.target
 After=network-online.target
 
 [Service]
-ExecStart=/usr/sbin/sssd -i -f
+ExecStart=/usr/sbin/sssd -i --logger=files
 Type=notify
 NotifyAccess=main
 PIDFile=/var/run/sssd.pid
