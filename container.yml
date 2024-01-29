@@ -1,4 +1,4 @@
-- hosts: etcd_server:kubernetes_controller:kubernetes_worker
+- hosts: etcd_server:kubernetes_controller_legacy:kubernetes_worker_legacy
   vars_files:
   - vars/cfssl.yml
   - vars/container.yml
@@ -30,7 +30,7 @@
   roles:
   - etcd-server
 
-- hosts: kubernetes-controller
+- hosts: kubernetes_controller_legacy
   become: yes
   vars_files:
   - vars/container.yml
@@ -39,7 +39,7 @@
   roles:
   - kubernetes-controller
 
-- hosts: kubernetes-worker
+- hosts: kubernetes_worker_legacy
   become: yes
   vars_files:
   - vars/container.yml

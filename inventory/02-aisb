@@ -43,10 +43,13 @@ alexandria.wuvt.vt.edu
 zolitude.wuvt.vt.edu
 mayakovsky.wuvt.vt.edu
 
-[kubernetes_controller]
+[kubernetes_worker]
+falcon9.wuvt.vt.edu
+
+[kubernetes_controller_legacy]
 naro1.wuvt.vt.edu
 
-[kubernetes_worker]
+[kubernetes_worker_legacy]
 naro2.wuvt.vt.edu
 polyus.wuvt.vt.edu
 

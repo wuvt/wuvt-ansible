@@ -4,6 +4,9 @@ ubuntu
 [routers:children]
 routers_aisb
 
+[kubernetes:children]
+kubernetes_worker
+
 [log_forwarder:children]
 centos
 debian

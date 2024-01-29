@@ -1,0 +1,67 @@
+- name: Disable swap in /etc/fstab
+  ansible.builtin.replace:
+    path: /etc/fstab
+    regexp: '^(\s*[^#\n]+\s+\w+\s+swap\s+.*)$'
+    replace: '# \1'
+    backup: yes
+  notify: Disable swap temporarily
+  become: true
+
+- name: Enable the overlay kernel module
+  community.general.modprobe:
+    name: overlay
+    persistent: present
+    state: present
+  become: true
+
+- name: Enable the br_netfilter kernel module
+  community.general.modprobe:
+    name: br_netfilter
+    persistent: present
+    state: present
+  become: true
+
+- name: Install CRI-O
+  ansible.builtin.import_tasks: cri-o.yml
+
+- name: Enable IPv4 forwarding
+  ansible.posix.sysctl:
+    name: net.ipv4.ip_forward
+    value: '1'
+    state: present
+  become: true
+
+- name: Enable processing bridged IPv4 packets in iptables
+  ansible.posix.sysctl:
+    name: net.bridge.bridge-nf-call-iptables
+    value: '1'
+    state: present
+  become: true
+
+- name: Enable processing bridged IPv6 packets in iptables
+  ansible.posix.sysctl:
+    name: net.bridge.bridge-nf-call-ip6tables
+    value: '1'
+    state: present
+  become: true
+
+- name: Add Kubernetes apt repository
+  ansible.builtin.deb822_repository:
+    name: kubernetes
+    types: deb
+    uris: 'https://pkgs.k8s.io/core:/stable:/v{{ kubernetes_version }}/deb'
+    suites: '/'
+    signed_by: 'https://pkgs.k8s.io/core:/stable:/v{{ kubernetes_version }}/deb/Release.key'
+  notify: Update apt cache
+  become: true
+
+- meta: flush_handlers
+
+- name: Install kubelet
+  ansible.builtin.apt:
+    name:
+    - kubelet
+    state: present
+  tags:
+  - packages
+  become: true

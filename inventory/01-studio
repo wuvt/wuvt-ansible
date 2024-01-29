@@ -89,7 +89,7 @@ sultana.wuvt.vt.edu
 [pgmcheck]
 flint.wuvt.vt.edu
 
-[kubernetes_worker]
+[kubernetes_worker_legacy]
 columbia.wuvt.vt.edu
 
 # [cluster]

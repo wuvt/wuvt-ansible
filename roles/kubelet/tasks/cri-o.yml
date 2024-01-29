@@ -1,0 +1,48 @@
+- name: Add libcontainers apt repository
+  ansible.builtin.deb822_repository:
+    name: libcontainers
+    types: deb
+    uris: 'https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/{{ crio_os }}'
+    suites: '/'
+    signed_by: 'https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/{{ crio_os }}/Release.key'
+  notify: Update apt cache
+  become: true
+
+- name: Add CRI-O apt repository
+  ansible.builtin.deb822_repository:
+    name: libcontainers-crio
+    types: deb
+    uris: 'https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/{{ kubernetes_version }}/{{ crio_os }}'
+    suites: '/'
+    signed_by: 'https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/{{ kubernetes_version }}/{{ crio_os }}/Release.key'
+  notify: Update apt cache
+  become: true
+
+- meta: flush_handlers
+
+- name: Install CRI-O and dependencies
+  ansible.builtin.apt:
+    name:
+    - libseccomp2
+    - cri-o
+    - cri-o-runc
+    state: present
+  tags:
+  - packages
+  become: true
+
+- name: Install cri-tools
+  ansible.builtin.apt:
+    name:
+    - cri-tools
+    state: present
+  tags:
+  - packages
+  become: true
+
+- name: Start CRI-O
+  ansible.builtin.systemd_service:
+    name: crio.service
+    state: started
+    enabled: true
+  become: true
