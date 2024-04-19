@@ -57,9 +57,10 @@
 
 - meta: flush_handlers
 
-- name: Install kubelet
+- name: Install kubeadm and kubelet
   ansible.builtin.apt:
     name:
+    - kubeadm
     - kubelet
     state: present
   tags:

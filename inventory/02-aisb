@@ -4,7 +4,7 @@ dreyfus.wuvt.vt.edu hostname=dreyfus.wuvt.vt.edu
 alexandria.wuvt.vt.edu hostname=alexandria.wuvt.vt.edu
 wuvt2017004.wuvt.vt.edu hostname=wuvt2017004.wuvt.vt.edu
 wuvt2017007.wuvt.vt.edu hostname=wuvt2017007.wuvt.vt.edu
-falcon9.wuvt.vt.edu hostname=falcon9.wuvt.vt.edu
+falcon9.wuvt.vt.edu hostname=falcon9.wuvt.vt.edu ansible_ssh_user=ladmin
 nedelin.wuvt.vt.edu hostname=nedelin.wuvt.vt.edu
 titanic.wuvt.vt.edu hostname=titanic.wuvt.vt.edu
 sasago.wuvt.vt.edu
@@ -42,6 +42,9 @@ alexandria.wuvt.vt.edu
 [freeipa]
 zolitude.wuvt.vt.edu
 mayakovsky.wuvt.vt.edu
+
+[kubernetes_controller]
+nedelin.wuvt.vt.edu
 
 [kubernetes_worker]
 falcon9.wuvt.vt.edu

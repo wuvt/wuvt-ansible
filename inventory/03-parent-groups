@@ -5,6 +5,7 @@ ubuntu
 routers_aisb
 
 [kubernetes:children]
+kubernetes_controller
 kubernetes_worker
 
 [log_forwarder:children]

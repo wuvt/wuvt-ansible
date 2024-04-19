@@ -1,5 +1,5 @@
-- hosts: kubernetes_worker
-  name: "Setup kubelet on Kubernetes workers"
+- hosts: kubernetes
+  name: "Setup kubelet on all Kubernetes hosts"
   roles:
   - kubelet
   tags:
