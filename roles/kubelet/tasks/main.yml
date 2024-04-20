@@ -47,7 +47,7 @@
 
 - name: Add Kubernetes apt repository
   ansible.builtin.deb822_repository:
-    name: kubernetes
+    name: 'kubernetes-{{ kubernetes_version | replace(".", "-") }}'
     types: deb
     uris: 'https://pkgs.k8s.io/core:/stable:/v{{ kubernetes_version }}/deb'
     suites: '/'
