@@ -88,7 +88,8 @@ server {
     rewrite ^/listenlive/?$ /listen-live permanent;
     rewrite ^/liveplayer/?$ /listen-live permanent;
     rewrite ^/liveplayer/stream_hi_frameset.html$ /listen-live permanent;
-    rewrite ^/news/?$ /category/nrv-news permanent;
+    rewrite ^/news/?$ /category/news permanent;
+    rewrite ^/category/nrv-news/?$ /category/news permanent;
     rewrite ^/playlists/playlist_archive_by_date.php$ /playlists/date permanent;
     rewrite ^/playlists/playlist_archive_by_host.php$ /playlists/dj permanent;
     rewrite ^/playlists_date/?$ /playlists/date permanent;
