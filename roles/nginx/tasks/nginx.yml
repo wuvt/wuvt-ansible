@@ -115,6 +115,15 @@
   tags:
   - web
 
+- name: Install nginx conf.d
+  copy:
+    src: conf.d/{{ item }}
+    dest: /etc/nginx/conf.d/{{ item }}
+  with_items: "upstreams.conf"
+  notify: Reload nginx
+  tags:
+  - website
+
 - name: Remove /etc/nginx/conf.d/default.conf
   file:
     dest: /etc/nginx/conf.d/default.conf
