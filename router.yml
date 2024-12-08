@@ -2,5 +2,6 @@
   name: "Set up the AISB router"
   roles:
   - router_openbsd
+  - wireguard
   tags:
   - router

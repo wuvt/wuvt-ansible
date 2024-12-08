@@ -1,0 +1,11 @@
+destroy
+create
+
+wgkey {{ wireguard_priv }}
+wgpeer {{ wireguard_peer }} wgendpoint 2001:468:c80:a102:1:1000:1024:4 51820 wgaip 10.23.248.1/32 wgaip 192.168.0.0/16
+wgport 51820
+
+inet 10.23.248.3 255.255.255.0
+up
+
+! route add 192.168.0.0/16 -inet 10.23.248.1

@@ -1,0 +1,7 @@
+- name: Create hostname.wg0
+  ansible.builtin.template:
+    src: hostname.wg0.j2
+    dest: /etc/hostname.wg0
+    mode: '0600'
+  notify: Reload interfaces
+  become: true

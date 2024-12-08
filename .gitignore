@@ -1,4 +1,5 @@
 credentials
+vault.yml
 /vars/container_private.yml
 /vars/cfssl.yml
 /vars/freeipa_private.yml

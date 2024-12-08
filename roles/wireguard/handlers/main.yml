@@ -1,0 +1,3 @@
+- name: Reload interfaces
+  ansible.builtin.command: sh /etc/netstart
+  become: true

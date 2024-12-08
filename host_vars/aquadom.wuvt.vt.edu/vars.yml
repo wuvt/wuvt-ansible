@@ -1,0 +1,5 @@
+interface_external: bnx1
+interface_internal: bnx0
+
+wireguard_priv: "{{ vault_wireguard_priv }}"
+wireguard_peer: "{{ vault_wireguard_peer }}"
