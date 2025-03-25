@@ -17,3 +17,4 @@ nginx_sites:
 - database.collegemedia.vt.edu
 - trackman-am.apps.wuvt.vt.edu
 - trackman-fm.apps.wuvt.vt.edu
+- engineering-wiki.apps.wuvt.vt.edu

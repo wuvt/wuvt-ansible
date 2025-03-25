@@ -1,0 +1,32 @@
+server {
+    listen        80;
+    listen        [::]:80;
+    server_name   engineering-wiki.apps.wuvt.vt.edu;
+
+    location ~ /.well-known/acme-challenge/(.*) {
+        root /var/lib/letsencrypt/public_html;
+        default_type text/plain;
+    }
+
+    location / {
+        return 301 https://engineering-wiki.apps.wuvt.vt.edu$request_uri;
+    }
+}
+
+server {
+    listen        443      ssl http2;
+    listen        [::]:443 ssl http2;
+    server_name   engineering-wiki.apps.wuvt.vt.edu;
+
+    ssl_certificate     /etc/letsencrypt/live/engineering-wiki.apps.wuvt.vt.edu/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/engineering-wiki.apps.wuvt.vt.edu/privkey.pem;
+    include tls.conf;
+    gzip off;
+
+    location / {
+        proxy_pass http://k8s;
+        include proxy_params;
+
+        client_max_body_size 4g;
+    }
+}
