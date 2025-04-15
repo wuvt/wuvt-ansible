@@ -3,4 +3,6 @@
   roles:
   - osquery
   - freeipa-client
-  - log-forwarder
+  - webserver
+  vars_files:
+  - vars/freeipa_private.yml

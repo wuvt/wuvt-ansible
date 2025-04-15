@@ -1,0 +1,48 @@
+server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+
+	#root /var/www/html;
+
+	# Add index.php to the list if you are using PHP
+	#index index.html index.htm index.nginx-debian.html;
+
+	server_name _;
+	server_name_in_redirect off;
+	port_in_redirect off;
+
+	# Trust the Kubernetes cluster to send correct replacement addresses
+	# Note that if a pod in the cluster is compromised, this will allow them to forge IP addresses, but that issue is comparatively minor
+	set_real_ip_from 192.168.0.158;
+	set_real_ip_from 192.168.0.164;
+	set_real_ip_from 192.168.0.165;
+	set_real_ip_from 192.168.0.246;
+	set_real_ip_from 192.168.0.247;
+	set_real_ip_from 192.168.0.248;
+	set_real_ip_from 192.168.0.249;
+
+	charset utf-8;
+
+	#location / {
+		# First attempt to serve request as file, then
+		# as directory, then fall back to displaying a 404.
+		#try_files $uri $uri/ =404;
+	#}
+
+	location /automation {
+		alias /{{ zpool_name }}/automation;
+		autoindex on;
+	}
+	location /archive/aircheck {
+		alias /{{ zpool_name }}/archive/aircheck;
+		autoindex on;
+	}
+	location /archive/pgmcheck {
+		alias /{{ zpool_name }}/archive/pgmcheck;
+		autoindex on;
+	}
+	location /library {
+		alias /{{ zpool_name }}/library;
+		autoindex on;
+	}
+}

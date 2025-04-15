@@ -1,0 +1,3 @@
+---
+ipa_enable_automount: false
+zpool_name: "fire"
