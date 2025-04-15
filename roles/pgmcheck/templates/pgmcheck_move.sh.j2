@@ -2,7 +2,7 @@
 export KRB5CCNAME=/tmp/krb5_100_pgmcheck
 kinit johnny-six@WUVT.VT.EDU -k -t /etc/johnny-six.keytab
 
-archive_location="/tank/archive/pgmcheck/{{ pgmcheck_studio }}"
+archive_location="/{{ pgmcheck_zpool }}/archive/pgmcheck/{{ pgmcheck_studio }}"
 
 for file in $(ls /var/pgmcheck/staging/); do
     year=$(cut -f1 -d-  <<< ${file})
@@ -10,8 +10,8 @@ for file in $(ls /var/pgmcheck/staging/); do
     day=$(cut -f3 -d-   <<< ${file})
     hour=$(cut -f4 -d-  <<< ${file} | cut -f1 -d _)
 
-    ssh johnny-six@alexandria.wuvt.vt.edu mkdir -p ${archive_location}/${year}/${month}/${day}
-    scp /var/pgmcheck/staging/${file} johnny-six@alexandria.wuvt.vt.edu:${archive_location}/${year}/${month}/${day}
+    ssh johnny-six@{{ pgmcheck_server }} mkdir -p ${archive_location}/${year}/${month}/${day}
+    scp /var/pgmcheck/staging/${file} johnny-six@{{ pgmcheck_server }}:${archive_location}/${year}/${month}/${day}
     scp_result=$?
 
 {% if pgmcheck_upload_to_ia %}

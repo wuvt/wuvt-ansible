@@ -1,3 +1,5 @@
 pgmcheck_studio: fm
 pgmcheck_alsa_input: 'plughw:CARD=USB,DEV=0'
-pgmcheck_upload_to_ia: true
+pgmcheck_upload_to_ia: false
+pgmcheck_server: titanic.wuvt.vt.edu
+pgmcheck_zpool: fire
