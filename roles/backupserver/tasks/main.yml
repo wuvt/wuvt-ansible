@@ -3,3 +3,30 @@
     src: sshd_config
     dest: /etc/ssh/sshd_config
   notify: Reload sshd
+
+- name: Create /opt/ia
+  file:
+    dest: /opt/ia
+    state: directory
+
+- name: Install ia_sync required packages
+  apt:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - python3-internetarchive
+
+- name: Install ia_sync.py
+  template:
+    src: ia_sync.py.j2
+    dest: /opt/ia/ia_sync.py
+    mode: 0755
+
+- name: Install IA sync cronjob
+  cron:
+    name: upload pgmcheck to ia
+    user: johnny-six
+    minute: "5"
+    hour: "0,12"
+    job: "/opt/ia/ia_sync.py >> /{{ zpool_name }}/archive/pgmcheck/fm.log"
+    state: present

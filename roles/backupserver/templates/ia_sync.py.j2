@@ -1,0 +1,135 @@
+#!/usr/bin/env python3
+
+from datetime import datetime, timedelta
+import json
+import os
+import pathlib
+
+import internetarchive
+from tqdm import tqdm
+
+
+query_format = 'collection:wuvtfm AND date:[%Y-%m-%d TO null]'
+ident_format_old = 'WUVTFM_%Y%m%d%H'
+ident_format_new = 'WUVTFM_%Y%m%d_%H00Z'
+filename_format = '%Y-%m-%d-%H_%M_%S+0000.flac'
+
+epoch = datetime(2007, 1, 1, 0)
+directory = '/{{ zpool_name }}/archive/pgmcheck/fm/'
+checkpoint_file = '/{{ zpool_name }}/archive/pgmcheck/fm.checkpoint'
+
+
+def list_archive(start=epoch):
+    items = set()
+
+    print('querying internet archive for existing files')
+    search = internetarchive.search_items(start.strftime(query_format))
+    for result in tqdm(search):
+        ident = result['identifier']
+        try:
+            if len(ident) == 17:
+                date = datetime.strptime(ident, ident_format_old)
+            elif len(ident) == 21:
+                date = datetime.strptime(ident, ident_format_new)
+            else:
+                raise Exception()
+        except Exception:
+            print('unable to parse date:', ident, '(ignoring)')
+            continue
+
+        if date >= start:
+            items.add(date)
+
+    return items
+
+
+def list_local(start=epoch):
+    items = set()
+
+    for _, _, files in os.walk(directory):
+        for filename in files:
+            try:
+                if len(filename) == 29:
+                    date = datetime.strptime(filename, filename_format)
+                    date = date.replace(minute=0, second=0)
+                else:
+                    raise Exception()
+            except Exception:
+                print('unable to parse date:', filename, '(ignoring)')
+                continue
+
+            if date >= start:
+                items.add(date)
+
+    return items
+
+
+def upload(date):
+    parent_dir = date.strftime(directory + '%Y/%m/%d/')
+    with os.scandir(parent_dir) as it:
+        for f in it:
+            if f.is_file() and len(f.name) == 29 and int(f.name[11:13]) == date.hour:
+                filename = f.name
+                break
+
+    ident = date.strftime(ident_format_new)
+    metadata = {
+        'collection': 'wuvtfm',
+        'creator': 'WUVT-FM',
+        'date': date.strftime('%Y-%m-%d %H:00:00'),
+        'mediatype': 'audio',
+        'subject': 'wuvt-fm;wuvt;airchecks;virginia tech',
+        'title': date.strftime('WUVT-FM %Y-%m-%d %H:00 +00:00')
+    }
+    files = {
+        'wuvtfm_{}'.format(filename): parent_dir + filename
+    }
+
+    print('uploading {}'.format(ident))
+    r = internetarchive.upload(
+        ident,
+        files,
+        metadata,
+        verify=True,
+        checksum=True,
+        verbose=True
+    )
+
+    for status in r:
+        status.raise_for_status()
+
+
+def main():
+    try:
+        with open(checkpoint_file, 'r') as f:
+            checkpoint = datetime.fromisoformat(f.read().strip())
+            print('found checkpoint for', checkpoint)
+    except Exception:
+        checkpoint = epoch
+
+    local = list_local(checkpoint)
+    remote = list_archive(checkpoint)
+
+    missing = local - remote
+    complete = set()
+    for date in missing:
+        try:
+            upload(date)
+            complete.add(date)
+        except Exception:
+            print('failed to upload', date)
+            pass
+
+    remaining = missing - complete
+    if len(remaining) != 0:
+        checkpoint = min(remaining) - timedelta(hours=1)
+    elif len(local) != 0:
+        checkpoint = max(local)
+
+    with open(checkpoint_file, 'w') as f:
+        f.write(checkpoint.isoformat())
+    print('current up to', checkpoint)
+
+
+if __name__ == '__main__':
+    main()
