@@ -4,5 +4,6 @@
   - osquery
   - freeipa-client
   - webserver
+  - backupserver
   vars_files:
   - vars/freeipa_private.yml
