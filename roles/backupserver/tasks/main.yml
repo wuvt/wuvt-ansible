@@ -22,6 +22,17 @@
     dest: /opt/ia/ia_sync.py
     mode: 0755
 
+- name: Create /home/johnny-six/.config/ia.ini
+  file:
+    dest: /home/johnny-six/.config/ia.ini
+    state: directory
+
+- name: Install ia.ini
+  template:
+    src: ia.ini.j2
+    dest: /home/johnny-six/.config/ia.ini
+    mode: 0755
+
 - name: Install IA sync cronjob
   cron:
     name: upload pgmcheck to ia
