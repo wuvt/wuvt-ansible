@@ -1,3 +1,5 @@
 ---
 - name: Reload sshd
-  service: name=sshd state=reloaded
+  ansible.builtin.systemd:
+    name: "{{ 'ssh' if ansible_facts['distribution_version'] is version('22.10', '>=') else 'sshd' }}"
+    state: reloaded
