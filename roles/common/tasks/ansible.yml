@@ -1,5 +1,0 @@
----
-- name: Install ansible config
-  copy: src=ansible.cfg dest=/etc/ansible/ansible.cfg mode=0644 owner=root group=root
-  tags:
-  - ansible

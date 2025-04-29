@@ -1,16 +1,4 @@
 ---
-- name: Install sources.list
-  copy:
-    src: sources16.list
-    dest: /etc/apt/sources.list
-    mode: 0664
-    owner: root
-    group: root
-  when: ansible_distribution_version == "16.04"
-  tags:
-  - apt
-  #- dropbox
-
 - name: Install common packages
   apt:
     name:
@@ -38,21 +26,9 @@
   apt:
     name:
     - gcc
-    - ruby
-    #- ansible
     - sshpass
     - golang-go
     state: latest
   tags:
   - packages
 
-# Apparently update_cache breaks if you're sudoing and root can't
-# CD to the user's home directory (as is the case with our NFS setup)
-# -- mhazinsk 2015-06-08
-#- name: Apt update
-#  apt:
-#    update_cache: yes
-#    upgrade: yes
-#  tags:
-#  - apt
-#  - packages

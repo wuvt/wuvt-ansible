@@ -1,7 +1,1 @@
 ---
-ntp_servers:
-  - ntp-1.vt.edu
-  - ntp-2.vt.edu
-  - ntp-3.vt.edu
-  - ntp-4.vt.edu
-  - 0.centos.pool.ntp.org

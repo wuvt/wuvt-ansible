@@ -1,4 +1,2 @@
 ---
-#- import_tasks: ntp.yml
-#- import_tasks: ansible.yml
 - import_tasks: sysctl.yml
