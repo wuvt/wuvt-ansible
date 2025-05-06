@@ -2,4 +2,4 @@
 ipa_domain: wuvt.vt.edu
 ipa_server: zolitude.wuvt.vt.edu
 ipa_joinaccount: joinaccount@WUVT.VT.EDU
-ipa_enable_automount: true
+ipa_enable_automount: false
