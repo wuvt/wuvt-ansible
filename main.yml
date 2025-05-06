@@ -13,5 +13,6 @@
 - import_playbook: pgmcheck.yml
 - import_playbook: ubuntu_serv.yml
 - import_playbook: stream.yml
+- import_playbook: database.yml
 
 - import_playbook: lambianceplaza.yml
