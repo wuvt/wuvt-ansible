@@ -12,7 +12,7 @@ dixonbridge.wuvt.vt.edu hostname=dixonbridge.wuvt.vt.edu
 # caughran.wuvt.vt.edu hostname=caughran.wuvt.vt.edu
 tacomanarrows.wuvt.vt.edu
 flint.wuvt.vt.edu hostname=flint.wuvt.vt.edu
-sultana.wuvt.vt.edu hostname=sultana.wuvt.vt.edu
+ariane.wuvt.vt.edu hostname=ariane.wuvt.vt.edu
 lambianceplaza.wuvt.vt.edu hostname=lambianceplaza.wuvt.vt.edu
 columbia.wuvt.vt.edu
 aam.wuvt.vt.edu hostname=aam.wuvt.vt.edu
@@ -61,7 +61,7 @@ flint.wuvt.vt.edu debian_version=stretch
 [ubuntu]
 stirling.wuvt.vt.edu
 dixonbridge.wuvt.vt.edu
-sultana.wuvt.vt.edu
+ariane.wuvt.vt.edu
 aam.wuvt.vt.edu
 
 [arch]
@@ -80,11 +80,11 @@ dixonbridge.wuvt.vt.edu
 
 [automation]
 flint.wuvt.vt.edu
-sultana.wuvt.vt.edu
+ariane.wuvt.vt.edu
 
 [aircheck]
 flint.wuvt.vt.edu
-sultana.wuvt.vt.edu
+ariane.wuvt.vt.edu
 
 [pgmcheck]
 flint.wuvt.vt.edu
