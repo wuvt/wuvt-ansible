@@ -22,7 +22,6 @@ block all
 pass out quick
 
 pass in on { $internal wg0 }
-block in on $internal to 10.23.0.0/24
 pass in on egress inet proto icmp
 pass in on egress inet6 proto icmp6
 pass in on egress proto udp from any to (egress) port 51820
