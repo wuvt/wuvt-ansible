@@ -5,6 +5,7 @@ vault.yml
 /vars/freeipa_private.yml
 /vars/internetarchive_private.yml
 /vars/tacomanarrows_users.yml
+/vars/*private*
 /secrets.ini
 /files/pki
 /files/upstream_pki
