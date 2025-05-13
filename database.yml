@@ -2,3 +2,7 @@
   become: yes
   roles:
   - dbserver
+  vars_files:
+  - vars/postgres_private.yml
+  vars:
+    ansible_remote_tmp: /tmp/ansible-tmp

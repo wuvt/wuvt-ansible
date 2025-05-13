@@ -5,3 +5,43 @@
   with_items:
     - postgresql
     - postgresql-client
+    - python3-psycopg2
+
+- name: Create wuvtam user
+  postgresql_user:
+    state: present
+    name: "wuvtam"
+    password: "{{ pg_wuvtam_password }}"
+  become: yes
+  become_user: postgres
+
+- name: Create trackman_am user
+  postgresql_user:
+    state: present
+    name: "trackman_am"
+    password: "{{ pg_trackman_am_password }}"
+  become: yes
+  become_user: postgres
+
+- name: "Create dbs"
+  postgresql_db:
+    state: present
+    name: "{{ item }}"
+  become: yes
+  become_user: postgres
+  with_items:
+    - wuvtam
+    - trackman_am
+
+- name: "Grant user access"
+  postgresql_privs:
+    type: database
+    database: "{{ item }}"
+    roles: "{{ item }}"
+    grant_option: no
+    privs: all
+  become: yes
+  become_user: postgres
+  with_items:
+    - wuvtam
+    - trackman_am
