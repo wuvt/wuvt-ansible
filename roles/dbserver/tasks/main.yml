@@ -45,3 +45,19 @@
   with_items:
     - wuvtam
     - trackman_am
+
+- name: Listen on non-localhost
+  lineinfile:
+    dest: /etc/postgresql/16/main/postgresql.conf
+    line: "listen_addresses = '*'"
+    regexp: '^#?listen_addresses'
+    state: present
+  notify: Restart postgres
+
+- name: Allow login from local range
+  lineinfile:
+    dest: /etc/postgresql/16/main/pg_hba.conf
+    line: "host all all 10.23.0.0/16 md5"
+    regexp: '^host all all 10\.23\.0\.0/16 md5'
+    state: present
+  notify: Restart postgres
