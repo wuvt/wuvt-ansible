@@ -23,6 +23,14 @@
   become: yes
   become_user: postgres
 
+- name: Create wuvt user
+  postgresql_user:
+    state: present
+    name: "wuvt"
+    password: "{{ pg_wuvt_password }}"
+  become: yes
+  become_user: postgres
+
 - name: "Create dbs"
   postgresql_db:
     state: present
@@ -31,6 +39,7 @@
   become_user: postgres
   with_items:
     - wuvtam
+    - wuvt
     - trackman_am
 
 - name: "Grant user access"
@@ -44,6 +53,7 @@
   become_user: postgres
   with_items:
     - wuvtam
+    - wuvt
     - trackman_am
 
 - name: Listen on non-localhost
