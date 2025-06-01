@@ -1,7 +1,4 @@
-server {
-    listen        80;
-    listen        [::]:80;
-    server_name   am.wuvt.vt.edu;
+server { listen 80; listen [::]:80; server_name am.wuvt.vt.edu;
 
     location /.well-known/acme-challenge {
         root /var/lib/letsencrypt/public_html;
@@ -38,7 +35,9 @@ server {
         proxy_set_header Connection "";
         chunked_transfer_encoding off;
 
-        proxy_pass http://k8s;
+
+        proxy_ssl_name am.wuvt.vt.edu;
+        proxy_pass https://k8ss;
         client_max_body_size 10M;
     }
 }

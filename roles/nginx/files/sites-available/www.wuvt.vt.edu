@@ -138,7 +138,8 @@ server {
         proxy_set_header Connection "";
         chunked_transfer_encoding off;
 
-        proxy_pass http://k8s;
+        proxy_ssl_name www.wuvt.vt.edu;
+        proxy_pass https://k8ss;
         client_max_body_size 10M;
     }
 }
