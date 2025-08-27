@@ -6,6 +6,8 @@
     - postgresql
     - postgresql-client
     - python3-psycopg2
+  tags: 
+    - db
 
 - name: Create wuvtam user
   postgresql_user:
@@ -14,6 +16,8 @@
     password: "{{ pg_wuvtam_password }}"
   become: yes
   become_user: postgres
+  tags: 
+    - db
 
 - name: Create trackman_am user
   postgresql_user:
@@ -22,7 +26,9 @@
     password: "{{ pg_trackman_am_password }}"
   become: yes
   become_user: postgres
-
+  tags: 
+    - db
+    
 - name: Create wuvt user
   postgresql_user:
     state: present
@@ -30,6 +36,28 @@
     password: "{{ pg_wuvt_password }}"
   become: yes
   become_user: postgres
+  tags: 
+    - db
+    
+- name: Create trackman_fm user
+  postgresql_user:
+    state: present
+    name: "trackman_fm"
+    password: "{{ pg_trackman_fm_password }}"
+  become: yes
+  become_user: postgres
+  tags: 
+    - db
+
+- name: Create pload user
+  postgresql_user:
+    state: present
+    name: "pload"
+    password: "{{ pg_pload_password }}"
+  become: yes
+  become_user: postgres
+  tags: 
+    - db
 
 - name: "Create dbs"
   postgresql_db:
@@ -41,6 +69,10 @@
     - wuvtam
     - wuvt
     - trackman_am
+    - trackman_fm
+    - pload
+  tags: 
+    - db
 
 - name: "Grant user access"
   postgresql_privs:
@@ -55,6 +87,10 @@
     - wuvtam
     - wuvt
     - trackman_am
+    - trackman_fm
+    - pload
+  tags: 
+    - db
 
 - name: Listen on non-localhost
   lineinfile:
@@ -63,6 +99,8 @@
     regexp: '^#?listen_addresses'
     state: present
   notify: Restart postgres
+  tags: 
+    - db
 
 - name: Allow login from local range
   lineinfile:
@@ -71,3 +109,5 @@
     regexp: '^host all all 10\.23\.0\.0/16 md5'
     state: present
   notify: Restart postgres
+  tags: 
+    - db
