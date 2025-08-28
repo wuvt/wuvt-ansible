@@ -1,2 +1,4 @@
 ---
 - import_tasks: sysctl.yml
+- import_tasks: timezone.yaml
+- import_tasks: locale.yaml
