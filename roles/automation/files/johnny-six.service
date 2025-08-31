@@ -5,7 +5,7 @@ After=network-online.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/docker run --rm --device=/dev/snd:/dev/snd --env-file=/etc/default/johnny-six -v /etc/localtime:/etc/localtime wuvt/johnny-six:latest
+ExecStart=/usr/bin/docker run --rm --device=/dev/snd:/dev/snd --env-file=/etc/default/johnny-six -v /etc/localtime:/etc/localtime ghcr.io/wuvt/johnny-six:latest
 Restart=on-failure
 
 [Install]
