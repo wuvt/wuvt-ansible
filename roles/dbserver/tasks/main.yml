@@ -102,6 +102,16 @@
   tags: 
     - db
 
+- name: Bump connection limit
+  lineinfile:
+    dest: /etc/postgresql/16/main/postgresql.conf
+    line: "max_connections = 1337"
+    regexp: '^max_connections'
+    state: present
+  notify: Restart postgres
+  tags: 
+    - db
+
 - name: Allow login from local range
   lineinfile:
     dest: /etc/postgresql/16/main/pg_hba.conf
