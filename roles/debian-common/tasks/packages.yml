@@ -8,6 +8,7 @@
     group: root
   tags:
   - apt
+  
 - name: Install backports.list
   template:
     src: backports.list.j2
@@ -42,6 +43,42 @@
     state: latest
   tags:
   - packages
+
+- name: Install debsecan
+  hosts: all
+  become: true
+  gather_facts: true
+
+  tasks:
+    - name: Ensure debsecan is installed
+      apt:
+        name: debsecan
+        state: present
+        update_cache: yes
+      register: debsecan_install
+
+    - name: Create output dir
+      file:
+        path: /var/tmp/debsecan
+        state: directory
+        mode: 0755
+
+    - name: Run debsecan -> JSON fil bve
+      # Using ansible_distribution_release as the suite
+      command: >
+        debsecan --suite {{ ansible_distribution_release }}
+                --format json
+      register: debsecan_run
+      changed_when: false
+      failed_when: debsecan_run.rc not in [0,1] #debsecan will return 1 if no vulnerabilties found
+
+    - name: Save debsecan JSON output to file
+      copy:
+        content: "{{ debsecan_ru.stdout | default('') }}"
+        dest: /var/tmp/debsecan/debsecan--{{ inventory_hostname }}.json
+        mode: 0644
+    
+
 
 #- name: Install packages for development
 #  apt: name={{ item }} state=latest
