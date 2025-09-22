@@ -1,0 +1,135 @@
+- name: Install postgres
+  apt:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - postgresql
+    - postgresql-client
+    - python3-psycopg2
+  tags: 
+    - postgres
+
+- name: Create wuvtam user
+  postgresql_user:
+    state: present
+    name: "wuvtam"
+    password: "{{ pg_wuvtam_password }}"
+  become: yes
+  become_user: postgres
+  tags: 
+    - postgres
+
+- name: Create trackman_am user
+  postgresql_user:
+    state: present
+    name: "trackman_am"
+    password: "{{ pg_trackman_am_password }}"
+  become: yes
+  become_user: postgres
+  tags: 
+    - postgres
+    
+- name: Create wuvt user
+  postgresql_user:
+    state: present
+    name: "wuvt"
+    password: "{{ pg_wuvt_password }}"
+  become: yes
+  become_user: postgres
+  tags: 
+    - postgres
+    
+- name: Create trackman_fm user
+  postgresql_user:
+    state: present
+    name: "trackman_fm"
+    password: "{{ pg_trackman_fm_password }}"
+  become: yes
+  become_user: postgres
+  tags: 
+    - postgres
+
+- name: Create pload user
+  postgresql_user:
+    state: present
+    name: "pload"
+    password: "{{ pg_pload_password }}"
+  become: yes
+  become_user: postgres
+  tags: 
+    - postgres
+
+- name: Create rolled user
+  postgresql_user:
+    state: present
+    name: "rolled"
+    password: "{{ pg_rolled_password }}"
+  become: yes
+  become_user: postgres
+  tags: 
+    - postgres
+
+- name: "Create dbs"
+  postgresql_db:
+    state: present
+    name: "{{ item }}"
+  become: yes
+  become_user: postgres
+  with_items:
+    - wuvtam
+    - wuvt
+    - trackman_am
+    - trackman_fm
+    - pload
+    - rolled
+  tags: 
+    - postgres
+
+- name: "Grant user access"
+  postgresql_privs:
+    type: database
+    database: "{{ item }}"
+    roles: "{{ item }}"
+    grant_option: no
+    privs: all
+  become: yes
+  become_user: postgres
+  with_items:
+    - wuvtam
+    - wuvt
+    - trackman_am
+    - trackman_fm
+    - pload
+    - rolled
+  tags: 
+    - postgres
+
+- name: Listen on non-localhost
+  lineinfile:
+    dest: /etc/postgresql/16/main/postgresql.conf
+    line: "listen_addresses = '*'"
+    regexp: '^#?listen_addresses'
+    state: present
+  notify: Restart postgres
+  tags: 
+    - postgres
+
+- name: Bump connection limit
+  lineinfile:
+    dest: /etc/postgresql/16/main/postgresql.conf
+    line: "max_connections = 1337"
+    regexp: '^max_connections'
+    state: present
+  notify: Restart postgres
+  tags: 
+    - postgres
+
+- name: Allow login from local range
+  lineinfile:
+    dest: /etc/postgresql/16/main/pg_hba.conf
+    line: "host all all 10.23.0.0/16 md5"
+    regexp: '^host all all 10\.23\.0\.0/16 md5'
+    state: present
+  notify: Restart postgres
+  tags: 
+    - postgres

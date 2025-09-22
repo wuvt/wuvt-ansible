@@ -1,0 +1,39 @@
+- name: Check if typesense-server is installed
+  shell: dpkg -l | grep typesense-server
+  register: typesense_installed
+  ignore_errors: yes
+  tags: 
+    - typesense
+
+- name: Download typesense server 29.0 .deb
+  get_url:
+    url: https://dl.typesense.org/releases/29.0/typesense-server-29.0-amd64.deb
+    dest: /tmp/typesense-server-29.0-amd64.deb
+  when: typesense_installed.rc != 0
+  tags: 
+    - typesense
+
+- name: Install typesense server 29.0
+  apt:
+    deb: /tmp/typesense-server-29.0-amd64.deb
+    state: present
+  when: typesense_installed.rc != 0
+  tags: 
+    - typesense
+
+- name: Clean up typesense server 29.0 deb
+  file:
+    path: /tmp/typesense-server-29.0-amd64.deb
+    state: absent
+  when: typesense_installed.rc != 0
+  tags: 
+    - typesense
+
+- name: Install typesense-server.ini
+  template:
+    src: typesense-server.ini.j2
+    dest: /etc/typesense/typesense-server.ini
+    mode: 0644
+  notify: Restart postgres
+  tags: 
+    - typesense

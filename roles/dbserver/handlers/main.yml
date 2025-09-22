@@ -1,3 +1,5 @@
 ---
 - name: Restart postgres
   service: name=postgresql state=restarted
+- name: Restart typesense
+  service: name=typesense-server state=restarted
