@@ -34,6 +34,6 @@
     src: typesense-server.ini.j2
     dest: /etc/typesense/typesense-server.ini
     mode: 0644
-  notify: Restart postgres
+  notify: Restart typesense
   tags: 
     - typesense
