@@ -1,0 +1,59 @@
+- name: Create /opt/pg_backup
+  file:
+    path: /opt/pg_backup
+    state: directory
+    mode: 0700
+    owner: postgres
+    group: postgres
+  tags: 
+    - pg_backup
+
+- name: Install backup ssh key
+  copy:
+    content: "{{ db_backup_ssh_private }}"
+    dest: /opt/pg_backup/private
+    mode: 0700
+    owner: postgres
+    group: postgres
+  tags: 
+    - pg_backup
+
+- name: Create /var/pg_backup
+  file:
+    path: /var/pg_backup
+    state: directory
+    mode: 0700
+    owner: postgres
+    group: postgres
+  tags: 
+    - pg_backup
+
+- name: Install rsync
+  apt:
+    name: "rsync"
+    state: latest
+  tags: 
+    - pg_backup
+
+- name: Install pg_backup script
+  template:
+    src: pg_backup.sh.j2
+    dest: /opt/pg_backup/pg_backup.sh
+    mode: 0700
+    owner: postgres
+    group: postgres
+  tags: 
+    - pg_backup
+
+- name: Install pg_backup cronjob
+  cron:
+    name: "backup all databases to fileserver"
+    minute: "0"
+    hour: "0"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    user: postgres
+    job: "/opt/pg_backup/pg_backup.sh"
+  tags: 
+    - pg_backup

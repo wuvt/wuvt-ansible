@@ -1,3 +1,4 @@
 ---
-- import_tasks: postgres.yml
 - import_tasks: typesense.yml
+- import_tasks: backup.yml
+- import_tasks: postgres.yml

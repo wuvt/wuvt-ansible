@@ -1,0 +1,16 @@
+- name: Create postgres-backups user
+  user:
+    name: postgres-backups
+    state: present
+    shell: /bin/bash
+    create_home: yes
+  tags:
+    - pg_backup
+
+- name: Install authorized_key for postgres-backups
+  authorized_key:
+    user: postgres-backups
+    state: present
+    key: "{{ db_backup_ssh_public }}"
+  tags:
+    - pg_backup

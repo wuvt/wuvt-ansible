@@ -1,0 +1,17 @@
+#!/bin/bash
+# v simple postgres backup script.
+# rsk <rsk@wuvt.vt.edu>
+
+REMOTE="{{ backup_host }}"
+REMOTE_PATH="/{{ zpool_name }}/backup/oceangate/"
+
+gaytabases=($(psql -U postgres -t -c "SELECT datname FROM pg_database;"))
+
+for db in "${gaytabases[@]}"; do
+	echo $db
+	mkdir -p "/var/pg_backup/$db"
+	pg_dump -U postgres -d "$db" -f "/var/pg_backup/$db/$(date +%Y%m%d).sql"
+done
+
+rsync -av -e "ssh -o StrictHostKeyChecking=no -i /opt/pg_backup/private" --ignore-existing /var/pg_backup postgres-backups@${REMOTE}:${REMOTE_PATH}
+rm -rf /var/pg_backup/*

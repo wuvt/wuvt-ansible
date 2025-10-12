@@ -8,3 +8,4 @@
   vars_files:
   - vars/freeipa_private.yml
   - vars/internetarchive_private.yml
+  - vars/pgbackup_private.json
