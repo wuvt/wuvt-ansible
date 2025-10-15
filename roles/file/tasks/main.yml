@@ -2,3 +2,4 @@
 - import_tasks: nfs-server.yml
 - import_tasks: samba-server.yml
 - import_tasks: backup-user.yml
+- import_tasks: degraded.yml

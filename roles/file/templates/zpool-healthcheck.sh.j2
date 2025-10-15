@@ -1,0 +1,14 @@
+#!/bin/bash
+# rsk <rsk@wuvt.vt.edu>
+
+WEBHOOK="{{ zpool_healthchecks_webhook }}"
+
+zpoolz=($(zpool list -H | awk '{print $1}'))
+
+for pool in "${zpoolz[@]}"; do
+	if zpool status $pool | grep -q "DEGRADED"; then
+		curl -X POST -H 'Content-type: application/json' \
+			--data "{\"text\":\"$pool degraded\"}" \
+			 $WEBHOOK
+	fi
+done

@@ -1,0 +1,27 @@
+- name: Create /opt/zpool_healthcheck
+  file:
+    path: /opt/zpool_healthcheck
+    state: directory
+    mode: 0700
+  tags: 
+    - zpool_healthcheck
+
+- name: Install zpool-healthcheck script
+  template:
+    src: zpool-healthcheck.sh.j2
+    dest: /opt/zpool_healthcheck/zpool-healthcheck.sh
+    mode: 0700
+  tags: 
+    - zpool_healthcheck
+
+- name: Install zpool-healthcheck cronjob
+  cron:
+    name: "verify zpool health"
+    minute: "0"
+    hour: "0"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    job: /opt/zpool_healthcheck/zpool-healthcheck.sh
+  tags: 
+    - zpool_healthcheck
