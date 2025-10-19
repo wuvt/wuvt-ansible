@@ -32,3 +32,38 @@
   tags:
   - packages
 
+---
+- name: Install and run debsecan on Ubuntu systems
+  hosts: ubuntu_hosts
+  become: true
+  gather_facts: true
+
+  tasks:
+    - name: Ensure apt cache is up to date
+      apt:
+        update_cache: yes
+
+- name: Install debsecan
+  apt:
+    name: debsecan
+    state: present
+
+- name: Create output directory
+  file:
+    path: /var/tmp/debsecan
+    state: directory
+    mode: '0755'
+
+- name: Run debsecan for Ubuntu release
+  command: >
+    debsecan --suite {{ ansible_distribution_release }}
+             --format json
+  register: debsecan_result
+  changed_when: false
+  failed_when: debsecan_result.rc not in [0, 1]
+
+- name: Save debsecan results to file
+  copy:
+    content: '{{ debsecan_result.stdout | default('') }}"
+    dest: "var/tmp/debsecan/debsecan-{{ inventory_hostname }}.json"
+    mode: '0644"
