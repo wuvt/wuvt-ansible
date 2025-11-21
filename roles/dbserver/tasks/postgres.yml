@@ -113,6 +113,7 @@
   notify: Restart postgres
   tags: 
     - postgres
+    - pg-config
 
 - name: Bump connection limit
   lineinfile:
@@ -123,6 +124,139 @@
   notify: Restart postgres
   tags: 
     - postgres
+    - pg-config
+
+- name: Bump shared_buffer
+  lineinfile:
+    dest: /etc/postgresql/16/main/postgresql.conf
+    line: "shared_buffers = 16GB"
+    regexp: '^shared_buffers'
+    state: present
+  notify: Restart postgres
+  tags: 
+    - postgres
+    - pg-config
+
+- name: Bump effective_cache_size
+  lineinfile:
+    dest: /etc/postgresql/16/main/postgresql.conf
+    line: "effective_cache_size = 48GB"
+    regexp: '^#?effective_cache_size'
+    state: present
+  notify: Restart postgres
+  tags: 
+    - postgres
+    - pg-config
+
+- name: Bump maintenance_work_mem
+  lineinfile:
+    dest: /etc/postgresql/16/main/postgresql.conf
+    line: "maintenance_work_mem = 2GB"
+    regexp: '^#?maintenance_work_mem'
+    state: present
+  notify: Restart postgres
+  tags: 
+    - postgres
+    - pg-config
+
+- name: Bump work_mem
+  lineinfile:
+    dest: /etc/postgresql/16/main/postgresql.conf
+    line: "work_mem = 32MB"
+    regexp: '^#?work_mem'
+    state: present
+  notify: Restart postgres
+  tags: 
+    - postgres
+    - pg-config
+
+- name: Bump max_wal_size
+  lineinfile:
+    dest: /etc/postgresql/16/main/postgresql.conf
+    line: "max_wal_size = 8GB"
+    regexp: '^#?max_wal_size'
+    state: present
+  notify: Restart postgres
+  tags: 
+    - postgres
+    - pg-config
+
+- name: Bump min_wal_size
+  lineinfile:
+    dest: /etc/postgresql/16/main/postgresql.conf
+    line: "min_wal_size = 2GB"
+    regexp: '^#?min_wal_size'
+    state: present
+  notify: Restart postgres
+  tags: 
+    - postgres
+    - pg-config
+
+- name: Bump max_worker_processes
+  lineinfile:
+    dest: /etc/postgresql/16/main/postgresql.conf
+    line: "max_worker_processes = 30"
+    regexp: '^#?max_worker_processes'
+    state: present
+  notify: Restart postgres
+  tags: 
+    - postgres
+    - pg-config
+
+- name: Bump max_parallel_workers
+  lineinfile:
+    dest: /etc/postgresql/16/main/postgresql.conf
+    line: "max_parallel_workers = 30"
+    regexp: '^#?max_parallel_workers'
+    state: present
+  notify: Restart postgres
+  tags: 
+    - postgres
+    - pg-config
+
+- name: Bump max_parallel_workers_per_gather
+  lineinfile:
+    dest: /etc/postgresql/16/main/postgresql.conf
+    line: "max_parallel_workers_per_gather = 8"
+    regexp: '^#?max_parallel_workers_per_gather'
+    state: present
+  notify: Restart postgres
+  tags: 
+    - postgres
+    - pg-config
+
+- name: Bump max_parallel_maintenance_workers
+  lineinfile:
+    dest: /etc/postgresql/16/main/postgresql.conf
+    line: "max_parallel_maintenance_workers = 6"
+    regexp: '^#?max_parallel_maintenance_workers'
+    state: present
+  notify: Restart postgres
+  tags: 
+    - postgres
+    - pg-config
+
+- name: Bump effective_io_concurrency
+  lineinfile:
+    dest: /etc/postgresql/16/main/postgresql.conf
+    line: "effective_io_concurrency = 100"
+    regexp: '^#?effective_io_concurrency'
+    state: present
+  notify: Restart postgres
+  tags: 
+    - postgres
+    - pg-config
+
+- name: Bump connection limit
+  lineinfile:
+    dest: /etc/postgresql/16/main/postgresql.conf
+    line: "max_connections = 500"
+    regexp: '^max_connections'
+    state: present
+  notify: Restart postgres
+  tags: 
+    - postgres
+    - pg-config
 
 - name: Allow login from local range
   lineinfile:
@@ -133,3 +267,4 @@
   notify: Restart postgres
   tags: 
     - postgres
+    - pg-config
