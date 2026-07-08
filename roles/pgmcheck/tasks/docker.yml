@@ -1,0 +1,57 @@
+- name: Install Docker PGP key
+  apt_key:
+    url: https://download.docker.com/linux/debian/gpg
+    state: present
+  when: ansible_distribution == "Debian"
+  tags:
+  - apt
+
+- name: Install Docker PGP key
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+  when: ansible_distribution == "Ubuntu"
+  tags:
+  - apt
+
+- name: Add Docker repository
+  copy:
+    content: |
+      deb [arch=amd64] https://download.docker.com/linux/debian trixie stable
+    dest: /etc/apt/sources.list.d/docker.list
+  when: ansible_distribution == "Debian"
+  tags:
+  - apt
+  - packages
+
+- name: Add Docker repository
+  copy:
+    content: |
+      deb [arch=amd64] https://download.docker.com/linux/ubuntu noble stable
+    dest: /etc/apt/sources.list.d/docker.list
+  when: ansible_distribution == "Ubuntu"
+  tags:
+  - apt
+  - packages
+
+- name: Update APT cache
+  apt:
+    update_cache: yes
+  tags:
+  - apt
+  - packages
+
+- name: Install docker-ce
+  apt:
+    name: docker-ce
+    state: latest
+  tags:
+  - packages
+
+- name: Start and enable docker
+  service:
+    name: docker
+    state: started
+    enabled: yes
+  tags:
+  - services

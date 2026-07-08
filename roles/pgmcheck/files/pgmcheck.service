@@ -1,11 +1,19 @@
 [Unit]
-Description=PGM Check
+Description=WUVT PGM Check
+Wants=network-online.target
+After=network-online.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/liquidsoap /opt/pgmcheck/pgmcheck.liq
-User=liquidsoap
-Restart=on-abort
+ExecStart=/usr/bin/docker run --rm \
+	--device=/dev/snd:/dev/snd \
+	--env-file=/etc/default/pgmcheck \
+	-v /etc/localtime:/etc/localtime \
+	-v /var/pgmcheck:/var/pgmcheck \
+	-v /usr/share/liquidsoap/.ssh:/root/.ssh \
+	--name pgmcheck \
+	ghcr.io/wuvt/wuvt-pgmcheck:latest
+Restart=always
 
 [Install]
 WantedBy=multi-user.target
