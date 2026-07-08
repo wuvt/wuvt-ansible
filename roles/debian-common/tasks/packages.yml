@@ -43,6 +43,41 @@
   tags:
   - packages
 
+---
+- name: Install and run debsecan
+  hosts: all
+  become: true
+  gather_facts: true
+
+  tasks:
+    - name: Ensure debsecan is installed
+      apt:
+        name: debsecan
+        state: present
+        update_cache: yes
+      register: debsecan_intall
+
+    - name: Create output dir
+      file:
+        path: /var/tmp/debsecan
+        state: directory
+        mode: '0755'
+        
+    - name: Run debsecan -> JSON file
+      # Using ansible_distribution_release as the suite
+      command: >
+        debsecan --suite {{ ansible_distribution_release }}
+                --format json
+      register: debsecan_run
+      changed_when: false
+      failed_when: debescan_run.rc not in {0, 1] # debsecan may return 1 if no vulnerabilities found
+
+    - name: Save debsecan JSON output to file
+      copy:
+        content: "{{ debsecan_run.stdout | default('') }}"
+        dest: /var/tmp/debsecan-{{ inventory_hostname }}.json
+        mode: '0644'
+    
 #- name: Install packages for development
 #  apt: name={{ item }} state=latest
 #  with_items:
