@@ -17,6 +17,7 @@ lambianceplaza.wuvt.vt.edu hostname=lambianceplaza.wuvt.vt.edu
 columbia.wuvt.vt.edu
 aam.wuvt.vt.edu hostname=aam.wuvt.vt.edu
 boeingmax.wuvt.vt.edu
+banqiao.wuvt.vt.edu
 
 [workstations]
 # amworkstation.wuvt.vt.edu hostname=amworkstation.wuvt.vt.edu
@@ -72,22 +73,23 @@ lambianceplaza.wuvt.vt.edu
 aam.wuvt.vt.edu
 dreyfus.wuvt.vt.edu
 
-# [stream]
-# stirling.wuvt.vt.edu
+[stream]
+stirling.wuvt.vt.edu
+banqiao.wuvt.vt.edu
 
 [nginx]
 dixonbridge.wuvt.vt.edu
 
 [automation]
 flint.wuvt.vt.edu
-ariane.wuvt.vt.edu
+banqiao.wuvt.vt.edu
 
 [aircheck]
 flint.wuvt.vt.edu
-ariane.wuvt.vt.edu
 
 [pgmcheck]
 flint.wuvt.vt.edu
+banqiao.wuvt.vt.edu
 
 [kubernetes_worker_legacy]
 columbia.wuvt.vt.edu

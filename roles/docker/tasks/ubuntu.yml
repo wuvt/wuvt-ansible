@@ -1,0 +1,25 @@
+- name: Install Docker PGP key
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+
+- name: Add Docker repository
+  copy:
+    content: |
+      deb [arch=amd64] https://download.docker.com/linux/ubuntu noble stable
+    dest: /etc/apt/sources.list.d/docker.list
+
+- name: Update APT cache
+  apt:
+    update_cache: yes
+
+- name: Install docker-ce
+  apt:
+    name: docker-ce
+    state: latest
+
+- name: Start and enable docker
+  service:
+    name: docker
+    state: started
+    enabled: yes
