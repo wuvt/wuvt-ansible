@@ -1,4 +1,5 @@
 - hosts: pgmcheck
   become: yes
   roles:
+  - docker
   - pgmcheck

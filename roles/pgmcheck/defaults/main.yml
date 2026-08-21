@@ -1,5 +1,5 @@
 pgmcheck_alsa_input: 'plughw:CARD=USB,DEV=0'
-pgmcheck_base_path: /var/pgmcheck
-pgmcheck_remote_archive_url: titanic.wuvt.vt.edu
-pgmcheck_remote_archive_path: /fire/archive/pgmcheck/fm
-pgmcheck_remote_archive_user: johnny-six
+pgmcheck_base_path: '/var/pgmcheck'
+pgmcheck_remote_archive_url: 'titanic.wuvt.vt.edu'
+pgmcheck_remote_archive_path: '/fire/archive/pgmcheck/{{ studio }}'
+pgmcheck_remote_archive_user: 'johnny-six'
