@@ -1,0 +1,4 @@
+- name: Import /etc/asound.conf
+  template:
+    src: asound.conf.j2
+    dest: /etc/asound.conf

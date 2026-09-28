@@ -1,11 +1,3 @@
----
-- name: Pull pgmcheck source from GitHub
-  git:
-    repo: https://github.com/wuvt/wuvt-pgmcheck.git
-    update: yes
-    force: yes
-    dest: /opt/pgmcheck
-
 - name: Install pgmcheck.service
   copy:
     src: pgmcheck.service
@@ -18,19 +10,17 @@
     mode: 0600
 
 - name: Create pgmcheck data directories
-  file:
-    dest: "/var/pgmcheck/{{ item }}"
-    owner: liquidsoap
-    group: liquidsoap
-    state: directory
-  with_items:
-  - current
-  - staging
+  shell: |
+    mkdir -p "/var/pgmcheck/{current,staging}"
+    chmod 644 "/var/pgmcheck/{current,staging}"
+  args:
+    executable: /bin/bash
 
-- name: Start and enable pgmcheck
-  service:
-    name: pgmcheck
-    state: started
-    enabled: yes
-  tags:
-  - services
+- name: Reload services daemon
+  command: systemctl daemon-reload
+
+- name: Enable pgmcheck service
+  command: systemctl enable pgmcheck
+
+- name: (Re)start pgmcheck service
+  command: systemctl restart pgmcheck

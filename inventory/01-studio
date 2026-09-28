@@ -7,16 +7,17 @@
 # taumsauk.wuvt.vt.edu
 
 [studio]
-stirling.wuvt.vt.edu hostname=stirling.wuvt.vt.edu
-dixonbridge.wuvt.vt.edu hostname=dixonbridge.wuvt.vt.edu
+wuvt2017006.wuvt.vt.edu
+#dixonbridge.wuvt.vt.edu hostname=dixonbridge.wuvt.vt.edu
 # caughran.wuvt.vt.edu hostname=caughran.wuvt.vt.edu
 tacomanarrows.wuvt.vt.edu
 flint.wuvt.vt.edu hostname=flint.wuvt.vt.edu
 ariane.wuvt.vt.edu hostname=ariane.wuvt.vt.edu
-lambianceplaza.wuvt.vt.edu hostname=lambianceplaza.wuvt.vt.edu
-columbia.wuvt.vt.edu
+#lambianceplaza.wuvt.vt.edu hostname=lambianceplaza.wuvt.vt.edu
+#columbia.wuvt.vt.edu
 aam.wuvt.vt.edu hostname=aam.wuvt.vt.edu
 boeingmax.wuvt.vt.edu
+banqiao.wuvt.vt.edu
 
 [workstations]
 # amworkstation.wuvt.vt.edu hostname=amworkstation.wuvt.vt.edu
@@ -47,13 +48,13 @@ wuvt2018001.wuvt.vt.edu hostname=wuvt2018001.wuvt.vt.edu
 workstations
 
 [macpros]
-lambianceplaza.wuvt.vt.edu
+# lambianceplaza.wuvt.vt.edu
 flint.wuvt.vt.edu
 
 [centos]
-lambianceplaza.wuvt.vt.edu
-mayakovsky.wuvt.vt.edu
-zolitude.wuvt.vt.edu
+# lambianceplaza.wuvt.vt.edu
+# mayakovsky.wuvt.vt.edu
+# zolitude.wuvt.vt.edu
 
 [debian]
 flint.wuvt.vt.edu debian_version=stretch
@@ -68,29 +69,30 @@ aam.wuvt.vt.edu
 tacomanarrows.wuvt.vt.edu
 
 [kvm]
-lambianceplaza.wuvt.vt.edu
+# lambianceplaza.wuvt.vt.edu
 aam.wuvt.vt.edu
-dreyfus.wuvt.vt.edu
+# dreyfus.wuvt.vt.edu
 
-# [stream]
-# stirling.wuvt.vt.edu
+[stream]
+wuvt2017006.wuvt.vt.edu
+banqiao.wuvt.vt.edu
 
 [nginx]
-dixonbridge.wuvt.vt.edu
+# dixonbridge.wuvt.vt.edu
 
 [automation]
 flint.wuvt.vt.edu
-ariane.wuvt.vt.edu
+banqiao.wuvt.vt.edu
 
 [aircheck]
 flint.wuvt.vt.edu
-ariane.wuvt.vt.edu
 
 [pgmcheck]
 flint.wuvt.vt.edu
+banqiao.wuvt.vt.edu
 
-[kubernetes_worker_legacy]
-columbia.wuvt.vt.edu
+# [kubernetes_worker_legacy]
+# columbia.wuvt.vt.edu
 
 # [cluster]
 # caughran.wuvt.vt.edu

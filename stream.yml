@@ -1,4 +1,7 @@
-- hosts: flint.wuvt.vt.edu
+- hosts: stream
   become: true
   roles:
+  - audio
+  - docker
   - stream-generator
+  - stream

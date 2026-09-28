@@ -1,14 +1,11 @@
-stream_host: "marshall.wuvt.vt.edu"
+stream_generator_alsa_input: "plughw:CARD=USB,DEV=0"
+
+stream_host: "localhost"
 stream_port: 8000
-stream_password: "{{ lookup('ini', 'stream_password section=icecast file=secrets.ini') }}"
+stream_password: "hackme"
 
-meta_name: "WUVT-FM 90.7 Blacksburg, VA"
-meta_description: "The greatest radio station in the world"
-meta_genre: "College radio"
-meta_url: "https://www.wuvt.vt.edu"
-mount_prefix: "digital"
-
-# FIXME: this needs to be the digital input
-# amixer -c Device get 'PCM Capture Source'
-# amixer -c Device set 'PCM Capture Source' 'IEC958 In'
-stream_alsa_device: "hw:CARD=Device,DEV=0"
+stream_meta_name: "WUVT-FM 90.7 Blacksburg, VA"
+stream_meta_description: "The greatest radio station in the world"
+stream_meta_genre: "College radio"
+stream_meta_url: "https://www.wuvt.vt.edu"
+stream_mount_prefix: "wuvt"

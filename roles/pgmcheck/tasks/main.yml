@@ -1,2 +1,1 @@
-- include_task: docker.yml
-- include_task: pgmcheck.yml
+- import_tasks: pgmcheck.yml
