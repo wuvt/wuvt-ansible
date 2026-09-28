@@ -1,1 +1,17 @@
 studio: am
+
+audio_backend: alsa
+alsa_input: "plug:shared_input"
+pgmcheck_alsa_input: "plug:shared_input"
+stream_generator_alsa_input: "plug:shared_input"
+alsa_input_card: USB
+alsa_input_dev: 0
+
+automation_alsa_output: "plughw:CARD=USB,DEV=0"
+automation_trackman_url: "https://trackman-am.apps.wuvt.vt.edu/api/automation/log"
+automation_trackman_password: "zWRpgCZJsC90qxe"
+
+stream_host: am.stream.wuvt.vt.edu
+stream_port: 8000
+stream_password: "{{ lookup('ini', 'stream_password section=AM file=secrets.ini') }}"
+stream_meta_url: "https://am.wuvt.vt.edu"

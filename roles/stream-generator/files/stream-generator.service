@@ -1,10 +1,17 @@
 [Unit]
-Description=Stream generator
+Description=Stream Generator
+Wants=network-online.target
+After=network-online.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/liquidsoap /opt/stream-generator/stream.liq
-User=liquidsoap
+ExecStart=/usr/bin/docker run --rm \
+	--device=/dev/snd:/dev/snd \
+	--env-file=/etc/default/stream-generator \
+	--volume=/etc/asound.conf:/etc/asound.conf \
+	--name stream-generator \
+	ghcr.io/wuvt/stream-generator:latest
+ExecStop=/usr/bin/docker kill stream-generator
 Restart=always
 
 [Install]

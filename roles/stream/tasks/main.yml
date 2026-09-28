@@ -1,22 +1,4 @@
-#- import_tasks: packages.yml
+- import_tasks: icecast.yml
 
-# XXX: Disabled these on 2016-12-18 because I'm not sure if this is fully
-# up-to-date and I don't want to clobber things. Someone should review.
-# -- mutantmonkey
-#- import_tasks: configure.yml
-
-- name: Install /etc/logrotate.d/icecast
-  copy:
-    src: logrotate.d/icecast
-    dest: /etc/logrotate.d/icecast
-
-- name: Install letsencrypt
-  apt:
-    name: letsencrypt
-    state: present
-
-- name: Install letsencrypt cron.daily entry
-  copy:
-    src: cron.daily/letsencrypt
-    dest: /etc/cron.daily/letsencrypt
-    mode: 0755
+- import_tasks: letsencrypt.yml
+  when: stream_host == "stream.wuvt.vt.edu"

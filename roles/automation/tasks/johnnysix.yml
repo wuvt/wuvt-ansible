@@ -1,4 +1,3 @@
----
 - name: Install johnny-six config
   template:
     src: johnny-six.j2
@@ -10,11 +9,14 @@
     src: johnny-six.service
     dest: /etc/systemd/system/johnny-six.service
 
-- name: Start and enable johnny-six service
-  service:
-    name: johnny-six
-    state: started
-    enabled: yes
+- name: Reload services daemon
+  command: systemctl daemon-reload
+
+- name: Enable johnny-six service
+  command: systemctl enable johnny-six
+
+- name: (Re)start johnny-six service
+  command: systemctl restart johnny-six
 
 #- name: Install underwriting cronjob
 #  cron:

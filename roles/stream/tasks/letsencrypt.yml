@@ -1,0 +1,5 @@
+- name: Install certbot
+  command: apt-get -y install certbot
+
+- name: "Generate letsencrypt cert"
+  command: certbot certonly -n --agree-tos --force-renewal -m it@wuvt.vt.edu --webroot -w /usr/share/icecast2/web -d "{{ stream_host }}" --post-hook "cat /etc/letsencrypt/live/{{ stream_host }}/fullchain.pem /etc/letsencrypt/live/{{ stream_host }}/privkey.pem > /etc/icecast2/bundle.pem && systemctl restart icecast2.service"

@@ -1,0 +1,22 @@
+# icecast2 install causes apt to prompt a debconf prompt. The default value is
+# what we want. DEBIAN_FRONTEND=noninteractive will force it to choose the
+# defaults instead of prompting
+- name: Install icecast2
+  shell: DEBIAN_FRONTEND=noninteractive apt-get install -y icecast2
+
+- name: Install icecast.xml
+  template:
+    src: icecast.xml.j2
+    dest: /etc/icecast2/icecast.xml
+    mode: 0660
+    owner: icecast2
+    group: icecast
+
+- name: Install icecast2 envs
+  copy:
+    src: icecast2
+    dest: /etc/default/icecast2
+    mode: 0600
+
+- name: Restart icecast2 service
+  command: systemctl restart icecast2
