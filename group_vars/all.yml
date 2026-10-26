@@ -1,2 +1,4 @@
 ladmin_password: "{{ lookup('ini', 'ladmin_password section=all file=secrets.ini') }}"
 ansible_become_password: "{{ ladmin_password }}"
+ansible_password: "{{ ladmin_password }}"
+ansible_user: "ladmin"
