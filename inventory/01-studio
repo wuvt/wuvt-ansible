@@ -73,22 +73,27 @@ tacomanarrows.wuvt.vt.edu
 aam.wuvt.vt.edu
 # dreyfus.wuvt.vt.edu
 
+[docker]
+banqiao.wuvt.vt.edu
+#wuvt2017006.wuvt.vt.edu
+#flint.wuvt.vt.edu
+
 [stream]
-wuvt2017006.wuvt.vt.edu
+#wuvt2017006.wuvt.vt.edu
 banqiao.wuvt.vt.edu
 
 [nginx]
 # dixonbridge.wuvt.vt.edu
 
 [automation]
-flint.wuvt.vt.edu
+#flint.wuvt.vt.edu
 banqiao.wuvt.vt.edu
 
 [aircheck]
 flint.wuvt.vt.edu
 
 [pgmcheck]
-flint.wuvt.vt.edu
+#flint.wuvt.vt.edu
 banqiao.wuvt.vt.edu
 
 # [kubernetes_worker_legacy]

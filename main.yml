@@ -4,6 +4,8 @@
 - import_playbook: ubuntu_serv.yml
 - import_playbook: workstations.yml
 
+- import_playbook: docker.yml
+
 - import_playbook: aircheck.yml
 - import_playbook: automation.yml
 - import_playbook: fileserver.yml
